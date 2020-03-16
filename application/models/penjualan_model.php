@@ -18,14 +18,25 @@ $this->load->database();
 }
 public function insert(){
 $data=[
-'id_pembelian'=>$this->input->post('id_pembelian'),
+'id_jual'=>$this->input->post('id_jual'),
 'id_pegawai'=>$this->input->post('id_pegawai'),
-'kd_vendor  '=>$this->input->post('kd_vendor'),
+'status'=>'1',
 ];
-$this->db->insert('pembelian',$data);
-$id_pembelian = $this->input->post('id_pembelian');
-
-    foreach($this->input->post('id_bahan_baku') as $k=>$v) {
+$this->db->insert('penjualan',$data);
+$id_penjualan = $this->input->post('id_penjualan');
+$last_id = $this->model->db->query("SELECT * FROM nota_penjualan ORDER BY no_nota DESC LIMIT 1")->result()[0]->no_nota;
+$id_number = (int) substr($last_id, 1,3);
+	$id_number++;
+	$id_number = (string) $id_number;
+	if(strlen($id_number) == 1)
+		$id_string = 'N00' . $id_number;
+	else if(strlen($id_number) == 2)
+		$id_string = 'N0' . $id_number;
+	else
+		$id_string = 'N' .  $id_number;
+// nota
+$id_nota= $this->db->insert('nota_penjualan', [])
+    foreach($this->input->post('id_minuman') as $k=>$v) {
         $harga = $this->db->get('bahan_baku')->result()[0]->harga_satuan;
 
         $data_detail=[

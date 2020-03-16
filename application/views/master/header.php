@@ -26,7 +26,9 @@
     <meta name="msapplication-TileImage" content="<?= base_url() ?>assets/images/favicon/mstile-144x144.png">
     <!-- For Windows Phone -->
 
-
+    <!-- jQuery Library -->
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/jquery-1.11.2.min.js"></script> 
+    
     <!-- CORE CSS-->    
     <link href="<?= base_url() ?>assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url() ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">

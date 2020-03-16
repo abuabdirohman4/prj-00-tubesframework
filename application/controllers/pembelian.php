@@ -26,7 +26,7 @@ $this->load->view('master/header');
 	
 $this->model->insert();
 $this->load->view('master/footer');
-redirect('minuman');
+redirect('pembelian');
 }else{
 	$this->load->view('master/header');
 	
@@ -72,12 +72,11 @@ $this->load->view('master/footer');
 }else{
     $this->load->view('master/header');
 $query=$this->db->query("SELECT * FROM pembelian where id_pembelian='$id'");
+$detail_pembelian = $this->db->get_where('detail_pembelian', ['id_pembelian' => $id])->result();
 if($query->num_rows()> 0) {
 	$row=$query->row();
 
 $this->model->id_pembelian=$row->id_pembelian;
-$this->model->id_bahan_baku=$row->id_bahan_baku;
-$this->model->jumlah=$row->jumlah;
 $this->model->id_pegawai=$row->id_pegawai;
 $this->model->kd_vendor=$row->kd_vendor;
 
@@ -85,7 +84,7 @@ $bahan_baku = $this->bahan_model->read();
 	$vendor = $this->vendor_model->read();
 	$pegawai = $this->pegawai_model->read();
 
-$this->load->view('pembelian_update_view',['model'=>$row, 'bahan_baku' => $bahan_baku, 'pegawai' => $pegawai, 'vendor' => $vendor]);
+$this->load->view('pembelian_update_view',['model'=>$row, 'bahan_baku'=> $bahan_baku,'detail_pembelian' => $detail_pembelian, 'pegawai' => $pegawai, 'vendor' => $vendor]);
 $this->load->view('master/footer');
 }
 	else {
@@ -119,7 +118,7 @@ redirect('pembelian');
 
 			
 			[
-				'field'=>'id_bahan_baku',
+				'field'=>'id_bahan_baku[]',
 				'label'=>'id_bahan_baku',
 				'rules'=>'required|alpha_numeric',
 				'errors'=>[
@@ -130,7 +129,7 @@ redirect('pembelian');
 
 
 			[
-				'field'=>'jumlah',
+				'field'=>'jumlah[]',
 				'label'=>'jumlah',
 				'rules'=>'required',
 				'errors'=>[
@@ -173,7 +172,11 @@ if($this->form_validation->run() == False){
 else{
     
 			$this->insert();
-			$this->model->decrease($_POST['id_bahan_baku'], $_POST['jumlah']);
+			foreach($_POST['id_bahan_baku'] as $k => $v) {
+				if($v=="")
+					break;
+				$this->model->increase($v, $_POST['jumlah'][$k]);
+			}
        	 redirect('pembelian');
 
 
