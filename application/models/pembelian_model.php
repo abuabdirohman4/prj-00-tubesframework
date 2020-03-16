@@ -7,8 +7,6 @@ class pembelian_model extends CI_model
     public $jumlah;
     public $id_pegawai;
     public $kd_vendor;
-
-
     public $labels = [];
 
     public function __construct()
@@ -17,6 +15,7 @@ class pembelian_model extends CI_model
         $this->labels = $this->_atributelabels();
         $this->load->database();
     }
+
     public function insert()
     {
         $data = [
@@ -28,6 +27,7 @@ class pembelian_model extends CI_model
         ];
         return $this->db->insert('pembelian', $data);
     }
+
     public function update()
     {
         $sql = sprintf(
@@ -40,6 +40,7 @@ class pembelian_model extends CI_model
         );
         $this->db->query($sql);
     }
+
     public function delete()
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
@@ -47,6 +48,7 @@ class pembelian_model extends CI_model
         $this->db->query($sql);
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
+
     public function read()
     {
         $sql = "SELECT * FROM pembelian ORDER BY id_pembelian";
@@ -64,9 +66,9 @@ class pembelian_model extends CI_model
             'kd_vendor' => 'KD Vendor'
         ];
     }
+
     public function decrease($id_bahan_baku, $jumlah)
     {
-
         $query = $this->db->query("UPDATE bahan_baku SET jumlah=jumlah+$jumlah WHERE id_bahan_baku=$id_bahan_baku");
         return $query;
     }

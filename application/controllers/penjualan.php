@@ -6,6 +6,7 @@ class penjualan extends CI_Controller
         parent::__construct();
         $this->load->model('penjualan_model');
     }
+
     public function index()
     {
         $data = [
@@ -16,6 +17,7 @@ class penjualan extends CI_Controller
         ];
         $this->load->view('table_penjualan', $data);
     }
+
     public function add_data()
     {
         $this->penjualan_model->insert_penjualan();

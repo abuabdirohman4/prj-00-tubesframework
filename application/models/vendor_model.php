@@ -15,7 +15,6 @@ class vendor_model extends CI_model
         }
         //untuk menambah baris data dalam tabel
 
-
         public function insert()
         {
 
@@ -23,8 +22,6 @@ class vendor_model extends CI_model
                         'kd_vendor' => $this->input->post('kd_vendor'),
                         'nama_vendor' => $this->input->post('nama_vendor'),
                         'alamat' => $this->input->post('alamat'),
-
-
                 ];
                 return $this->db->insert('vendor', $data);
         }
@@ -45,6 +42,7 @@ class vendor_model extends CI_model
                 $sql = sprintf("DELETE FROM vendor WHERE kd_vendor='%s'", $this->kd_vendor);
                 $this->db->query($sql);
         }
+
         public function read()
         {
                 $sql = "SELECT * FROM vendor ORDER BY kd_vendor";

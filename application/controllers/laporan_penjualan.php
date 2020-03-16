@@ -6,11 +6,13 @@ class laporan_penjualan extends ci_controller
         parent::__construct();
         $this->load->model('model_laporan_penjualan');
     }
+
     function index()
     {
         $laporan_penjualan['range'] = $this->model_laporan_penjualan->laporan_default();
         $this->load->view('laporan_penjualan', $laporan_penjualan);
     }
+
     function lapor1()
     {
         if (isset($_POST['submit'])) {

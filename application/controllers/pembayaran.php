@@ -6,6 +6,7 @@ class pembayaran extends CI_Controller
         parent::__construct();
         $this->load->model('model_bayar');
     }
+
     public function index()
     {
         $data = [
@@ -18,11 +19,13 @@ class pembayaran extends CI_Controller
         ];
         $this->load->view('view_pembayaran', $data);
     }
+
     public function add_data()
     {
         $this->model_bayar->insert_penerimaan();
         redirect('pembayaran');
     }
+
     public function lihat_laporan()
     {
         redirect('laporan_pembayaran');

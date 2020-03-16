@@ -3,6 +3,7 @@
 class minuman extends CI_controller
 {
 	public $model = null;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,6 +14,7 @@ class minuman extends CI_controller
 
 		$this->load->database();
 	}
+
 	public function index()
 	{
 		$data = [];
@@ -48,6 +50,7 @@ class minuman extends CI_controller
 			$this->load->view('master/footer');
 		}
 	}
+
 	public function read()
 	{
 		$this->load->view('master/header');
@@ -55,6 +58,7 @@ class minuman extends CI_controller
 		$this->load->view('minuman_read_view', ['rows' => $rows]);
 		$this->load->view('master/footer');
 	}
+
 	public function update($id)
 	{
 		$data = [];
@@ -101,17 +105,20 @@ class minuman extends CI_controller
 			$this->load->view('master/footer');
 		}
 	}
+
 	public function delete($id)
 	{
 		$this->model->id = $id;
 		$this->model->delete();
 		redirect('minuman');
 	}
+
 	public function insert()
 	{
 		$this->load->model('minuman_model');
 		$this->minuman_model->insert();
 	}
+
 	public function storecreate()
 	{
 		$rules =
@@ -174,6 +181,7 @@ class minuman extends CI_controller
 			$this->index();
 		}
 	}
+
 	public function storeupdate()
 	{
 		$rules =

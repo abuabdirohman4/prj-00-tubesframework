@@ -143,6 +143,7 @@ class bahan extends CI_controller
             redirect('bahan');
         }
     }
+
     public function create()
     {
         //belum implementasi
@@ -181,7 +182,6 @@ class bahan extends CI_controller
         $this->load->view('bahan_read_view', ['rows' => $rows]);
         $this->load->view('master/footer');
     }
-
 
     public function update($id)
     {

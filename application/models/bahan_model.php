@@ -22,10 +22,7 @@ class bahan_model extends CI_model
 			'nama_bahan_baku' => $this->input->post('nama_bahan_baku'),
 			'satuan' => $this->input->post('satuan'),
 			'harga_satuan' => $this->input->post('harga_satuan')
-
-
 		];
-
 		return $this->db->insert('bahan_baku', $data);
 	}
 
@@ -38,7 +35,6 @@ class bahan_model extends CI_model
 			$this->harga_satuan,
 			$this->id_bahan_baku
 		);
-
 		$this->db->query($sql);
 	}
 
@@ -56,7 +52,6 @@ class bahan_model extends CI_model
 
 	public function get_last_row()
 	{
-
 		$query = $this->db->query('SELECT * FROM bahan_baku ORDER BY id_bahan_baku DESC LIMIT 1');
 		return $query->result();
 	}

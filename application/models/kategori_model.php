@@ -13,19 +13,14 @@ class kategori_model extends CI_model
         $this->load->database();
     }
 
-
     public function insert()
     {
-
         $data = [
             'id_kategori' => $this->input->post('id_kategori'),
             'nama_kategori' => $this->input->post('nama_kategori'),
-
-
         ];
         return $this->db->insert('kategori', $data);
     }
-
 
     public function update()
     {
@@ -36,19 +31,20 @@ class kategori_model extends CI_model
         );
         $this->db->query($sql);
     }
+
     public function delete()
     {
-
-
         $sql = sprintf("DELETE FROM kategori WHERE id_kategori='%s'", $this->id);
         $this->db->query($sql);
     }
+
     public function read()
     {
         $sql = "SELECT * FROM kategori ORDER BY id_kategori";
         $query = $this->db->query($sql);
         return $query->result();
     }
+
     public function _atributelabels()
     {
         return [

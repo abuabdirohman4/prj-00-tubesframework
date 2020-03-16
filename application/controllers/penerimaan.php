@@ -6,6 +6,7 @@ class penerimaan extends CI_Controller
 		parent::__construct();
 		$this->load->model('model');
 	}
+
 	public function index()
 	{
 		$data = [
@@ -16,6 +17,7 @@ class penerimaan extends CI_Controller
 		];
 		$this->load->view('tabel', $data);
 	}
+
 	public function add_data()
 	{
 		$this->model->penerimaan();
@@ -23,6 +25,7 @@ class penerimaan extends CI_Controller
 
 		redirect('penerimaan');
 	}
+
 	public function lihat_laporan()
 	{
 		redirect('lapor');

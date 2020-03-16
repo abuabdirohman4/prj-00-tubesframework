@@ -39,7 +39,6 @@ class kategori extends CI_controller
         }
     }
 
-
     public function read()
     {
         $this->load->view('master/header');
@@ -76,10 +75,6 @@ class kategori extends CI_controller
         }
     }
 
-
-
-
-
     public function delete($id)
     {
         echo "<script>alert('Anda yakin untuk menghapus data ini?')</script>";
@@ -87,7 +82,6 @@ class kategori extends CI_controller
         $this->model->delete();
         redirect('kategori');
     }
-
 
     public function storecreate()
     {
@@ -135,10 +129,6 @@ class kategori extends CI_controller
             redirect(site_url('kategori'));
         }
     }
-
-
-
-
 
     public function storeupdate()
     {

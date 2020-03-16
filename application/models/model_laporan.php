@@ -3,8 +3,7 @@ class model_laporan extends ci_model
 {
     function laporan_default()
     {
-        $jeniper = "SELECT pembelian.id_pembelian,sum(jumlah)as stok from pembelian JOIN penerimaan ON pembelian.id_pembelian=penerimaan.id_pembelian
-  group by id_pembelian";
+        $jeniper = "SELECT pembelian.id_pembelian,sum(jumlah)as stok from pembelian JOIN penerimaan ON pembelian.id_pembelian=penerimaan.id_pembelian group by id_pembelian";
         return $this->db->query($jeniper);
     }
     // function laporan_periode($tanggal1,$tanggal2)

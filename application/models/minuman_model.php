@@ -6,8 +6,6 @@ class minuman_model extends CI_model
     public $nama;
     public $harga;
     public $id_kategori;
-
-
     public $labels = [];
 
     public function __construct()
@@ -16,6 +14,7 @@ class minuman_model extends CI_model
         $this->labels = $this->_atributelabels();
         $this->load->database();
     }
+
     public function insert()
     {
         $data = [
@@ -26,6 +25,7 @@ class minuman_model extends CI_model
         ];
         return $this->db->insert('minuman', $data);
     }
+
     public function update()
     {
         $sql = sprintf(
@@ -37,6 +37,7 @@ class minuman_model extends CI_model
         );
         $this->db->query($sql);
     }
+
     public function delete()
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
@@ -44,6 +45,7 @@ class minuman_model extends CI_model
         $this->db->query($sql);
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
+
     public function read()
     {
         $sql = "SELECT * FROM minuman ORDER BY id_minum";
@@ -53,7 +55,6 @@ class minuman_model extends CI_model
 
     public function get_last_row()
     {
-
         $query = $this->db->query('SELECT * FROM minuman ORDER BY id_minum DESC LIMIT 1');
         return $query->result();
     }

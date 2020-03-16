@@ -2,14 +2,12 @@
 
 class laporan_pembelian extends ci_controller
 {
-
     function __construct()
     {
 
         parent::__construct();
         $this->load->model('model_lapor_pembelian');
     }
-
 
     function index()
     {

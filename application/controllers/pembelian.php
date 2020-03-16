@@ -15,6 +15,7 @@ class pembelian extends CI_controller
 
 		$this->load->database();
 	}
+
 	public function index()
 	{
 		$data = [];
@@ -52,6 +53,7 @@ class pembelian extends CI_controller
 			$this->load->view('master/footer');
 		}
 	}
+
 	public function read()
 	{
 		$this->load->view('master/header');
@@ -59,6 +61,7 @@ class pembelian extends CI_controller
 		$this->load->view('pembelian_read_view', ['rows' => $rows]);
 		$this->load->view('master/footer');
 	}
+
 	public function update($id)
 	{
 		$data = [];
@@ -99,16 +102,19 @@ class pembelian extends CI_controller
 			$this->load->view('master/footer');
 		}
 	}
+
 	public function delete($id)
 	{
 		$this->model->id = $id;
 		$this->model->delete();
 		redirect('pembelian');
 	}
+
 	public function insert()
 	{
 		$this->model->insert();
 	}
+
 	public function storecreate()
 	{
 		$rules =

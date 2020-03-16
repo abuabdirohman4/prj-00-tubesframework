@@ -11,12 +11,14 @@ class coa extends CI_controller
 
 		$this->load->database();
 	}
+
 	public function index()
 	{
 		$this->load->view('master/header');
 		$this->read();
 		$this->load->view('master/footer');
 	}
+
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
@@ -31,12 +33,14 @@ class coa extends CI_controller
 			$this->load->view('master/footer');
 		}
 	}
+
 	public function read()
 	{
 		$rows = $this->model->read();
 
 		$this->load->view('coa_read_view', ['rows' => $rows]);
 	}
+
 	public function update($id)
 	{
 		if (isset($_POST['btnsubmit'])) {
@@ -65,16 +69,12 @@ class coa extends CI_controller
 		}
 	}
 
-
 	public function delete($id)
 	{
 		$this->model->id = $id;
 		$this->model->delete();
 		redirect('coa');
 	}
-
-
-
 
 	public function storecreate()
 	{
@@ -133,10 +133,6 @@ class coa extends CI_controller
 			redirect('coa');
 		}
 	}
-
-
-
-
 
 	public function storeupdate()
 	{

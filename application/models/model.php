@@ -8,7 +8,6 @@ class model extends CI_Model
     //  }
     public function penerimaan()
     {
-
         $sql = $this->db->get_where('pembelian', ['id_pembelian' => $this->input->post('id_pembelian')])->result();
         foreach ($sql as $v) {
             $validate = $v->jumlah;
@@ -31,10 +30,12 @@ class model extends CI_Model
             $this->db->insert('penerimaan', $data);
         }
     }
+
     public function get_id_bahan_baku()
     {
         return $this->db->get_where('bahan_baku')->result();
     }
+
     function get_penerimaan()
     {
         $this->db->select('*');
@@ -44,6 +45,7 @@ class model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
     // public function insert_penerimaan()
     // {
     // $data=[
@@ -57,6 +59,7 @@ class model extends CI_Model
     // ];
     // return $this->db->insert('pembelian',$data);
     // }
+
     public function lihat_laporan()
     {
         redirect('lapor');

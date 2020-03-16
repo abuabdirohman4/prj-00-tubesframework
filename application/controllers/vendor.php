@@ -1,8 +1,12 @@
 <?php
 
-class vendor extends CI_controller
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class vendor extends CI_Controller
 {
     public $model = NULL;
+
     public function __construct()
     {
         parent::__construct();
@@ -12,7 +16,6 @@ class vendor extends CI_controller
         //memuat librari database
         $this->load->database();
     }
-
 
     public function index()
     {
@@ -105,7 +108,6 @@ class vendor extends CI_controller
         redirect('vendor');
     }
 
-
     public function storecreate()
     {
         $rules =
@@ -141,11 +143,7 @@ class vendor extends CI_controller
                         'alpha_numeric_spaces' => "%s hanya huruf a-z dan angka"
                     ]
                 ],
-
-
             ];
-
-
 
         $this->form_validation->set_rules($rules);
 
@@ -162,10 +160,6 @@ class vendor extends CI_controller
             redirect(site_url('vendor'));
         }
     }
-
-
-
-
 
     public function storeupdate()
     {
@@ -207,8 +201,6 @@ class vendor extends CI_controller
 
             ];
 
-
-
         $this->form_validation->set_rules($rules);
 
         if ($this->form_validation->run() == False) {
@@ -227,3 +219,5 @@ class vendor extends CI_controller
         }
     }
 }
+
+/* End of file vendor.php */
