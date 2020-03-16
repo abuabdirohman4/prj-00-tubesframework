@@ -60,7 +60,7 @@ return[
 }
 public function decrease($id_bahan_baku, $jumlah) {
 
-    $query = $this->db->query("UPDATE bahan_baku SET jumlah=jumlah-$jumlah WHERE id_bahan_baku=$id_bahan_baku");
+    $query = $this->db->query("UPDATE bahan_baku SET jumlah=jumlah+$jumlah WHERE id_bahan_baku=$id_bahan_baku");
     return $query;
 }
 
