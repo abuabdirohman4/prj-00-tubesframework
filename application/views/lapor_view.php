@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Laporan Transaksi Penerimaan</title>
 </head>
@@ -20,29 +21,29 @@ echo form_open('lapor/lapor1');
 </table> -->
 </form>
 <hr>
-<table border = "1">
-    <tr><th>No</th>
-           <th>ID Pembelian</th>
-          <!--  <th>Bahan Baku</th>  -->
-           <th>stok</th>
+<table border="1">
+    <tr>
+        <th>No</th>
+        <th>ID Pembelian</th>
+        <!--  <th>Bahan Baku</th>  -->
+        <th>stok</th>
 
         <!-- <th>total </th> -->
 
-    <?php
-    $no=1;
-    $total=0;
-    foreach ($apoy->result() as $r)
-    {
-        echo "<tr>
-            <td width='10'>".$no."</td>
-            <td width='160'>".$r->id_pembelian."</td>
+        <?php
+        $no = 1;
+        $total = 0;
+        foreach ($apoy->result() as $r) {
+            echo "<tr>
+            <td width='10'>" . $no . "</td>
+            <td width='160'>" . $r->id_pembelian . "</td>
            
-              <td width='15'>".$r->stok."</td>
+              <td width='15'>" . $r->stok . "</td>
             </tr>";
-        $no++;
-        // $stok=$jumlah+$jumlah;
-    }
-    ?>
-   <!--  <tr><td colspan="3">Total -->
-<!-- </td><td align="right"><?php echo format_rp($total);?></td></tr> -->
+            $no++;
+            // $stok=$jumlah+$jumlah;
+        }
+        ?>
+        <!--  <tr><td colspan="3">Total -->
+        <!-- </td><td align="right"><?php echo format_rp($total); ?></td></tr> -->
 </table>
