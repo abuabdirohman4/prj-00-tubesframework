@@ -91,7 +91,6 @@ class coa extends CI_controller
 					]
 				],
 
-
 				[
 					'field' => 'nama_akun',
 					'label' => 'Nama Akun',
@@ -112,10 +111,7 @@ class coa extends CI_controller
 					]
 				],
 
-
 			];
-
-
 
 		$this->form_validation->set_rules($rules);
 

@@ -13,9 +13,6 @@
 				<p><a href="coa/create">TAMBAH</a></p>
 			</button><br><br>
 
-
-
-
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
@@ -42,9 +39,7 @@
 							<td align="center">
 								<a href="coa/delete/<?php echo $row->no_akun; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
 							</td>
-
 						</tr>
-
 					<?php
 					}
 					?>
