@@ -1,5 +1,5 @@
 <?php
-class penerimaan extends CI_Controller
+class Penerimaan extends CI_Controller
 {
 	public function __construct()
 	{

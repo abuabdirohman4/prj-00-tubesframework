@@ -1,5 +1,5 @@
 <?php
-class kategori extends CI_controller
+class Kategori extends CI_controller
 {
     public $model = null;
     public function __construct()

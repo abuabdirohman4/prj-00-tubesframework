@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Controllername extends CI_Controller
+class Menumaster extends CI_Controller
 {
 
     public function __construct()
@@ -18,4 +18,4 @@ class Controllername extends CI_Controller
     }
 }
 
-/* End of file Controllername.php */
+/* End of file Menumaster.php */

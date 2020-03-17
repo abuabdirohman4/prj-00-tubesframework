@@ -4,7 +4,7 @@
                     <li class="user-details cyan darken-2">
                         <div class="row">
                             <div class="col col s4 m4 l4">
-                                <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                                <img src="<?= base_url() ?>assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
                             </div>
                             <div class="col col s8 m8 l8">
                                 <ul id="profile-dropdown" class="dropdown-content">
@@ -37,7 +37,7 @@
                                 <div class="collapsible-body">
                                     <ul>
                                         <li><a href="css-typography.html">Typography</a>
-                                        </li>                                        
+                                        </li>
                                         <li><a href="css-icons.html">Icons</a>
                                         </li>
                                         <li><a href="css-shadow.html">Shadow</a>
@@ -61,7 +61,7 @@
                                         <li><a href="ui-collections.html">Collections</a>
                                         </li>
                                         <li><a href="ui-accordions.html">Accordian</a>
-                                        </li>                                        
+                                        </li>
                                         <li><a href="ui-navbar.html">Navbar</a>
                                         </li>
                                         <li><a href="ui-pagination.html">Pagination</a>
@@ -103,7 +103,7 @@
                             </li>
                             <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-social-pages"></i> Pages</a>
                                 <div class="collapsible-body">
-                                    <ul>                                        
+                                    <ul>
                                         <li><a href="page-login.html">Login</a>
                                         </li>
                                         <li><a href="page-register.html">Register</a>
@@ -141,8 +141,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="li-hover"><div class="divider"></div></li>
-                    <li class="li-hover"><p class="ultra-small margin more-text">MORE</p></li>
+                    <li class="li-hover">
+                        <div class="divider"></div>
+                    </li>
+                    <li class="li-hover">
+                        <p class="ultra-small margin more-text">MORE</p>
+                    </li>
                     <li><a href="css-grid.html"><i class="mdi-image-grid-on"></i> Grid</a>
                     </li>
                     <li><a href="css-color.html"><i class="mdi-editor-format-color-fill"></i> Color</a>
@@ -150,19 +154,23 @@
                     <li><a href="css-helpers.html"><i class="mdi-communication-live-help"></i> Helpers</a>
                     </li>
                     <li><a href="changelogs.html"><i class="mdi-action-swap-vert-circle"></i> Changelogs</a>
-                    </li>                    
-                    <li class="li-hover"><div class="divider"></div></li>
-                    <li class="li-hover"><p class="ultra-small margin more-text">Daily Sales</p></li>
+                    </li>
+                    <li class="li-hover">
+                        <div class="divider"></div>
+                    </li>
+                    <li class="li-hover">
+                        <p class="ultra-small margin more-text">Daily Sales</p>
+                    </li>
                     <li class="li-hover">
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <div class="sample-chart-wrapper">                            
+                                <div class="sample-chart-wrapper">
                                     <div class="ct-chart ct-golden-section" id="ct2-chart"></div>
                                 </div>
                             </div>
                         </div>
                     </li>
                 </ul>
-                <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu" ></i></a>
+                <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu"></i></a>
             </aside>
             <!-- END LEFT SIDEBAR NAV-->

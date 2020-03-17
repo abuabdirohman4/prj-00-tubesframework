@@ -1,6 +1,6 @@
 <?php
 
-class pembelian extends CI_controller
+class Pembelian extends CI_controller
 {
 	public $model = null;
 	public function __construct()

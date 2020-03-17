@@ -1,5 +1,5 @@
 <?php
-class coa extends CI_controller
+class Coa extends CI_controller
 {
 	public $model = null;
 	public function __construct()

@@ -1,4 +1,4 @@
-<!-- Head -->
+<?= $head ?>
 
     <!-- Start Page Loading -->
     <div id="loader-wrapper">
@@ -8,14 +8,14 @@
     </div>
     <!-- End Page Loading -->
 
-    <!-- Header -->
+    <?= $header ?>
 
     <!-- START MAIN -->
     <div id="main">
         <!-- START WRAPPER -->
         <div class="wrapper">
 
-            <!-- Left Sidebar -->
+            <?= $sidebar_left ?>
 
             <!-- START CONTENT -->
             <section id="content">
@@ -23,22 +23,22 @@
                 <!--start container-->
                 <div class="container">
 
-                    <!-- Chart Dashboard -->
-                    <!-- Chart Stats -->
-                    <!-- Card Widgets -->
-                    <!-- Work Collection -->
-
+                    <?= $chart_dashboard ?>
+                    <?= $card_stats ?>
+                    <?= $card_widgets ?>
+                    <?= $work_collection ?>
+                    
                 </div>
                 <!--end container-->
             </section>
             <!-- END CONTENT -->
 
-            <!-- Right Sidebar -->
+            <?= $sidebar_right ?>
         
         </div>
         <!-- END WRAPPER -->
     </div>
     <!-- END MAIN -->
 
-    <!-- Copyright -->
-    <!-- Scripts -->
+    <?= $footer ?>
+    <?= $scripts ?>

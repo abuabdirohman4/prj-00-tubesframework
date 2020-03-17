@@ -1,6 +1,6 @@
 <?php
 
-class pegawai extends CI_controller
+class Pegawai extends CI_controller
 {
 	public $model = null;
 

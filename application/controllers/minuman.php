@@ -1,6 +1,6 @@
 <?php
 
-class minuman extends CI_controller
+class Minuman extends CI_controller
 {
 	public $model = null;
 

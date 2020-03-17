@@ -85,7 +85,7 @@
                             <div class="col s12 m6 l4">
                                 <div id="profile-card" class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <img class="activator" src="images/user-bg.jpg" alt="user background">
+                                        <img class="activator" src="<?= base_url() ?>assets/images/user-bg.jpg" alt="user background">
                                     </div>
                                     <div class="card-content">
                                         <img src="images/avatar.jpg" alt="" class="circle responsive-img activator card-profile-image">
