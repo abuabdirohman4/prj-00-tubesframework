@@ -1,9 +1,7 @@
 <?php
-
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class vendor extends CI_Controller
+class Vendor extends CI_Controller
 {
     public $model = NULL;
 

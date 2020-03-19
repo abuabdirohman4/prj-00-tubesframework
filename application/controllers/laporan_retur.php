@@ -1,5 +1,5 @@
 <?php
-class laporan_retur extends ci_controller
+class Laporan_retur extends ci_controller
 {
 	function __construct()
 	{

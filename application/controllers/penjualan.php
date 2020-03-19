@@ -1,6 +1,6 @@
 <?php
 
-class penjualan extends CI_controller
+class Penjualan extends CI_controller
 {
 	public $model=null;
 	public function __construct(){

@@ -1,5 +1,5 @@
 <?php
-class lapor extends ci_controller
+class Lapor extends ci_controller
 {
     function __construct()
     {

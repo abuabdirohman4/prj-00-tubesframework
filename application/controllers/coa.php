@@ -1,5 +1,5 @@
 <?php
-class coa extends CI_controller
+class Coa extends CI_controller
 {
 	public $model = null;
 	public function __construct()
@@ -91,7 +91,6 @@ class coa extends CI_controller
 					]
 				],
 
-
 				[
 					'field' => 'nama_akun',
 					'label' => 'Nama Akun',
@@ -112,10 +111,7 @@ class coa extends CI_controller
 					]
 				],
 
-
 			];
-
-
 
 		$this->form_validation->set_rules($rules);
 
