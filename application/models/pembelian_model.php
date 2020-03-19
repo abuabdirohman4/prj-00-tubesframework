@@ -46,7 +46,7 @@ $kd_vendor=$this->input->post('kd_vendor');
 $sql=sprintf("UPDATE pembelian SET id_pegawai='%s', kd_vendor='%s' where id_pembelian='%s'",
 $id_pegawai,
 $kd_vendor,
-$id_pembelian,
+$id_pembelian
 );
 $this->db->query($sql);
 foreach($_POST['id_bahan_baku'] as $k => $v) {

@@ -1,7 +1,7 @@
 <html><center>
 <head><title>Kinicheesetea</title></head>
 <body>
-<h1>Kinicheesetea</h1>
+            <h2>Kinicheesetea - Tambah Data Penjualan</h1><br><br><br>
 <p><strong>Tambah Data</strong></p>
 
 <!-- START MAIN -->
@@ -14,17 +14,17 @@
                     <div class="col-xl-12">
                          <form action="storecreate" method="POST">
                              <div class="form-group">
-                                 <label>id pembelian</label>
-                                 <input type="text" value='<?php echo $id_string ?>' name="id_pembelian" class="form-control"><span class="text-danger"><?=form_error('id_pembelian')?></span>
+                                 <label>id penjualan</label>
+                                 <input type="text" value='<?php echo $id_string ?>' name="id_penjualan" class="form-control"><span class="text-danger"><?=form_error('id_penjualan')?></span>
                              </div>
-                             <div id='bahan_baku'>
+                             <div id='minuman'>
                                 <div class="form-group">
-                                    <label>id bahan baku </label>
-                                    <select style="display:block" class='form-control' id='id_bahan_baku' name='id_bahan_baku[]'>
+                                    <label>Minuman </label>
+                                    <select style="display:block" class='form-control' id='id_minuman' name='id_minum[]'>
                                         <?php
-                                            foreach($bahan_baku as $k => $v) {
+                                            foreach($minuman as $k => $v) {
 
-                                                echo "<option value='$v->id_bahan_baku'>$v->id_bahan_baku</option>";
+                                                echo "<option value='$v->id_minum'>$v->id_minum</option>";
                                             }
                                         ?>
                                     </select>
@@ -34,9 +34,7 @@
                                     <input type="text" name="jumlah[]" class="form-control"><span class="text-danger"><?=form_error('harga')?></span>
                                 </div> 
                             </div>
-                            <div class="form-group">
-                                <button id="tambah">Tambah</button>
-                            </div>
+                            <button id="tambah">Tambah</button>
                              <div class="form-group">
                                  <label>id pegawai </label>
                                  <select style="display:block" class='form-control' name='id_pegawai'>
@@ -48,17 +46,6 @@
                                     ?>
                                  </select>
                              </div> 
-                             <div class="form-group">
-                                 <label>kd vendor </label>
-                                 <select style="display:block" class='form-control' name='kd_vendor'>
-                                    <?php
-                                        foreach($vendor as $k => $v) {
-
-                                            echo "<option value='$v->kd_vendor'>$v->kd_vendor</option>";
-                                        }
-                                    ?>
-                                 </select>
-                             </div>
                              
 
                              <div class="form-group ">
@@ -72,16 +59,17 @@
 
 </center>
 <script type='text/javascript'>
-    $bahan_baku_html = $('#bahan_baku').html()
-    $jumlah_html = $('#jumlah').html()
+    $field = $('#minuman').html()
 
     $(document).ready(()=> {
         $('#tambah').click((e) => {
             e.preventDefault()
-            $('#bahan_baku').append($bahan_baku_html);
-            $('#bahan_baku').append($jumlah_html);
+            $('#minuman').append($field);
         })
-
+        setTimeout(() => {
+            $(".select-dropdown").remove()
+        }, 200)
+        $(".select-dropdown").remove()
     })
 </script>
 </body>

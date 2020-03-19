@@ -15,7 +15,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-    <title>Materialize - Material Design Admin Template</title>
+    <title>KINI CHEESETEA</title>
 
     <!-- Favicons-->
     <link rel="icon" href="<?= base_url() ?>assets/images/favicon/favicon-32x32.png" sizes="32x32">
@@ -38,7 +38,17 @@
     <link href="<?= base_url() ?>assets/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url() ?>assets/js/plugins/jvectormap/jquery-jvectormap.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url() ?>assets/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-
+    <style>
+    #main {
+        padding-bottom: 50px;
+    } 
+    h2 {
+        font-size: 15px!important;
+    }    
+    h3 {
+        font-size: unset!important
+    }
+        </style>
 
 </head>
 
@@ -59,7 +69,7 @@
         <div class="navbar-fixed">
             <nav class="cyan">
                 <div class="nav-wrapper">
-                    <h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
+                    <h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="<?= base_url() ?>assets/images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
                     <ul class="right hide-on-med-and-down">
                         <li class="search-out">
                             <input type="text" class="search-out-text">
@@ -95,7 +105,7 @@
                     <li class="user-details cyan darken-2">
                         <div class="row">
                             <div class="col col s4 m4 l4">
-                                <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                                <img src="<?= base_url() ?>/assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
                             </div>
                             <div class="col col s8 m8 l8">
                                 <ul id="profile-dropdown" class="dropdown-content">
@@ -111,122 +121,53 @@
                                     <li><a href="#"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                                     </li>
                                 </ul>
-                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">John Doe<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">KINI CHEESETEA<i class="mdi-navigation-arrow-drop-down right"></i></a>
                                 <p class="user-roal">Administrator</p>
                             </div>
                         </div>
                     </li>
-                    <li class="bold"><a href="../assets/index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li class="bold"><a href="../assets/app-email.html" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Mailbox <span class="new badge">4</span></a>
-                    </li>
-                    <li class="bold"><a href="../assets/app-calendar.html" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Calender</a>
-                    </li>
+    
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
-                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i> CSS</a>
+                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Master-Data</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="../assets/css-typography.html">Typography</a>
-                                        </li>                                        
-                                        <li><a href="../assets/css-icons.html">Icons</a>
+                                        <li><a href="<?php echo base_url() ?>index.php/bahan">Bahan Baku</a>
                                         </li>
-                                        <li><a href="../assets/css-shadow.html">Shadow</a>
+                                        <li><a href="<?php echo base_url() ?>index.php/minuman">Minuman</a>
                                         </li>
-                                        <li><a href="../assets/css-media.html">Media</a>
+                                        <li><a href="<?php echo base_url() ?>index.php/pegawai">Pegawai</a>
                                         </li>
-                                        <li><a href="../assets/css-sass.html">Sass</a>
+                                        <li><a href="<?php echo base_url() ?>index.php/kategori">Kategori</a>
+                                        </li>
+                                        <li><a href="<?php echo base_url() ?>index.php/vendor">Vendor</a>
+                                        </li>
+                                        <li><a href="<?php echo base_url() ?>index.php/coa">Coa</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-image-palette"></i> UI Elements</a>
+                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Transaksi</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="../assets/ui-buttons.html">Buttons</a>
+                                        <li><a href="<?php echo base_url() ?>index.php/penjualan">Penjualan</a>
                                         </li>
-                                        <li><a href="../assets/ui-badges.html">Badges</a>
+                                        <li><a href="<?php echo base_url() ?>index.php/pembelian">Pembelian</a>
                                         </li>
-                                        <li><a href="../assets/ui-cards.html">Cards</a>
-                                        </li>
-                                        <li><a href="../assets/ui-collections.html">Collections</a>
-                                        </li>
-                                        <li><a href="../assets/ui-accordions.html">Accordian</a>
-                                        </li>                                        
-                                        <li><a href="../assets/ui-navbar.html">Navbar</a>
-                                        </li>
-                                        <li><a href="../assets/ui-pagination.html">Pagination</a>
-                                        </li>
-                                        <li><a href="../assets/ui-preloader.html">Preloader</a>
-                                        </li>
-                                        <li><a href="../assets/ui-modals.html">Modals</a>
-                                        </li>
-                                        <li><a href="../assets/ui-media.html">Media</a>
-                                        </li>
-                                        <li><a href="../assets/ui-toasts.html">Toasts</a>
-                                        </li>
-                                        <li><a href="../assets/ui-tooltip.html">Tooltip</a>
-                                        </li>
+                                        <li><a href="<?php echo base_url() ?>index.php/retur">Retur</a>
+                                        </li>             
                                     </ul>
                                 </div>
                             </li>
-                            <li class="bold"><a href="../assets/app-widget.html" class="waves-effect waves-cyan"><i class="mdi-device-now-widgets"></i> Widgets <span class="new badge"></span></a>
-                            </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Tables</a>
+                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Laporan</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="../assets/table-basic.html">Basic Tables</a>
+                                        <li><a href="">Penjualan</a>
                                         </li>
-                                        <li><a href="../assets/table-data.html">Data Tables</a>
+                                        <li><a href="">Pembelian</a>
                                         </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-insert-comment"></i> Forms</a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li><a href="../assets/form-elements.html">Form Elements</a>
-                                        </li>
-                                        <li><a href="../assets/form-layouts.html">Form Layouts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-social-pages"></i> Pages</a>
-                                <div class="collapsible-body">
-                                    <ul>                                        
-                                        <li><a href="../assets/page-login.html">Login</a>
-                                        </li>
-                                        <li><a href="../assets/page-register.html">Register</a>
-                                        </li>
-                                        <li><a href="../assets/page-lock-screen.html">Lock Screen</a>
-                                        </li>
-                                        <li><a href="../assets/page-invoice.html">Invoice</a>
-                                        </li>
-                                        <li><a href="../assets/page-404.html">404</a>
-                                        </li>
-                                        <li><a href="../assets/page-500.html">500</a>
-                                        </li>
-                                        <li><a href="../assets/page-blank.html">Blank</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i> Charts</a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li><a href="../assets/charts-chartjs.html">Chart JS</a>
-                                        </li>
-                                        <li><a href="../assets/charts-chartist.html">Chartist</a>
-                                        </li>
-                                        <li><a href="../assets/charts-morris.html">Morris Charts</a>
-                                        </li>
-                                        <li><a href="../assets/charts-xcharts.html">xCharts</a>
-                                        </li>
-                                        <li><a href="../assets/charts-flotcharts.html">Flot Charts</a>
-                                        </li>
-                                        <li><a href="../assets/charts-sparklines.html">Sparkline Charts</a>
-                                        </li>
+                                        <li><a href="">Retur</a>
+                                        </li>             
                                     </ul>
                                 </div>
                             </li>
@@ -354,7 +295,7 @@
                             <div class="collapsible-header red white-text"><i class="mdi-action-stars"></i>Favorite Associates</div>
                             <div class="collapsible-body favorite-associates">
                                 <div class="favorite-associate-list chat-out-list row">
-                                    <div class="col s4"><img src="images/avatar.jpg" alt="" class="circle responsive-img online-user valign profile-image">
+                                    <div class="col s4"><img src="<?= base_url() ?>/assets/images/avatar.jpg" alt="" class="circle responsive-img online-user valign profile-image">
                                     </div>
                                     <div class="col s8">
                                         <p>Eileen Sideways</p>
@@ -362,7 +303,7 @@
                                     </div>
                                 </div>
                                 <div class="favorite-associate-list chat-out-list row">
-                                    <div class="col s4"><img src="images/avatar.jpg" alt="" class="circle responsive-img online-user valign profile-image">
+                                    <div class="col s4"><img src="<?= base_url() ?>/assets/images/avatar.jpg" alt="" class="circle responsive-img online-user valign profile-image">
                                     </div>
                                     <div class="col s8">
                                         <p>Zaham Sindil</p>
@@ -370,7 +311,7 @@
                                     </div>
                                 </div>
                                 <div class="favorite-associate-list chat-out-list row">
-                                    <div class="col s4"><img src="images/avatar.jpg" alt="" class="circle responsive-img offline-user valign profile-image">
+                                    <div class="col s4"><img src="<?= base_url() ?>/assets/images/avatar.jpg" alt="" class="circle responsive-img offline-user valign profile-image">
                                     </div>
                                     <div class="col s8">
                                         <p>Renov Leongal</p>
@@ -378,7 +319,7 @@
                                     </div>
                                 </div>
                                 <div class="favorite-associate-list chat-out-list row">
-                                    <div class="col s4"><img src="images/avatar.jpg" alt="" class="circle responsive-img online-user valign profile-image">
+                                    <div class="col s4"><img src="<?= base_url() ?>/assets/images/avatar.jpg" alt="" class="circle responsive-img online-user valign profile-image">
                                     </div>
                                     <div class="col s8">
                                         <p>Weno Carasbong</p>
@@ -386,7 +327,7 @@
                                     </div>
                                 </div>
                                 <div class="favorite-associate-list chat-out-list row">
-                                    <div class="col s4"><img src="images/avatar.jpg" alt="" class="circle responsive-img offline-user valign profile-image">
+                                    <div class="col s4"><img src="<?= base_url() ?>/assets/images/avatar.jpg" alt="" class="circle responsive-img offline-user valign profile-image">
                                     </div>
                                     <div class="col s8">
                                         <p>Nusja Nawancali</p>
@@ -401,10 +342,8 @@
             </aside>
             <!-- LEFT RIGHT SIDEBAR NAV-->
 
-        </div>
         <!-- END WRAPPER -->
 
-    </div>
     <!-- END MAIN -->
      <!-- START CONTENT -->
  <section id="content">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2020 at 11:00 AM
+-- Generation Time: Mar 17, 2020 at 10:23 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -41,13 +41,13 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id_bahan_baku`, `nama_bahan_baku`, `satuan`, `harga_satuan`, `jumlah_stok`) VALUES
-('B001', 'bubuk choco melt cheese', '30', '2500', 0),
-('B002', 'bubuk green tea orginal cheese', '30', '2500', 0),
+('B001', 'bubuk choco melt cheese', '30', '2500', -49),
+('B002', 'bubuk green tea orginal cheese', '30', '2500', -12),
 ('B003', 'bubuk hoki taro cheese', '30', '2500', 0),
-('B004', 'bubuk folksblue cheese', '30', '2500', 0),
-('B005', 'coffee highway cheese', '30', '2500', 0),
+('B004', 'bubuk folksblue cheese', '30', '2500', 27),
+('B005', 'coffee highway cheese', '30', '2500', -4),
 ('B006', 'green pink cheese', '30', '2500', 0),
-('B007', 'red velvet cheese', '30', '2500', 0),
+('B007', 'red velvet cheese', '30', '2500', 5),
 ('B008', 'original thaitea', '30', '2500', 0),
 ('B009', 'cream cheese', '10', '2500', 0),
 ('B010', 'sweet bubble', '', '2500', 0);
@@ -117,7 +117,35 @@ INSERT INTO `detail_jual` (`id_minum`, `no_nota`, `jumlah`, `subtotal`) VALUES
 ('M002', 'N006', 10, 130000),
 ('M001', 'N007', 10, 150000),
 ('M005', 'N008', 5, 100000),
-('M003', 'N009', 20, 250000);
+('M003', 'N009', 20, 250000),
+('M005', 'N001', 10, 150000),
+('M003', 'N002', 5, 100000),
+('M002', 'N003', 20, 250000),
+('M007', 'N004', 20, 200000),
+('M008', 'N005', 10, 100000),
+('M002', 'N006', 10, 130000),
+('M001', 'N007', 10, 150000),
+('M005', 'N008', 5, 100000),
+('M003', 'N009', 20, 250000),
+('M005', 'N001', 10, 150000),
+('M003', 'N002', 5, 100000),
+('M002', 'N003', 20, 250000),
+('M007', 'N004', 20, 200000),
+('M008', 'N005', 10, 100000),
+('M002', 'N006', 10, 130000),
+('M001', 'N007', 10, 150000),
+('M005', 'N008', 5, 100000),
+('M003', 'N009', 20, 250000),
+('M001', 'N009', 4, 40000),
+('M001', 'N009', 10, 100000),
+('M001', 'N009', 1, 10000),
+('M001', 'N010', 5, 50000),
+('M001', 'N011', 2, 20000),
+('M001', 'N012', 4, 40000),
+('M001', 'N013', 5, 50000),
+('M004', 'N019', 1, 50000),
+('M006', 'N019', 5, 20000),
+('M001', 'N020', 5, 50000);
 
 -- --------------------------------------------------------
 
@@ -128,24 +156,47 @@ INSERT INTO `detail_jual` (`id_minum`, `no_nota`, `jumlah`, `subtotal`) VALUES
 CREATE TABLE `detail_pembelian` (
   `id_bahan_baku` varchar(30) DEFAULT NULL,
   `id_pembelian` varchar(30) DEFAULT NULL,
-  `total_jumlah` varchar(30) DEFAULT NULL
+  `total_jumlah` varchar(30) DEFAULT NULL,
+  `jumlah` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `detail_pembelian`
 --
 
-INSERT INTO `detail_pembelian` (`id_bahan_baku`, `id_pembelian`, `total_jumlah`) VALUES
-('B001', 'X001', '75000'),
-('B002', 'X002', '75000'),
-('B003', 'X003', '75000'),
-('B004', 'X004', '25000'),
-('B005', 'X005', '25000'),
-('B001', 'X001', '75000'),
-('B002', 'X002', '75000'),
-('B003', 'X003', '75000'),
-('B004', 'X004', '25000'),
-('B005', 'X005', '25000');
+INSERT INTO `detail_pembelian` (`id_bahan_baku`, `id_pembelian`, `total_jumlah`, `jumlah`) VALUES
+('B001', 'X001', '75000', 0),
+('B002', 'X002', '75000', 0),
+('B003', 'X003', '75000', 0),
+('B004', 'X004', '25000', 0),
+('B005', 'X005', '25000', 0),
+('B001', 'X001', '75000', 0),
+('B002', 'X002', '75000', 0),
+('B003', 'X003', '75000', 0),
+('B004', 'X004', '25000', 0),
+('B005', 'X005', '25000', 0),
+('B004', '0', '5000', 2),
+('B001', '0', '5000', 2),
+('B004', 'X020', '7500', 3),
+('B001', 'X020', '7500', 37),
+('B001', 'X021', '125000', 50),
+('B001', 'X001', '75000', 0),
+('B002', 'X002', '75000', 0),
+('B003', 'X003', '75000', 0),
+('B004', 'X004', '25000', 0),
+('B005', 'X005', '25000', 0),
+('B001', 'X001', '75000', 0),
+('B002', 'X002', '75000', 0),
+('B003', 'X003', '75000', 0),
+('B004', 'X004', '25000', 0),
+('B005', 'X005', '25000', 0),
+('B004', '0', '5000', 2),
+('B001', '0', '5000', 2),
+('B004', 'X020', '7500', 3),
+('B001', 'X020', '7500', 37),
+('B001', 'X021', '125000', 50),
+('B007', 'X022', '12500', 5),
+('B004', 'X023', '62500', 25);
 
 -- --------------------------------------------------------
 
@@ -164,6 +215,22 @@ CREATE TABLE `jurnal` (
 --
 
 INSERT INTO `jurnal` (`no_nota`, `no_akun`, `nominal`) VALUES
+('N001', '41', 150000),
+('N002', '41', 100000),
+('N003', '41', 250000),
+('N004', '41', 200000),
+('N005', '41', 100000),
+('N007', '41', 150000),
+('N008', '41', 100000),
+('N009', '41', 250000),
+('N001', '41', 150000),
+('N002', '41', 100000),
+('N003', '41', 250000),
+('N004', '41', 200000),
+('N005', '41', 100000),
+('N007', '41', 150000),
+('N008', '41', 100000),
+('N009', '41', 250000),
 ('N001', '41', 150000),
 ('N002', '41', 100000),
 ('N003', '41', 250000),
@@ -237,7 +304,9 @@ INSERT INTO `minuman` (`id_minum`, `nama_minum`, `harga`, `id_kategori`, `id_bah
 
 CREATE TABLE `nota_penjualan` (
   `no_nota` varchar(20) NOT NULL,
-  `tgl_jual` date DEFAULT NULL,
+  `id_jual` char(10) NOT NULL,
+  `tgl_jual` timestamp NULL DEFAULT current_timestamp(),
+  `jumlah` int(10) NOT NULL,
   `total` varchar(30) DEFAULT NULL,
   `id_pegawai` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -246,16 +315,26 @@ CREATE TABLE `nota_penjualan` (
 -- Dumping data for table `nota_penjualan`
 --
 
-INSERT INTO `nota_penjualan` (`no_nota`, `tgl_jual`, `total`, `id_pegawai`) VALUES
-('N001', '2019-06-11', '150000', 'P001'),
-('N002', '2019-09-11', '100000', 'P005'),
-('N003', '2019-10-11', '250000', 'P003'),
-('N004', '2019-11-12', '200000', 'P007'),
-('N005', '2019-12-12', '100000', 'P002'),
-('N006', '2019-12-12', '130000', 'P006'),
-('N007', '2019-06-12', '150000', 'P001'),
-('N008', '2019-09-12', '100000', 'P005'),
-('N009', '2019-10-10', '250000', 'P003');
+INSERT INTO `nota_penjualan` (`no_nota`, `id_jual`, `tgl_jual`, `jumlah`, `total`, `id_pegawai`) VALUES
+('N001', '', '2019-06-10 17:00:00', 0, '0', 'P001'),
+('N002', '', '2019-09-10 17:00:00', 0, '100000', 'P005'),
+('N003', '', '2019-10-10 17:00:00', 0, '250000', 'P003'),
+('N004', '', '2019-11-11 17:00:00', 0, '200000', 'P007'),
+('N005', '', '2019-12-11 17:00:00', 0, '100000', 'P002'),
+('N006', '', '2019-12-11 17:00:00', 0, '130000', 'P006'),
+('N007', '', '2019-06-11 17:00:00', 0, '150000', 'P001'),
+('N008', '', '2019-09-11 17:00:00', 0, '100000', 'P005'),
+('N009', '', '2019-10-09 17:00:00', 0, '250000', 'P003'),
+('N010', 'PX008', '2020-03-17 00:47:25', 5, '50000', NULL),
+('N011', 'PX009', '2020-03-17 00:48:13', 2, '20000', NULL),
+('N012', 'PX010', '2020-03-17 00:49:03', 4, '40000', NULL),
+('N013', 'PX011', '2020-03-17 00:51:20', 52, '520000', NULL),
+('N014', 'PX012', '2020-03-17 08:23:50', 0, '0', NULL),
+('N015', 'PX013', '2020-03-17 08:24:40', 0, '0', NULL),
+('N016', 'PX014', '2020-03-17 08:33:38', 0, '0', NULL),
+('N017', 'PX015', '2020-03-17 08:46:53', 0, '0', NULL),
+('N019', 'PX017', '2020-03-17 08:53:00', 6, '60000', 'P001'),
+('N020', 'PX016', '2020-03-17 09:15:06', 5, '50000', 'P001');
 
 -- --------------------------------------------------------
 
@@ -290,8 +369,6 @@ INSERT INTO `pegawai` (`id_pegawai`, `nama_pegawai`, `alamat`, `no_telp`) VALUES
 
 CREATE TABLE `pembelian` (
   `id_pembelian` varchar(30) NOT NULL,
-  `id_bahan_baku` varchar(20) NOT NULL,
-  `jumlah` int(11) DEFAULT NULL,
   `id_pegawai` varchar(20) DEFAULT NULL,
   `kd_vendor` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -300,14 +377,30 @@ CREATE TABLE `pembelian` (
 -- Dumping data for table `pembelian`
 --
 
-INSERT INTO `pembelian` (`id_pembelian`, `id_bahan_baku`, `jumlah`, `id_pegawai`, `kd_vendor`) VALUES
-('X001', 'B001', 30, 'P001', 'V002'),
-('X002', 'B002', 30, 'P003', 'V004'),
-('X003', 'B001', 30, 'P005', 'V001'),
-('X004', 'B003', 10, 'P004', 'V003'),
-('X005', 'B004', 10, 'P007', 'V002'),
-('X006', 'B001', 12, 'P001', 'V001'),
-('X007', 'B001', 16, 'P001', 'V001');
+INSERT INTO `pembelian` (`id_pembelian`, `id_pegawai`, `kd_vendor`) VALUES
+('X001', 'P001', 'V002'),
+('X002', 'P003', 'V004'),
+('X003', 'P005', 'V001'),
+('X004', 'P004', 'V003'),
+('X005', 'P007', 'V002'),
+('X006', 'P001', 'V001'),
+('X007', 'P001', 'V001'),
+('X008', 'P001', 'V001'),
+('X009', 'P001', 'V001'),
+('X010', 'P001', 'V001'),
+('X011', 'P001', 'V001'),
+('X012', 'P001', 'V001'),
+('X013', 'P001', 'V001'),
+('X014', 'P001', 'V001'),
+('X015', 'P001', 'V001'),
+('X016', 'P001', 'V001'),
+('X017', 'P001', 'V001'),
+('X018', 'P001', 'V001'),
+('X019', 'P001', 'V001'),
+('X020', 'P001', 'V001'),
+('X021', 'P001', 'V001'),
+('X022', 'P001', 'V001'),
+('X023', 'P001', 'V001');
 
 -- --------------------------------------------------------
 
@@ -317,13 +410,31 @@ INSERT INTO `pembelian` (`id_pembelian`, `id_bahan_baku`, `jumlah`, `id_pegawai`
 
 CREATE TABLE `penjualan` (
   `id_jual` char(10) NOT NULL,
-  `id_pegawai` int(20) NOT NULL,
-  `tgl_jual` date NOT NULL,
-  `nama_minum` varchar(20) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `harga` int(11) NOT NULL,
-  `no_nota` varchar(20) DEFAULT NULL
+  `id_pegawai` char(10) NOT NULL,
+  `status` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penjualan`
+--
+
+INSERT INTO `penjualan` (`id_jual`, `id_pegawai`, `status`) VALUES
+('PX001', 'P001', '1'),
+('PX002', 'P001', '1'),
+('PX003', 'P001', '1'),
+('PX004', 'P001', '1'),
+('PX005', 'P001', '1'),
+('PX006', 'P001', '1'),
+('PX007', 'P001', '1'),
+('PX008', 'P001', '1'),
+('PX009', 'P001', '1'),
+('PX010', 'P001', '1'),
+('PX011', 'P001', '1'),
+('PX012', 'P001', '1'),
+('PX013', 'P001', '1'),
+('PX014', 'P001', '1'),
+('PX015', 'P004', '1'),
+('PX016', 'P001', '1');
 
 -- --------------------------------------------------------
 
@@ -349,7 +460,8 @@ INSERT INTO `retur_pembelian` (`id_retur`, `tgl_retur`, `jumlah_retur`, `id_pemb
 ('R003', '2019-10-09', '5', 'X003', 'B003'),
 ('R004', '2019-07-29', '10', 'X004', 'B004'),
 ('R005', '2019-04-14', '20', 'X005', 'B005'),
-('R006', '2019-08-26', '5', 'X001', 'B001');
+('R006', '2019-08-26', '5', 'X001', 'B001'),
+('R007', '2020-03-17', '10', 'X001', 'B001');
 
 -- --------------------------------------------------------
 
@@ -443,8 +555,7 @@ ALTER TABLE `pegawai`
 ALTER TABLE `pembelian`
   ADD PRIMARY KEY (`id_pembelian`),
   ADD KEY `kd_vendo` (`kd_vendor`),
-  ADD KEY `id_pegawai` (`id_pegawai`),
-  ADD KEY `pembelian_ibf_3` (`id_bahan_baku`);
+  ADD KEY `id_pegawai` (`id_pegawai`);
 
 --
 -- Indexes for table `penjualan`
@@ -471,20 +582,6 @@ ALTER TABLE `vendor`
 --
 
 --
--- Constraints for table `detail_jual`
---
-ALTER TABLE `detail_jual`
-  ADD CONSTRAINT `detail_jual_ibfk_1` FOREIGN KEY (`no_nota`) REFERENCES `nota_penjualan` (`no_nota`),
-  ADD CONSTRAINT `fk_idminum` FOREIGN KEY (`id_minum`) REFERENCES `minuman` (`id_minum`);
-
---
--- Constraints for table `detail_pembelian`
---
-ALTER TABLE `detail_pembelian`
-  ADD CONSTRAINT `fk_no` FOREIGN KEY (`id_bahan_baku`) REFERENCES `bahan_baku` (`id_bahan_baku`),
-  ADD CONSTRAINT `fk_pembelian` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`);
-
---
 -- Constraints for table `jurnal`
 --
 ALTER TABLE `jurnal`
@@ -497,27 +594,6 @@ ALTER TABLE `jurnal`
 ALTER TABLE `minuman`
   ADD CONSTRAINT `fk_bahan_baku` FOREIGN KEY (`id_bahan_baku`) REFERENCES `bahan_baku` (`id_bahan_baku`),
   ADD CONSTRAINT `fk_kategori` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`);
-
---
--- Constraints for table `nota_penjualan`
---
-ALTER TABLE `nota_penjualan`
-  ADD CONSTRAINT `fk_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`);
-
---
--- Constraints for table `pembelian`
---
-ALTER TABLE `pembelian`
-  ADD CONSTRAINT `pembelian_ibf_3` FOREIGN KEY (`id_bahan_baku`) REFERENCES `bahan_baku` (`id_bahan_baku`),
-  ADD CONSTRAINT `pembelian_ibfk_1` FOREIGN KEY (`kd_vendor`) REFERENCES `vendor` (`kd_vendor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `pembelian_ibfk_2` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`);
-
---
--- Constraints for table `retur_pembelian`
---
-ALTER TABLE `retur_pembelian`
-  ADD CONSTRAINT `fkbahan_baku` FOREIGN KEY (`id_bahan_baku`) REFERENCES `bahan_baku` (`id_bahan_baku`),
-  ADD CONSTRAINT `fkid_pembelian` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

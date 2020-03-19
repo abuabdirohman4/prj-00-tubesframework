@@ -2,7 +2,8 @@
 <!--end container-->
 </section>
             <!-- END CONTENT -->
-
+</div>
+</div>
     <!-- START FOOTER -->
     <footer class="page-footer">
         <div class="footer-copyright">
@@ -47,6 +48,9 @@
     <!-- Toast Notification -->
     <script type="text/javascript">
     // Toast Notification
+    setTimeout(() => {
+        $('.select-dropdown').remove()
+    }, 200)
     $(window).load(function() {
         setTimeout(function() {
             Materialize.toast('<span>Hiya! I am a toast.</span>', 1500);

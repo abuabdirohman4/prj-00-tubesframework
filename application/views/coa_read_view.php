@@ -1,8 +1,8 @@
 <html><center>
 <head><title>Kinicheesetea</title></head>
 <body>
-<br><br><h2>Kinicheesetea - COA</h2><h3><br><br>
-<Button><p><a href="coa/create">TAMBAH</a></p></button><br><br>
+<br><br><h2>Kinicheesetea - COA</h2><h3>
+<Button><p><a href="coa/create">TAMBAH</a></p></button>
 
 
 

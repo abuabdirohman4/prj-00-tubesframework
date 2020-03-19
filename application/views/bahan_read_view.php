@@ -1,5 +1,5 @@
 <center>
-<br><br><h2>Kinicheesetea - BAHAN BAKU</h2><h3><br><br>
+<br><br><h2>Kinicheesetea - BAHAN BAKU</h2><h3>
 <Button><p><a href="bahan/create">TAMBAH</a></p></button><br><br></center>
 
 <table class="table">
