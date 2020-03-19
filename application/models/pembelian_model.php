@@ -2,14 +2,31 @@
 
 class pembelian_model extends CI_model
 {
-public $id_pembelian;
-public $id_bahan_baku;
-public $jumlah;
-public $id_pegawai;
-public $kd_vendor;
+    public $id_pembelian;
+    public $id_bahan_baku;
+    public $jumlah;
+    public $id_pegawai;
+    public $kd_vendor;
+    public $labels = [];
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->labels = $this->_atributelabels();
+        $this->load->database();
+    }
 
-public $labels=[];
+    public function insert()
+    {
+        $data = [
+            'id_pembelian' => $this->input->post('id_pembelian'),
+            'id_bahan_baku' => $this->input->post('id_bahan_baku'),
+            'jumlah' => $this->input->post('jumlah'),
+            'id_pegawai' => $this->input->post('id_pegawai'),
+            'kd_vendor  ' => $this->input->post('kd_vendor'),
+        ];
+        return $this->db->insert('pembelian', $data);
+    }
 
 public function __construct(){
 parent::__construct();
@@ -61,12 +78,13 @@ $sql=sprintf("DELETE FROM detail_pembelian WHERE id_pembelian='%s'",$this->id);
 $this->db->query($sql);
 $this->db->query('SET FOREIGN_KEY_CHECKS=1');
 
-}
-public function read(){
-$sql="SELECT * FROM pembelian ORDER BY id_pembelian";
-$query=$this->db->query($sql);
-return $query->result();
-}
+    public function delete()
+    {
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+        $sql = sprintf("DELETE FROM pembelian WHERE id_pembelian='%s'", $this->id);
+        $this->db->query($sql);
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+    }
 
 public function _atributelabels(){
 return[
@@ -83,4 +101,9 @@ public function increase($id_bahan_baku, $jumlah) {
     return $query;
 }
 
+    public function decrease($id_bahan_baku, $jumlah)
+    {
+        $query = $this->db->query("UPDATE bahan_baku SET jumlah=jumlah+$jumlah WHERE id_bahan_baku=$id_bahan_baku");
+        return $query;
+    }
 }
