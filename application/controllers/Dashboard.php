@@ -14,7 +14,7 @@ class Dashboard extends CI_Controller {
         $data['card_widgets'] = $this->load->view('layout/card_widgets', NULL, TRUE);
         $data['work_collection'] = $this->load->view('layout/work_collection', NULL, TRUE);
         $data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
-        // $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
+        $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
         $data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
         
         $this->load->view('layout/template', $data);
