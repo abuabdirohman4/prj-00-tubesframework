@@ -1,6 +1,6 @@
 <?php
 
-class retur extends CI_controller
+class Retur extends CI_controller
 {
 public $model=null;
 public function __construct(){
