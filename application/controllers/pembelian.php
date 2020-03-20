@@ -103,19 +103,19 @@ class Pembelian extends CI_controller
 		}
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->model->id = $id;
 		$this->model->delete();
 		redirect('pembelian');
 	}
 
-	function insert()
+	public function insert()
 	{
 		$this->model->insert();
 	}
 
-	function storecreate()
+	public function storecreate()
 	{
 		$rules =
 			[
@@ -167,7 +167,7 @@ class Pembelian extends CI_controller
 		}
 	}
 
-	function storeupdate()
+	public function storeupdate()
 	{
 		$rules =
 			[
