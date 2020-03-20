@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * SQLite3 Forge Class
@@ -45,8 +44,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author	Andrey Andreev
  * @link	https://codeigniter.com/user_guide/database/
  */
-class CI_DB_sqlite3_forge extends CI_DB_forge
-{
+class CI_DB_sqlite3_forge extends CI_DB_forge {
 
 	/**
 	 * UNSIGNED support
@@ -70,11 +68,12 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	 * @param	object	&$db	Database object
 	 * @return	void
 	 */
-	function __construct(&$db)
+	public function __construct(&$db)
 	{
 		parent::__construct($db);
 
-		if (version_compare($this->db->version(), '3.3', '<')) {
+		if (version_compare($this->db->version(), '3.3', '<'))
+		{
 			$this->_create_table_if = FALSE;
 			$this->_drop_table_if   = FALSE;
 		}
@@ -88,7 +87,7 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	 * @param	string	$db_name
 	 * @return	bool
 	 */
-	function create_database($db_name)
+	public function create_database($db_name)
 	{
 		// In SQLite, a database is created when you connect to the database.
 		// We'll return TRUE so that an error isn't generated
@@ -103,17 +102,22 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	 * @param	string	$db_name	(ignored)
 	 * @return	bool
 	 */
-	function drop_database($db_name)
+	public function drop_database($db_name)
 	{
 		// In SQLite, a database is dropped when we delete a file
-		if (file_exists($this->db->database)) {
+		if (file_exists($this->db->database))
+		{
 			// We need to close the pseudo-connection first
 			$this->db->close();
-			if (!@unlink($this->db->database)) {
+			if ( ! @unlink($this->db->database))
+			{
 				return $this->db->db_debug ? $this->db->display_error('db_unable_to_drop') : FALSE;
-			} elseif (!empty($this->db->data_cache['db_names'])) {
+			}
+			elseif ( ! empty($this->db->data_cache['db_names']))
+			{
 				$key = array_search(strtolower($this->db->database), array_map('strtolower', $this->db->data_cache['db_names']), TRUE);
-				if ($key !== FALSE) {
+				if ($key !== FALSE)
+				{
 					unset($this->db->data_cache['db_names'][$key]);
 				}
 			}
@@ -137,7 +141,8 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	 */
 	protected function _alter_table($alter_type, $table, $field)
 	{
-		if ($alter_type === 'DROP' or $alter_type === 'CHANGE') {
+		if ($alter_type === 'DROP' OR $alter_type === 'CHANGE')
+		{
 			// drop_column():
 			//	BEGIN TRANSACTION;
 			//	CREATE TEMPORARY TABLE t1_backup(a,b);
@@ -165,11 +170,11 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	protected function _process_column($field)
 	{
 		return $this->db->escape_identifiers($field['name'])
-			. ' ' . $field['type']
-			. $field['auto_increment']
-			. $field['null']
-			. $field['unique']
-			. $field['default'];
+			.' '.$field['type']
+			.$field['auto_increment']
+			.$field['null']
+			.$field['unique']
+			.$field['default'];
 	}
 
 	// --------------------------------------------------------------------
@@ -184,13 +189,13 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	 */
 	protected function _attr_type(&$attributes)
 	{
-		switch (strtoupper($attributes['TYPE'])) {
+		switch (strtoupper($attributes['TYPE']))
+		{
 			case 'ENUM':
 			case 'SET':
 				$attributes['TYPE'] = 'TEXT';
 				return;
-			default:
-				return;
+			default: return;
 		}
 	}
 
@@ -205,7 +210,8 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 	 */
 	protected function _attr_auto_increment(&$attributes, &$field)
 	{
-		if (!empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === TRUE && stripos($field['type'], 'int') !== FALSE) {
+		if ( ! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === TRUE && stripos($field['type'], 'int') !== FALSE)
+		{
 			$field['type'] = 'INTEGER PRIMARY KEY';
 			$field['default'] = '';
 			$field['null'] = '';
@@ -215,4 +221,5 @@ class CI_DB_sqlite3_forge extends CI_DB_forge
 			$this->primary_keys = array();
 		}
 	}
+
 }

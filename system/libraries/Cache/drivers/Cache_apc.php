@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 2.0.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter APC Caching Class
@@ -47,8 +46,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link
  */
-class CI_Cache_apc extends CI_Driver
-{
+class CI_Cache_apc extends CI_Driver {
 
 	/**
 	 * Class constructor
@@ -58,9 +56,10 @@ class CI_Cache_apc extends CI_Driver
 	 *
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
-		if (!$this->is_supported()) {
+		if ( ! $this->is_supported())
+		{
 			log_message('error', 'Cache: Failed to initialize APC; extension not loaded/enabled?');
 		}
 	}
@@ -76,7 +75,7 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	string
 	 * @return	mixed	value that is stored/FALSE on failure
 	 */
-	function get($id)
+	public function get($id)
 	{
 		$success = FALSE;
 		$data = apc_fetch($id, $success);
@@ -95,7 +94,7 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	bool	$raw	Whether to store the raw value (unused)
 	 * @return	bool	TRUE on success, FALSE on failure
 	 */
-	function save($id, $data, $ttl = 60, $raw = FALSE)
+	public function save($id, $data, $ttl = 60, $raw = FALSE)
 	{
 		return apc_store($id, $data, (int) $ttl);
 	}
@@ -108,7 +107,7 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	mixed	unique identifier of the item in the cache
 	 * @return	bool	true on success/false on failure
 	 */
-	function delete($id)
+	public function delete($id)
 	{
 		return apc_delete($id);
 	}
@@ -122,7 +121,7 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	int	$offset	Step/value to add
 	 * @return	mixed	New value on success or FALSE on failure
 	 */
-	function increment($id, $offset = 1)
+	public function increment($id, $offset = 1)
 	{
 		return apc_inc($id, $offset);
 	}
@@ -136,7 +135,7 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	int	$offset	Step/value to reduce by
 	 * @return	mixed	New value on success or FALSE on failure
 	 */
-	function decrement($id, $offset = 1)
+	public function decrement($id, $offset = 1)
 	{
 		return apc_dec($id, $offset);
 	}
@@ -148,7 +147,7 @@ class CI_Cache_apc extends CI_Driver
 	 *
 	 * @return	bool	false on failure/true on success
 	 */
-	function clean()
+	public function clean()
 	{
 		return apc_clear_cache('user');
 	}
@@ -161,10 +160,10 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	string	user/filehits
 	 * @return	mixed	array on success, false on failure
 	 */
-	function cache_info($type = NULL)
-	{
-		return apc_cache_info($type);
-	}
+	 public function cache_info($type = NULL)
+	 {
+		 return apc_cache_info($type);
+	 }
 
 	// ------------------------------------------------------------------------
 
@@ -174,15 +173,18 @@ class CI_Cache_apc extends CI_Driver
 	 * @param	mixed	key to get cache metadata on
 	 * @return	mixed	array on success/false on failure
 	 */
-	function get_metadata($id)
+	public function get_metadata($id)
 	{
 		$cache_info = apc_cache_info('user', FALSE);
-		if (empty($cache_info) or empty($cache_info['cache_list'])) {
+		if (empty($cache_info) OR empty($cache_info['cache_list']))
+		{
 			return FALSE;
 		}
 
-		foreach ($cache_info['cache_list'] as &$entry) {
-			if ($entry['info'] !== $id) {
+		foreach ($cache_info['cache_list'] as &$entry)
+		{
+			if ($entry['info'] !== $id)
+			{
 				continue;
 			}
 
@@ -208,7 +210,7 @@ class CI_Cache_apc extends CI_Driver
 	 *
 	 * @return	bool
 	 */
-	function is_supported()
+	public function is_supported()
 	{
 		return (extension_loaded('apc') && ini_get('apc.enabled'));
 	}

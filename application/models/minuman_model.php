@@ -8,14 +8,14 @@ class minuman_model extends CI_model
     public $id_kategori;
     public $labels = [];
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->labels = $this->_atributelabels();
         $this->load->database();
     }
 
-    function insert()
+    public function insert()
     {
         $data = [
             'id_minum' => $this->input->post('id_minum'),
@@ -26,12 +26,12 @@ class minuman_model extends CI_model
         return $this->db->insert('minuman', $data);
     }
 
-function __construct(){
+public function __construct(){
 parent::__construct();
 $this->labels=$this->_atributelabels();
 $this->load->database();
 }
-function insert(){
+public function insert(){
 $data=[
 'id_minum'=>$this->input->post('id_minum'),
 'nama_minum'=>$this->input->post('nama_minum'),
@@ -40,7 +40,7 @@ $data=[
 ];
 return $this->db->insert('minuman',$data);
 }
-function update(){
+public function update(){
 $sql=sprintf("UPDATE minuman SET nama_minum ='%s',harga='%s', id_kategori='%s' where id_minum='%s'",
 $this->nama,
 $this->harga,
@@ -49,13 +49,13 @@ $this->id
 );
 $this->db->query($sql);
 }
-function delete(){
+public function delete(){
 $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 $sql=sprintf("DELETE FROM minuman WHERE id_minum='%s'",$this->id);
 $this->db->query($sql);
 $this->db->query('SET FOREIGN_KEY_CHECKS=1');
 
-    function delete()
+    public function delete()
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
         $sql = sprintf("DELETE FROM minuman WHERE id_minum='%s'", $this->id);
@@ -63,20 +63,20 @@ $this->db->query('SET FOREIGN_KEY_CHECKS=1');
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
-    function read()
+    public function read()
     {
         $sql = "SELECT * FROM minuman ORDER BY id_minum";
         $query = $this->db->query($sql);
         return $query->result();
     }
 
-    function get_last_row()
+    public function get_last_row()
     {
         $query = $this->db->query('SELECT * FROM minuman ORDER BY id_minum DESC LIMIT 1');
         return $query->result();
     }
 
-    function _atributelabels()
+    public function _atributelabels()
     {
         return [
             'id' => 'ID Barang:',

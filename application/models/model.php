@@ -2,11 +2,11 @@
 class model extends CI_Model
 {
 
-    // function get_kd_vendor()
+    // public function get_kd_vendor()
     //  {
     //   return $this->db->get_where('vendor')->result();
     //  }
-    function penerimaan()
+    public function penerimaan()
     {
         $sql = $this->db->get_where('pembelian', ['id_pembelian' => $this->input->post('id_pembelian')])->result();
         foreach ($sql as $v) {
@@ -31,7 +31,7 @@ class model extends CI_Model
         }
     }
 
-    function get_id_bahan_baku()
+    public function get_id_bahan_baku()
     {
         return $this->db->get_where('bahan_baku')->result();
     }
@@ -46,7 +46,7 @@ class model extends CI_Model
         return $query->result();
     }
 
-    // function insert_penerimaan()
+    // public function insert_penerimaan()
     // {
     // $data=[
     // // 'tgl_pembelian'=>$this->input->post('tgl_pembelian'),
@@ -60,7 +60,7 @@ class model extends CI_Model
     // return $this->db->insert('pembelian',$data);
     // }
 
-    function lihat_laporan()
+    public function lihat_laporan()
     {
         redirect('lapor');
     }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 1.3.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * MSSQL Result Class
@@ -49,15 +48,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_mssql_result extends CI_DB_result
-{
+class CI_DB_mssql_result extends CI_DB_result {
 
 	/**
 	 * Number of rows in the result set
 	 *
 	 * @return	int
 	 */
-	function num_rows()
+	public function num_rows()
 	{
 		return is_int($this->num_rows)
 			? $this->num_rows
@@ -71,7 +69,7 @@ class CI_DB_mssql_result extends CI_DB_result
 	 *
 	 * @return	int
 	 */
-	function num_fields()
+	public function num_fields()
 	{
 		return mssql_num_fields($this->result_id);
 	}
@@ -85,11 +83,12 @@ class CI_DB_mssql_result extends CI_DB_result
 	 *
 	 * @return	array
 	 */
-	function list_fields()
+	public function list_fields()
 	{
 		$field_names = array();
 		mssql_field_seek($this->result_id, 0);
-		while ($field = mssql_fetch_field($this->result_id)) {
+		while ($field = mssql_fetch_field($this->result_id))
+		{
 			$field_names[] = $field->name;
 		}
 
@@ -105,10 +104,11 @@ class CI_DB_mssql_result extends CI_DB_result
 	 *
 	 * @return	array
 	 */
-	function field_data()
+	public function field_data()
 	{
 		$retval = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		{
 			$field = mssql_fetch_field($this->result_id, $i);
 
 			$retval[$i]		= new stdClass();
@@ -127,9 +127,10 @@ class CI_DB_mssql_result extends CI_DB_result
 	 *
 	 * @return	void
 	 */
-	function free_result()
+	public function free_result()
 	{
-		if (is_resource($this->result_id)) {
+		if (is_resource($this->result_id))
+		{
 			mssql_free_result($this->result_id);
 			$this->result_id = FALSE;
 		}
@@ -147,7 +148,7 @@ class CI_DB_mssql_result extends CI_DB_result
 	 * @param	int	$n
 	 * @return	bool
 	 */
-	function data_seek($n = 0)
+	public function data_seek($n = 0)
 	{
 		return mssql_data_seek($this->result_id, $n);
 	}
@@ -180,15 +181,18 @@ class CI_DB_mssql_result extends CI_DB_result
 	{
 		$row = mssql_fetch_object($this->result_id);
 
-		if ($class_name === 'stdClass' or !$row) {
+		if ($class_name === 'stdClass' OR ! $row)
+		{
 			return $row;
 		}
 
 		$class_name = new $class_name();
-		foreach ($row as $key => $value) {
+		foreach ($row as $key => $value)
+		{
 			$class_name->$key = $value;
 		}
 
 		return $class_name;
 	}
+
 }

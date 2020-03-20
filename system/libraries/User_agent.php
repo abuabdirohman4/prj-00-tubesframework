@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * User Agent Class
@@ -49,8 +48,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/libraries/user_agent.html
  */
-class CI_User_agent
-{
+class CI_User_agent {
 
 	/**
 	 * Current user-agent
@@ -173,11 +171,12 @@ class CI_User_agent
 	 *
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->_load_agent_file();
 
-		if (isset($_SERVER['HTTP_USER_AGENT'])) {
+		if (isset($_SERVER['HTTP_USER_AGENT']))
+		{
 			$this->agent = trim($_SERVER['HTTP_USER_AGENT']);
 			$this->_compile_data();
 		}
@@ -194,40 +193,47 @@ class CI_User_agent
 	 */
 	protected function _load_agent_file()
 	{
-		if (($found = file_exists(APPPATH . 'config/user_agents.php'))) {
-			include(APPPATH . 'config/user_agents.php');
+		if (($found = file_exists(APPPATH.'config/user_agents.php')))
+		{
+			include(APPPATH.'config/user_agents.php');
 		}
 
-		if (file_exists(APPPATH . 'config/' . ENVIRONMENT . '/user_agents.php')) {
-			include(APPPATH . 'config/' . ENVIRONMENT . '/user_agents.php');
+		if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/user_agents.php'))
+		{
+			include(APPPATH.'config/'.ENVIRONMENT.'/user_agents.php');
 			$found = TRUE;
 		}
 
-		if ($found !== TRUE) {
+		if ($found !== TRUE)
+		{
 			return FALSE;
 		}
 
 		$return = FALSE;
 
-		if (isset($platforms)) {
+		if (isset($platforms))
+		{
 			$this->platforms = $platforms;
 			unset($platforms);
 			$return = TRUE;
 		}
 
-		if (isset($browsers)) {
+		if (isset($browsers))
+		{
 			$this->browsers = $browsers;
 			unset($browsers);
 			$return = TRUE;
 		}
 
-		if (isset($mobiles)) {
+		if (isset($mobiles))
+		{
 			$this->mobiles = $mobiles;
 			unset($mobiles);
 			$return = TRUE;
 		}
 
-		if (isset($robots)) {
+		if (isset($robots))
+		{
 			$this->robots = $robots;
 			unset($robots);
 			$return = TRUE;
@@ -247,8 +253,10 @@ class CI_User_agent
 	{
 		$this->_set_platform();
 
-		foreach (array('_set_robot', '_set_browser', '_set_mobile') as $function) {
-			if ($this->$function() === TRUE) {
+		foreach (array('_set_robot', '_set_browser', '_set_mobile') as $function)
+		{
+			if ($this->$function() === TRUE)
+			{
 				break;
 			}
 		}
@@ -263,9 +271,12 @@ class CI_User_agent
 	 */
 	protected function _set_platform()
 	{
-		if (is_array($this->platforms) && count($this->platforms) > 0) {
-			foreach ($this->platforms as $key => $val) {
-				if (preg_match('|' . preg_quote($key) . '|i', $this->agent)) {
+		if (is_array($this->platforms) && count($this->platforms) > 0)
+		{
+			foreach ($this->platforms as $key => $val)
+			{
+				if (preg_match('|'.preg_quote($key).'|i', $this->agent))
+				{
 					$this->platform = $val;
 					return TRUE;
 				}
@@ -285,9 +296,12 @@ class CI_User_agent
 	 */
 	protected function _set_browser()
 	{
-		if (is_array($this->browsers) && count($this->browsers) > 0) {
-			foreach ($this->browsers as $key => $val) {
-				if (preg_match('|' . $key . '.*?([0-9\.]+)|i', $this->agent, $match)) {
+		if (is_array($this->browsers) && count($this->browsers) > 0)
+		{
+			foreach ($this->browsers as $key => $val)
+			{
+				if (preg_match('|'.$key.'.*?([0-9\.]+)|i', $this->agent, $match))
+				{
 					$this->is_browser = TRUE;
 					$this->version = $match[1];
 					$this->browser = $val;
@@ -309,9 +323,12 @@ class CI_User_agent
 	 */
 	protected function _set_robot()
 	{
-		if (is_array($this->robots) && count($this->robots) > 0) {
-			foreach ($this->robots as $key => $val) {
-				if (preg_match('|' . preg_quote($key) . '|i', $this->agent)) {
+		if (is_array($this->robots) && count($this->robots) > 0)
+		{
+			foreach ($this->robots as $key => $val)
+			{
+				if (preg_match('|'.preg_quote($key).'|i', $this->agent))
+				{
 					$this->is_robot = TRUE;
 					$this->robot = $val;
 					$this->_set_mobile();
@@ -332,9 +349,12 @@ class CI_User_agent
 	 */
 	protected function _set_mobile()
 	{
-		if (is_array($this->mobiles) && count($this->mobiles) > 0) {
-			foreach ($this->mobiles as $key => $val) {
-				if (FALSE !== (stripos($this->agent, $key))) {
+		if (is_array($this->mobiles) && count($this->mobiles) > 0)
+		{
+			foreach ($this->mobiles as $key => $val)
+			{
+				if (FALSE !== (stripos($this->agent, $key)))
+				{
 					$this->is_mobile = TRUE;
 					$this->mobile = $val;
 					return TRUE;
@@ -354,11 +374,13 @@ class CI_User_agent
 	 */
 	protected function _set_languages()
 	{
-		if ((count($this->languages) === 0) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+		if ((count($this->languages) === 0) && ! empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+		{
 			$this->languages = explode(',', preg_replace('/(;\s?q=[0-9\.]+)|\s/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_LANGUAGE']))));
 		}
 
-		if (count($this->languages) === 0) {
+		if (count($this->languages) === 0)
+		{
 			$this->languages = array('Undefined');
 		}
 	}
@@ -372,11 +394,13 @@ class CI_User_agent
 	 */
 	protected function _set_charsets()
 	{
-		if ((count($this->charsets) === 0) && !empty($_SERVER['HTTP_ACCEPT_CHARSET'])) {
+		if ((count($this->charsets) === 0) && ! empty($_SERVER['HTTP_ACCEPT_CHARSET']))
+		{
 			$this->charsets = explode(',', preg_replace('/(;\s?q=.+)|\s/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_CHARSET']))));
 		}
 
-		if (count($this->charsets) === 0) {
+		if (count($this->charsets) === 0)
+		{
 			$this->charsets = array('Undefined');
 		}
 	}
@@ -389,14 +413,16 @@ class CI_User_agent
 	 * @param	string	$key
 	 * @return	bool
 	 */
-	function is_browser($key = NULL)
+	public function is_browser($key = NULL)
 	{
-		if (!$this->is_browser) {
+		if ( ! $this->is_browser)
+		{
 			return FALSE;
 		}
 
 		// No need to be specific, it's a browser
-		if ($key === NULL) {
+		if ($key === NULL)
+		{
 			return TRUE;
 		}
 
@@ -412,14 +438,16 @@ class CI_User_agent
 	 * @param	string	$key
 	 * @return	bool
 	 */
-	function is_robot($key = NULL)
+	public function is_robot($key = NULL)
 	{
-		if (!$this->is_robot) {
+		if ( ! $this->is_robot)
+		{
 			return FALSE;
 		}
 
 		// No need to be specific, it's a robot
-		if ($key === NULL) {
+		if ($key === NULL)
+		{
 			return TRUE;
 		}
 
@@ -435,14 +463,16 @@ class CI_User_agent
 	 * @param	string	$key
 	 * @return	bool
 	 */
-	function is_mobile($key = NULL)
+	public function is_mobile($key = NULL)
 	{
-		if (!$this->is_mobile) {
+		if ( ! $this->is_mobile)
+		{
 			return FALSE;
 		}
 
 		// No need to be specific, it's a mobile
-		if ($key === NULL) {
+		if ($key === NULL)
+		{
 			return TRUE;
 		}
 
@@ -457,12 +487,16 @@ class CI_User_agent
 	 *
 	 * @return	bool
 	 */
-	function is_referral()
+	public function is_referral()
 	{
-		if (!isset($this->referer)) {
-			if (empty($_SERVER['HTTP_REFERER'])) {
+		if ( ! isset($this->referer))
+		{
+			if (empty($_SERVER['HTTP_REFERER']))
+			{
 				$this->referer = FALSE;
-			} else {
+			}
+			else
+			{
 				$referer_host = @parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
 				$own_host = parse_url(config_item('base_url'), PHP_URL_HOST);
 
@@ -480,7 +514,7 @@ class CI_User_agent
 	 *
 	 * @return	string
 	 */
-	function agent_string()
+	public function agent_string()
 	{
 		return $this->agent;
 	}
@@ -492,7 +526,7 @@ class CI_User_agent
 	 *
 	 * @return	string
 	 */
-	function platform()
+	public function platform()
 	{
 		return $this->platform;
 	}
@@ -504,7 +538,7 @@ class CI_User_agent
 	 *
 	 * @return	string
 	 */
-	function browser()
+	public function browser()
 	{
 		return $this->browser;
 	}
@@ -516,7 +550,7 @@ class CI_User_agent
 	 *
 	 * @return	string
 	 */
-	function version()
+	public function version()
 	{
 		return $this->version;
 	}
@@ -528,7 +562,7 @@ class CI_User_agent
 	 *
 	 * @return	string
 	 */
-	function robot()
+	public function robot()
 	{
 		return $this->robot;
 	}
@@ -539,7 +573,7 @@ class CI_User_agent
 	 *
 	 * @return	string
 	 */
-	function mobile()
+	public function mobile()
 	{
 		return $this->mobile;
 	}
@@ -551,7 +585,7 @@ class CI_User_agent
 	 *
 	 * @return	bool
 	 */
-	function referrer()
+	public function referrer()
 	{
 		return empty($_SERVER['HTTP_REFERER']) ? '' : trim($_SERVER['HTTP_REFERER']);
 	}
@@ -563,9 +597,10 @@ class CI_User_agent
 	 *
 	 * @return	array
 	 */
-	function languages()
+	public function languages()
 	{
-		if (count($this->languages) === 0) {
+		if (count($this->languages) === 0)
+		{
 			$this->_set_languages();
 		}
 
@@ -579,9 +614,10 @@ class CI_User_agent
 	 *
 	 * @return	array
 	 */
-	function charsets()
+	public function charsets()
 	{
-		if (count($this->charsets) === 0) {
+		if (count($this->charsets) === 0)
+		{
 			$this->_set_charsets();
 		}
 
@@ -596,7 +632,7 @@ class CI_User_agent
 	 * @param	string	$lang
 	 * @return	bool
 	 */
-	function accept_lang($lang = 'en')
+	public function accept_lang($lang = 'en')
 	{
 		return in_array(strtolower($lang), $this->languages(), TRUE);
 	}
@@ -609,7 +645,7 @@ class CI_User_agent
 	 * @param	string	$charset
 	 * @return	bool
 	 */
-	function accept_charset($charset = 'utf-8')
+	public function accept_charset($charset = 'utf-8')
 	{
 		return in_array(strtolower($charset), $this->charsets(), TRUE);
 	}
@@ -622,7 +658,7 @@ class CI_User_agent
 	 * @param	string	$string
 	 * @return	void
 	 */
-	function parse($string)
+	public function parse($string)
 	{
 		// Reset values
 		$this->is_browser = FALSE;
@@ -636,8 +672,10 @@ class CI_User_agent
 		// Set the new user-agent string and parse it, unless empty
 		$this->agent = $string;
 
-		if (!empty($string)) {
+		if ( ! empty($string))
+		{
 			$this->_compile_data();
 		}
 	}
+
 }

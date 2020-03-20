@@ -4,7 +4,7 @@ class Minuman extends CI_controller
 {
 	public $model = null;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -15,13 +15,13 @@ class Minuman extends CI_controller
 		$this->load->database();
 	}
 
-	function index()
+	public function index()
 	{
 		$data = [];
 		$this->read();
 	}
 
-	function create()
+	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
 
@@ -51,7 +51,7 @@ class Minuman extends CI_controller
 		}
 	}
 
-	function read()
+	public function read()
 	{
 		$this->load->view('master/header');
 		$rows = $this->model->read();
@@ -59,7 +59,7 @@ class Minuman extends CI_controller
 		$this->load->view('master/footer');
 	}
 
-	function update($id)
+	public function update($id)
 	{
 		$data = [];
 
@@ -106,20 +106,20 @@ class Minuman extends CI_controller
 		}
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->model->id = $id;
 		$this->model->delete();
 		redirect('minuman');
 	}
 
-	function insert()
+	public function insert()
 	{
 		$this->load->model('minuman_model');
 		$this->minuman_model->insert();
 	}
 
-	function storecreate()
+	public function storecreate()
 	{
 		$rules =
 			[
@@ -182,7 +182,7 @@ class Minuman extends CI_controller
 		}
 	}
 
-	function storeupdate()
+	public function storeupdate()
 	{
 		$rules =
 			[

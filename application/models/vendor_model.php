@@ -6,7 +6,7 @@ class vendor_model extends CI_model
         public $alamat;
         public $labels = [];
 
-        function __construct()
+        public function __construct()
         {
                 parent::__construct();
                 $this->labels = $this->_attributelabels();
@@ -15,7 +15,7 @@ class vendor_model extends CI_model
         }
         //untuk menambah baris data dalam tabel
 
-        function insert()
+        public function insert()
         {
 
                 $data = [
@@ -26,7 +26,7 @@ class vendor_model extends CI_model
                 return $this->db->insert('vendor', $data);
         }
 
-        function update()
+        public function update()
         {
                 $sql = sprintf(
                         "UPDATE vendor SET nama_vendor ='%s', alamat='%s' where kd_vendor='%s'",
@@ -37,20 +37,20 @@ class vendor_model extends CI_model
                 $this->db->query($sql);
         }
 
-        function delete()
+        public function delete()
         {
                 $sql = sprintf("DELETE FROM vendor WHERE kd_vendor='%s'", $this->kd_vendor);
                 $this->db->query($sql);
         }
 
-        function read()
+        public function read()
         {
                 $sql = "SELECT * FROM vendor ORDER BY kd_vendor";
                 $query = $this->db->query($sql);
                 return $query->result();
         }
         //metode untuk menentukan label dari masing-masing atribut
-        function _attributelabels()
+        public function _attributelabels()
         {
                 return [
                         'kd_vendor' => 'Kode Vendor',

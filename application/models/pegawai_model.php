@@ -8,14 +8,14 @@ class pegawai_model extends CI_model
 	public $no_telp;
 	public $labels = [];
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->labels = $this->_atributelabels();
 		$this->load->database();
 	}
 
-	function insert()
+	public function insert()
 	{
 		$data = array(
 			'id_pegawai' => $this->input->post('id_pegawai'),
@@ -27,7 +27,7 @@ class pegawai_model extends CI_model
 
 		$this->db->query($sql);
 	}
-	function update()
+	public function update()
 	{
 		$sql = sprintf(
 			"UPDATE pegawai SET nama_pegawai ='%s', alamat='%s', no_telp='%s'  where id_pegawai='%s'",
@@ -39,20 +39,20 @@ class pegawai_model extends CI_model
 		$this->db->query($sql);
 	}
 
-	function delete()
+	public function delete()
 	{
 		$sql = sprintf("DELETE FROM pegawai WHERE id_pegawai='%s'", $this->id_pegawai);
 		$this->db->query($sql);
 	}
 
-	function read()
+	public function read()
 	{
 		$sql = "SELECT * FROM pegawai ORDER BY id_pegawai";
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
 
-	function _atributelabels()
+	public function _atributelabels()
 	{
 		return [
 			'id_pegawai' => 'Id Pegawai:',

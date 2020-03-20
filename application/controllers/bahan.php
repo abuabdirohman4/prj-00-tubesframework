@@ -2,7 +2,7 @@
 class Bahan extends CI_controller
 {
     public $model = null;
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         //memuat model
@@ -12,12 +12,12 @@ class Bahan extends CI_controller
         $this->load->database();
     }
 
-    function index()
+    public function index()
     {
         $this->read();
     }
 
-    function layout()
+    public function layout()
     {
         // Header
         $data['title'] = "Kinicheese Tea - Bahan Baku";
@@ -32,20 +32,20 @@ class Bahan extends CI_controller
         return $data;
     }
 
-    function read()
+    public function read()
     {
         $data = $this->layout();
         $data['rows'] = $this->model->read();
         $this->load->view('bahan_read_view', $data);
     }
 
-    function insert()
+    public function insert()
     {
         $this->load->model('bahan_model');
         $this->bahan_model->insert();
     }
 
-    function storecreate()
+    public function storecreate()
     {
         $data = [];
         $rules = [
@@ -102,7 +102,7 @@ class Bahan extends CI_controller
         }
     }
 
-    function storeupdate()
+    public function storeupdate()
     {
         $rules =
             [
@@ -164,7 +164,7 @@ class Bahan extends CI_controller
         }
     }
 
-    function create()
+    public function create()
     {
         //belum implementasi
         if (isset($_POST['btnSubmit'])) {
@@ -195,7 +195,7 @@ class Bahan extends CI_controller
         }
     }
 
-    function update($id)
+    public function update($id)
     {
         //belum implementasi
         if (isset($_POST['btnsubmit'])) {
@@ -228,7 +228,7 @@ class Bahan extends CI_controller
         }
     }
 
-    function delete($id)
+    public function delete($id)
     {
         //menentukan kode yang akan di hapus
         $this->model->id = $id;

@@ -5,7 +5,7 @@ class Vendor extends CI_Controller
 {
     public $model = NULL;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         //memuat model
@@ -15,12 +15,12 @@ class Vendor extends CI_Controller
         $this->load->database();
     }
 
-    function index()
+    public function index()
     {
         $this->read();
     }
 
-    function create()
+    public function create()
     {
         //belum implementasi
         if (isset($_POST['btnSubmit'])) {
@@ -51,7 +51,7 @@ class Vendor extends CI_Controller
         }
     }
 
-    function read()
+    public function read()
     {
         $this->load->view('master/header');
         $rows = $this->model->read();
@@ -59,13 +59,13 @@ class Vendor extends CI_Controller
         $this->load->view('master/footer');
     }
 
-    function insert()
+    public function insert()
     {
         $this->load->model('vendor_model');
         $this->vendor_model->insert();
     }
 
-    function update($id)
+    public function update($id)
     {
 
         //belum implementasi
@@ -96,7 +96,7 @@ class Vendor extends CI_Controller
         }
     }
 
-    function delete($id)
+    public function delete($id)
     {
         //menentukan kode yang akan di hapus
         $this->model->kd_vendor = $id;
@@ -106,7 +106,7 @@ class Vendor extends CI_Controller
         redirect('vendor');
     }
 
-    function storecreate()
+    public function storecreate()
     {
         $rules =
 
@@ -159,7 +159,7 @@ class Vendor extends CI_Controller
         }
     }
 
-    function storeupdate()
+    public function storeupdate()
     {
         $rules =
 

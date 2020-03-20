@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * PDO IBM DB2 Database Adapter Class
@@ -51,8 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver
-{
+class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver {
 
 	/**
 	 * Sub-driver
@@ -71,45 +69,59 @@ class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver
 	 * @param	array	$params
 	 * @return	void
 	 */
-	function __construct($params)
+	public function __construct($params)
 	{
 		parent::__construct($params);
 
-		if (empty($this->dsn)) {
+		if (empty($this->dsn))
+		{
 			$this->dsn = 'ibm:';
 
 			// Pre-defined DSN
-			if (empty($this->hostname) && empty($this->HOSTNAME) && empty($this->port) && empty($this->PORT)) {
-				if (isset($this->DSN)) {
-					$this->dsn .= 'DSN=' . $this->DSN;
-				} elseif (!empty($this->database)) {
-					$this->dsn .= 'DSN=' . $this->database;
+			if (empty($this->hostname) && empty($this->HOSTNAME) && empty($this->port) && empty($this->PORT))
+			{
+				if (isset($this->DSN))
+				{
+					$this->dsn .= 'DSN='.$this->DSN;
+				}
+				elseif ( ! empty($this->database))
+				{
+					$this->dsn .= 'DSN='.$this->database;
 				}
 
 				return;
 			}
 
-			$this->dsn .= 'DRIVER=' . (isset($this->DRIVER) ? '{' . $this->DRIVER . '}' : '{IBM DB2 ODBC DRIVER}') . ';';
+			$this->dsn .= 'DRIVER='.(isset($this->DRIVER) ? '{'.$this->DRIVER.'}' : '{IBM DB2 ODBC DRIVER}').';';
 
-			if (isset($this->DATABASE)) {
-				$this->dsn .= 'DATABASE=' . $this->DATABASE . ';';
-			} elseif (!empty($this->database)) {
-				$this->dsn .= 'DATABASE=' . $this->database . ';';
+			if (isset($this->DATABASE))
+			{
+				$this->dsn .= 'DATABASE='.$this->DATABASE.';';
+			}
+			elseif ( ! empty($this->database))
+			{
+				$this->dsn .= 'DATABASE='.$this->database.';';
 			}
 
-			if (isset($this->HOSTNAME)) {
-				$this->dsn .= 'HOSTNAME=' . $this->HOSTNAME . ';';
-			} else {
-				$this->dsn .= 'HOSTNAME=' . (empty($this->hostname) ? '127.0.0.1;' : $this->hostname . ';');
+			if (isset($this->HOSTNAME))
+			{
+				$this->dsn .= 'HOSTNAME='.$this->HOSTNAME.';';
+			}
+			else
+			{
+				$this->dsn .= 'HOSTNAME='.(empty($this->hostname) ? '127.0.0.1;' : $this->hostname.';');
 			}
 
-			if (isset($this->PORT)) {
-				$this->dsn .= 'PORT=' . $this->port . ';';
-			} elseif (!empty($this->port)) {
-				$this->dsn .= ';PORT=' . $this->port . ';';
+			if (isset($this->PORT))
+			{
+				$this->dsn .= 'PORT='.$this->port.';';
+			}
+			elseif ( ! empty($this->port))
+			{
+				$this->dsn .= ';PORT='.$this->port.';';
 			}
 
-			$this->dsn .= 'PROTOCOL=' . (isset($this->PROTOCOL) ? $this->PROTOCOL . ';' : 'TCPIP;');
+			$this->dsn .= 'PROTOCOL='.(isset($this->PROTOCOL) ? $this->PROTOCOL.';' : 'TCPIP;');
 		}
 	}
 
@@ -126,11 +138,12 @@ class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver
 	protected function _list_tables($prefix_limit = FALSE)
 	{
 		$sql = 'SELECT "tabname" FROM "syscat"."tables"
-			WHERE "type" = \'T\' AND LOWER("tabschema") = ' . $this->escape(strtolower($this->database));
+			WHERE "type" = \'T\' AND LOWER("tabschema") = '.$this->escape(strtolower($this->database));
 
-		if ($prefix_limit === TRUE && $this->dbprefix !== '') {
-			$sql .= ' AND "tabname" LIKE \'' . $this->escape_like_str($this->dbprefix) . "%' "
-				. sprintf($this->_like_escape_str, $this->_like_escape_chr);
+		if ($prefix_limit === TRUE && $this->dbprefix !== '')
+		{
+			$sql .= ' AND "tabname" LIKE \''.$this->escape_like_str($this->dbprefix)."%' "
+				.sprintf($this->_like_escape_str, $this->_like_escape_chr);
 		}
 
 		return $sql;
@@ -149,8 +162,8 @@ class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver
 	protected function _list_columns($table = '')
 	{
 		return 'SELECT "colname" FROM "syscat"."columns"
-			WHERE LOWER("tabschema") = ' . $this->escape(strtolower($this->database)) . '
-				AND LOWER("tabname") = ' . $this->escape(strtolower($table));
+			WHERE LOWER("tabschema") = '.$this->escape(strtolower($this->database)).'
+				AND LOWER("tabname") = '.$this->escape(strtolower($table));
 	}
 
 	// --------------------------------------------------------------------
@@ -161,13 +174,13 @@ class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver
 	 * @param	string	$table
 	 * @return	array
 	 */
-	function field_data($table)
+	public function field_data($table)
 	{
 		$sql = 'SELECT "colname" AS "name", "typename" AS "type", "default" AS "default", "length" AS "max_length",
 				CASE "keyseq" WHEN NULL THEN 0 ELSE 1 END AS "primary_key"
 			FROM "syscat"."columns"
-			WHERE LOWER("tabschema") = ' . $this->escape(strtolower($this->database)) . '
-				AND LOWER("tabname") = ' . $this->escape(strtolower($table)) . '
+			WHERE LOWER("tabschema") = '.$this->escape(strtolower($this->database)).'
+				AND LOWER("tabname") = '.$this->escape(strtolower($table)).'
 			ORDER BY "colno"';
 
 		return (($query = $this->query($sql)) !== FALSE)
@@ -221,10 +234,11 @@ class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver
 	 */
 	protected function _limit($sql)
 	{
-		$sql .= ' FETCH FIRST ' . ($this->qb_limit + $this->qb_offset) . ' ROWS ONLY';
+		$sql .= ' FETCH FIRST '.($this->qb_limit + $this->qb_offset).' ROWS ONLY';
 
 		return ($this->qb_offset)
-			? 'SELECT * FROM (' . $sql . ') WHERE rownum > ' . $this->qb_offset
+			? 'SELECT * FROM ('.$sql.') WHERE rownum > '.$this->qb_offset
 			: $sql;
 	}
+
 }

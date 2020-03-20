@@ -7,14 +7,14 @@ class coa_model extends CI_model
 	public $header_akun;
 	public $labels = [];
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->labels = $this->_atributelabels();
 		$this->load->database();
 	}
 
-	function insert()
+	public function insert()
 	{
 		$data = array(
 			'no_akun' => $this->input->post('no_akun'),
@@ -25,7 +25,7 @@ class coa_model extends CI_model
 		$this->db->query($sql);
 	}
 
-	function update()
+	public function update()
 	{
 		$sql = sprintf(
 			"UPDATE coa SET nama_akun ='%s', header_akun='%s' where no_akun='%s'",
@@ -36,20 +36,20 @@ class coa_model extends CI_model
 		$this->db->query($sql);
 	}
 
-	function delete()
+	public function delete()
 	{
 		$sql = sprintf("DELETE FROM coa WHERE no_akun='%s'", $this->id);
 		$this->db->query($sql);
 	}
 
-	function read()
+	public function read()
 	{
 		$sql = "SELECT * FROM coa ORDER BY no_akun";
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
 
-	function _atributelabels()
+	public function _atributelabels()
 	{
 		return [
 			'no_akun' => 'No Akun:',

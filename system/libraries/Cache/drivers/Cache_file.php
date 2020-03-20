@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 2.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter File Caching Class
@@ -47,8 +46,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link
  */
-class CI_Cache_file extends CI_Driver
-{
+class CI_Cache_file extends CI_Driver {
 
 	/**
 	 * Directory in which to save cache files
@@ -62,12 +60,12 @@ class CI_Cache_file extends CI_Driver
 	 *
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
-		$CI = &get_instance();
+		$CI =& get_instance();
 		$CI->load->helper('file');
 		$path = $CI->config->item('cache_path');
-		$this->_cache_path = ($path === '') ? APPPATH . 'cache/' : $path;
+		$this->_cache_path = ($path === '') ? APPPATH.'cache/' : $path;
 	}
 
 	// ------------------------------------------------------------------------
@@ -78,7 +76,7 @@ class CI_Cache_file extends CI_Driver
 	 * @param	string	$id	Cache ID
 	 * @return	mixed	Data on success, FALSE on failure
 	 */
-	function get($id)
+	public function get($id)
 	{
 		$data = $this->_get($id);
 		return is_array($data) ? $data['data'] : FALSE;
@@ -95,7 +93,7 @@ class CI_Cache_file extends CI_Driver
 	 * @param	bool	$raw	Whether to store the raw value (unused)
 	 * @return	bool	TRUE on success, FALSE on failure
 	 */
-	function save($id, $data, $ttl = 60, $raw = FALSE)
+	public function save($id, $data, $ttl = 60, $raw = FALSE)
 	{
 		$contents = array(
 			'time'		=> time(),
@@ -103,8 +101,9 @@ class CI_Cache_file extends CI_Driver
 			'data'		=> $data
 		);
 
-		if (write_file($this->_cache_path . $id, serialize($contents))) {
-			chmod($this->_cache_path . $id, 0640);
+		if (write_file($this->_cache_path.$id, serialize($contents)))
+		{
+			chmod($this->_cache_path.$id, 0640);
 			return TRUE;
 		}
 
@@ -119,9 +118,9 @@ class CI_Cache_file extends CI_Driver
 	 * @param	mixed	unique identifier of item in cache
 	 * @return	bool	true on success/false on failure
 	 */
-	function delete($id)
+	public function delete($id)
 	{
-		return is_file($this->_cache_path . $id) ? unlink($this->_cache_path . $id) : FALSE;
+		return is_file($this->_cache_path.$id) ? unlink($this->_cache_path.$id) : FALSE;
 	}
 
 	// ------------------------------------------------------------------------
@@ -133,13 +132,16 @@ class CI_Cache_file extends CI_Driver
 	 * @param	int	$offset	Step/value to add
 	 * @return	New value on success, FALSE on failure
 	 */
-	function increment($id, $offset = 1)
+	public function increment($id, $offset = 1)
 	{
 		$data = $this->_get($id);
 
-		if ($data === FALSE) {
+		if ($data === FALSE)
+		{
 			$data = array('data' => 0, 'ttl' => 60);
-		} elseif (!is_int($data['data'])) {
+		}
+		elseif ( ! is_int($data['data']))
+		{
 			return FALSE;
 		}
 
@@ -158,13 +160,16 @@ class CI_Cache_file extends CI_Driver
 	 * @param	int	$offset	Step/value to reduce by
 	 * @return	New value on success, FALSE on failure
 	 */
-	function decrement($id, $offset = 1)
+	public function decrement($id, $offset = 1)
 	{
 		$data = $this->_get($id);
 
-		if ($data === FALSE) {
+		if ($data === FALSE)
+		{
 			$data = array('data' => 0, 'ttl' => 60);
-		} elseif (!is_int($data['data'])) {
+		}
+		elseif ( ! is_int($data['data']))
+		{
 			return FALSE;
 		}
 
@@ -181,7 +186,7 @@ class CI_Cache_file extends CI_Driver
 	 *
 	 * @return	bool	false on failure/true on success
 	 */
-	function clean()
+	public function clean()
 	{
 		return delete_files($this->_cache_path, FALSE, TRUE);
 	}
@@ -196,7 +201,7 @@ class CI_Cache_file extends CI_Driver
 	 * @param	string	user/filehits
 	 * @return	mixed	FALSE
 	 */
-	function cache_info($type = NULL)
+	public function cache_info($type = NULL)
 	{
 		return get_dir_file_info($this->_cache_path);
 	}
@@ -209,18 +214,21 @@ class CI_Cache_file extends CI_Driver
 	 * @param	mixed	key to get cache metadata on
 	 * @return	mixed	FALSE on failure, array on success.
 	 */
-	function get_metadata($id)
+	public function get_metadata($id)
 	{
-		if (!is_file($this->_cache_path . $id)) {
+		if ( ! is_file($this->_cache_path.$id))
+		{
 			return FALSE;
 		}
 
-		$data = unserialize(file_get_contents($this->_cache_path . $id));
+		$data = unserialize(file_get_contents($this->_cache_path.$id));
 
-		if (is_array($data)) {
-			$mtime = filemtime($this->_cache_path . $id);
+		if (is_array($data))
+		{
+			$mtime = filemtime($this->_cache_path.$id);
 
-			if (!isset($data['ttl'], $data['time'])) {
+			if ( ! isset($data['ttl'], $data['time']))
+			{
 				return FALSE;
 			}
 
@@ -242,7 +250,7 @@ class CI_Cache_file extends CI_Driver
 	 *
 	 * @return	bool
 	 */
-	function is_supported()
+	public function is_supported()
 	{
 		return is_really_writable($this->_cache_path);
 	}
@@ -259,17 +267,20 @@ class CI_Cache_file extends CI_Driver
 	 */
 	protected function _get($id)
 	{
-		if (!is_file($this->_cache_path . $id)) {
+		if ( ! is_file($this->_cache_path.$id))
+		{
 			return FALSE;
 		}
 
-		$data = unserialize(file_get_contents($this->_cache_path . $id));
+		$data = unserialize(file_get_contents($this->_cache_path.$id));
 
-		if ($data['ttl'] > 0 && time() > $data['time'] + $data['ttl']) {
-			file_exists($this->_cache_path . $id) && unlink($this->_cache_path . $id);
+		if ($data['ttl'] > 0 && time() > $data['time'] + $data['ttl'])
+		{
+			file_exists($this->_cache_path.$id) && unlink($this->_cache_path.$id);
 			return FALSE;
 		}
 
 		return $data;
 	}
+
 }

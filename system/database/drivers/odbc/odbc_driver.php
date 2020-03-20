@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 1.3.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * ODBC Database Adapter Class
@@ -51,8 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_odbc_driver extends CI_DB_driver
-{
+class CI_DB_odbc_driver extends CI_DB_driver {
 
 	/**
 	 * Database driver
@@ -117,12 +115,13 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 * @param	array	$params
 	 * @return	void
 	 */
-	function __construct($params)
+	public function __construct($params)
 	{
 		parent::__construct($params);
 
 		// Legacy support for DSN in the hostname field
-		if (empty($this->dsn)) {
+		if (empty($this->dsn))
+		{
 			$this->dsn = $this->hostname;
 		}
 	}
@@ -135,7 +134,7 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 * @param	bool	$persistent
 	 * @return	resource
 	 */
-	function db_connect($persistent = FALSE)
+	public function db_connect($persistent = FALSE)
 	{
 		return ($persistent === TRUE)
 			? odbc_pconnect($this->dsn, $this->username, $this->password)
@@ -151,14 +150,19 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 * @param	array	$binds	An array of values to bind
 	 * @return	string
 	 */
-	function compile_binds($sql, $binds)
+	public function compile_binds($sql, $binds)
 	{
-		if (empty($binds) or empty($this->bind_marker) or strpos($sql, $this->bind_marker) === FALSE) {
+		if (empty($binds) OR empty($this->bind_marker) OR strpos($sql, $this->bind_marker) === FALSE)
+		{
 			return $sql;
-		} elseif (!is_array($binds)) {
+		}
+		elseif ( ! is_array($binds))
+		{
 			$binds = array($binds);
 			$bind_count = 1;
-		} else {
+		}
+		else
+		{
 			// Make sure we're using numeric keys
 			$binds = array_values($binds);
 			$bind_count = count($binds);
@@ -168,35 +172,37 @@ class CI_DB_odbc_driver extends CI_DB_driver
 		$ml = strlen($this->bind_marker);
 
 		// Make sure not to replace a chunk inside a string that happens to match the bind marker
-		if ($c = preg_match_all("/'[^']*'|\"[^\"]*\"/i", $sql, $matches)) {
-			$c = preg_match_all(
-				'/' . preg_quote($this->bind_marker, '/') . '/i',
-				str_replace(
-					$matches[0],
+		if ($c = preg_match_all("/'[^']*'|\"[^\"]*\"/i", $sql, $matches))
+		{
+			$c = preg_match_all('/'.preg_quote($this->bind_marker, '/').'/i',
+				str_replace($matches[0],
 					str_replace($this->bind_marker, str_repeat(' ', $ml), $matches[0]),
-					$sql,
-					$c
-				),
-				$matches,
-				PREG_OFFSET_CAPTURE
-			);
+					$sql, $c),
+				$matches, PREG_OFFSET_CAPTURE);
 
 			// Bind values' count must match the count of markers in the query
-			if ($bind_count !== $c) {
+			if ($bind_count !== $c)
+			{
 				return $sql;
 			}
-		} elseif (($c = preg_match_all('/' . preg_quote($this->bind_marker, '/') . '/i', $sql, $matches, PREG_OFFSET_CAPTURE)) !== $bind_count) {
+		}
+		elseif (($c = preg_match_all('/'.preg_quote($this->bind_marker, '/').'/i', $sql, $matches, PREG_OFFSET_CAPTURE)) !== $bind_count)
+		{
 			return $sql;
 		}
 
-		if ($this->bind_marker !== '?') {
-			do {
+		if ($this->bind_marker !== '?')
+		{
+			do
+			{
 				$c--;
 				$sql = substr_replace($sql, '?', $matches[0][$c][1], $ml);
-			} while ($c !== 0);
+			}
+			while ($c !== 0);
 		}
 
-		if (FALSE !== ($this->odbc_result = odbc_prepare($this->conn_id, $sql))) {
+		if (FALSE !== ($this->odbc_result = odbc_prepare($this->conn_id, $sql)))
+		{
 			$this->binds = array_values($binds);
 		}
 
@@ -213,15 +219,19 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 */
 	protected function _execute($sql)
 	{
-		if (!isset($this->odbc_result)) {
+		if ( ! isset($this->odbc_result))
+		{
 			return odbc_exec($this->conn_id, $sql);
-		} elseif ($this->odbc_result === FALSE) {
+		}
+		elseif ($this->odbc_result === FALSE)
+		{
 			return FALSE;
 		}
 
-		if (TRUE === ($success = odbc_execute($this->odbc_result, $this->binds))) {
+		if (TRUE === ($success = odbc_execute($this->odbc_result, $this->binds)))
+		{
 			// For queries that return result sets, return the result_id resource on success
-			$this->is_write_type($sql) or $success = $this->odbc_result;
+			$this->is_write_type($sql) OR $success = $this->odbc_result;
 		}
 
 		$this->odbc_result = NULL;
@@ -251,7 +261,8 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 */
 	protected function _trans_commit()
 	{
-		if (odbc_commit($this->conn_id)) {
+		if (odbc_commit($this->conn_id))
+		{
 			odbc_autocommit($this->conn_id, TRUE);
 			return TRUE;
 		}
@@ -268,7 +279,8 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 */
 	protected function _trans_rollback()
 	{
-		if (odbc_rollback($this->conn_id)) {
+		if (odbc_rollback($this->conn_id))
+		{
 			odbc_autocommit($this->conn_id, TRUE);
 			return TRUE;
 		}
@@ -284,9 +296,10 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 * @param	string	An SQL query string
 	 * @return	bool
 	 */
-	function is_write_type($sql)
+	public function is_write_type($sql)
 	{
-		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql)) {
+		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql))
+		{
 			return FALSE;
 		}
 
@@ -313,7 +326,7 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 *
 	 * @return	int
 	 */
-	function affected_rows()
+	public function affected_rows()
 	{
 		return odbc_num_rows($this->result_id);
 	}
@@ -325,7 +338,7 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 *
 	 * @return	bool
 	 */
-	function insert_id()
+	public function insert_id()
 	{
 		return ($this->db_debug) ? $this->display_error('db_unsupported_feature') : FALSE;
 	}
@@ -342,11 +355,12 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 */
 	protected function _list_tables($prefix_limit = FALSE)
 	{
-		$sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = '" . $this->schema . "'";
+		$sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = '".$this->schema."'";
 
-		if ($prefix_limit !== FALSE && $this->dbprefix !== '') {
-			return $sql . " AND table_name LIKE '" . $this->escape_like_str($this->dbprefix) . "%' "
-				. sprintf($this->_like_escape_str, $this->_like_escape_chr);
+		if ($prefix_limit !== FALSE && $this->dbprefix !== '')
+		{
+			return $sql." AND table_name LIKE '".$this->escape_like_str($this->dbprefix)."%' "
+				.sprintf($this->_like_escape_str, $this->_like_escape_chr);
 		}
 
 		return $sql;
@@ -364,7 +378,7 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 */
 	protected function _list_columns($table = '')
 	{
-		return 'SHOW COLUMNS FROM ' . $table;
+		return 'SHOW COLUMNS FROM '.$table;
 	}
 
 	// --------------------------------------------------------------------
@@ -379,7 +393,7 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 */
 	protected function _field_data($table)
 	{
-		return 'SELECT TOP 1 FROM ' . $table;
+		return 'SELECT TOP 1 FROM '.$table;
 	}
 
 	// --------------------------------------------------------------------
@@ -392,7 +406,7 @@ class CI_DB_odbc_driver extends CI_DB_driver
 	 *
 	 * @return	array
 	 */
-	function error()
+	public function error()
 	{
 		return array('code' => odbc_error($this->conn_id), 'message' => odbc_errormsg($this->conn_id));
 	}

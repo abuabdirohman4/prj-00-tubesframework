@@ -27,9 +27,9 @@
 						<div class="col s12 m12 l12">
 							<h5 class="breadcrumbs-title">Bahan Baku</h5>
 							<ol class="breadcrumb">
-								<li><a href="index.html">Dashboard</a></li>
-								<li><a href="#">Tables</a></li>
-								<li class="active">Basic Tables</li>
+								<li><a href="<?= base_url() ?>dashboard">Dashboard</a></li>
+								<li><a href="#">Bahan</a></li>
+								<li class="active">Lihat Data Bahan</li>
 							</ol>
 						</div>
 					</div>
@@ -40,6 +40,7 @@
 			<!--start container-->
 			<div class="container">
 
+				<br>
 				<div class="divider"></div>
 
 				<a href="<?= base_url() ?>bahan/create">

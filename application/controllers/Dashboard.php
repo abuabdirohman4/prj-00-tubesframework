@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Dashboard extends CI_Controller
 {
 
-    function index()
+    public function index()
     {
         // Header
         $data['title'] = "Dashboard";

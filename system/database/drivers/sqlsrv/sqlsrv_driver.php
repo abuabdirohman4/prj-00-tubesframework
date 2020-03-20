@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -36,7 +35,7 @@
  * @since	Version 2.0.3
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * SQLSRV Database Adapter Class
@@ -51,8 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_sqlsrv_driver extends CI_DB
-{
+class CI_DB_sqlsrv_driver extends CI_DB {
 
 	/**
 	 * Database driver
@@ -100,12 +98,13 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 * @param	array	$params
 	 * @return	void
 	 */
-	function __construct($params)
+	public function __construct($params)
 	{
 		parent::__construct($params);
 
 		// This is only supported as of SQLSRV 3.0
-		if ($this->scrollable === NULL) {
+		if ($this->scrollable === NULL)
+		{
 			$this->scrollable = defined('SQLSRV_CURSOR_CLIENT_BUFFERED')
 				? SQLSRV_CURSOR_CLIENT_BUFFERED
 				: FALSE;
@@ -120,7 +119,7 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 * @param	bool	$pooling
 	 * @return	resource
 	 */
-	function db_connect($pooling = FALSE)
+	public function db_connect($pooling = FALSE)
 	{
 		$charset = in_array(strtolower($this->char_set), array('utf-8', 'utf8'), TRUE)
 			? 'UTF-8' : SQLSRV_ENC_CHAR;
@@ -137,11 +136,13 @@ class CI_DB_sqlsrv_driver extends CI_DB
 
 		// If the username and password are both empty, assume this is a
 		// 'Windows Authentication Mode' connection.
-		if (empty($connection['UID']) && empty($connection['PWD'])) {
+		if (empty($connection['UID']) && empty($connection['PWD']))
+		{
 			unset($connection['UID'], $connection['PWD']);
 		}
 
-		if (FALSE !== ($this->conn_id = sqlsrv_connect($this->hostname, $connection))) {
+		if (FALSE !== ($this->conn_id = sqlsrv_connect($this->hostname, $connection)))
+		{
 			// Determine how identifiers are escaped
 			$query = $this->query('SELECT CASE WHEN (@@OPTIONS | 256) = @@OPTIONS THEN 1 ELSE 0 END AS qi');
 			$query = $query->row_array();
@@ -160,13 +161,15 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 * @param	string	$database
 	 * @return	bool
 	 */
-	function db_select($database = '')
+	public function db_select($database = '')
 	{
-		if ($database === '') {
+		if ($database === '')
+		{
 			$database = $this->database;
 		}
 
-		if ($this->_execute('USE ' . $this->escape_identifiers($database))) {
+		if ($this->_execute('USE '.$this->escape_identifiers($database)))
+		{
 			$this->database = $database;
 			$this->data_cache = array();
 			return TRUE;
@@ -185,7 +188,7 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 */
 	protected function _execute($sql)
 	{
-		return ($this->scrollable === FALSE or $this->is_write_type($sql))
+		return ($this->scrollable === FALSE OR $this->is_write_type($sql))
 			? sqlsrv_query($this->conn_id, $sql)
 			: sqlsrv_query($this->conn_id, $sql, NULL, array('Scrollable' => $this->scrollable));
 	}
@@ -233,7 +236,7 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 *
 	 * @return	int
 	 */
-	function affected_rows()
+	public function affected_rows()
 	{
 		return sqlsrv_rows_affected($this->result_id);
 	}
@@ -247,7 +250,7 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 *
 	 * @return	string
 	 */
-	function insert_id()
+	public function insert_id()
 	{
 		return $this->query('SELECT SCOPE_IDENTITY() AS insert_id')->row()->insert_id;
 	}
@@ -259,13 +262,15 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 *
 	 * @return	string
 	 */
-	function version()
+	public function version()
 	{
-		if (isset($this->data_cache['version'])) {
+		if (isset($this->data_cache['version']))
+		{
 			return $this->data_cache['version'];
 		}
 
-		if (!$this->conn_id or ($info = sqlsrv_server_info($this->conn_id)) === FALSE) {
+		if ( ! $this->conn_id OR ($info = sqlsrv_server_info($this->conn_id)) === FALSE)
+		{
 			return FALSE;
 		}
 
@@ -284,16 +289,17 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 */
 	protected function _list_tables($prefix_limit = FALSE)
 	{
-		$sql = 'SELECT ' . $this->escape_identifiers('name')
-			. ' FROM ' . $this->escape_identifiers('sysobjects')
-			. ' WHERE ' . $this->escape_identifiers('type') . " = 'U'";
+		$sql = 'SELECT '.$this->escape_identifiers('name')
+			.' FROM '.$this->escape_identifiers('sysobjects')
+			.' WHERE '.$this->escape_identifiers('type')." = 'U'";
 
-		if ($prefix_limit === TRUE && $this->dbprefix !== '') {
-			$sql .= ' AND ' . $this->escape_identifiers('name') . " LIKE '" . $this->escape_like_str($this->dbprefix) . "%' "
-				. sprintf($this->_escape_like_str, $this->_escape_like_chr);
+		if ($prefix_limit === TRUE && $this->dbprefix !== '')
+		{
+			$sql .= ' AND '.$this->escape_identifiers('name')." LIKE '".$this->escape_like_str($this->dbprefix)."%' "
+				.sprintf($this->_escape_like_str, $this->_escape_like_chr);
 		}
 
-		return $sql . ' ORDER BY ' . $this->escape_identifiers('name');
+		return $sql.' ORDER BY '.$this->escape_identifiers('name');
 	}
 
 	// --------------------------------------------------------------------
@@ -310,7 +316,7 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	{
 		return 'SELECT COLUMN_NAME
 			FROM INFORMATION_SCHEMA.Columns
-			WHERE UPPER(TABLE_NAME) = ' . $this->escape(strtoupper($table));
+			WHERE UPPER(TABLE_NAME) = '.$this->escape(strtoupper($table));
 	}
 
 	// --------------------------------------------------------------------
@@ -321,19 +327,21 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 * @param	string	$table
 	 * @return	array
 	 */
-	function field_data($table)
+	public function field_data($table)
 	{
 		$sql = 'SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, COLUMN_DEFAULT
 			FROM INFORMATION_SCHEMA.Columns
-			WHERE UPPER(TABLE_NAME) = ' . $this->escape(strtoupper($table));
+			WHERE UPPER(TABLE_NAME) = '.$this->escape(strtoupper($table));
 
-		if (($query = $this->query($sql)) === FALSE) {
+		if (($query = $this->query($sql)) === FALSE)
+		{
 			return FALSE;
 		}
 		$query = $query->result_object();
 
 		$retval = array();
-		for ($i = 0, $c = count($query); $i < $c; $i++) {
+		for ($i = 0, $c = count($query); $i < $c; $i++)
+		{
 			$retval[$i]			= new stdClass();
 			$retval[$i]->name		= $query[$i]->COLUMN_NAME;
 			$retval[$i]->type		= $query[$i]->DATA_TYPE;
@@ -354,23 +362,28 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 *
 	 * @return	array
 	 */
-	function error()
+	public function error()
 	{
 		$error = array('code' => '00000', 'message' => '');
 		$sqlsrv_errors = sqlsrv_errors(SQLSRV_ERR_ERRORS);
 
-		if (!is_array($sqlsrv_errors)) {
+		if ( ! is_array($sqlsrv_errors))
+		{
 			return $error;
 		}
 
 		$sqlsrv_error = array_shift($sqlsrv_errors);
-		if (isset($sqlsrv_error['SQLSTATE'])) {
-			$error['code'] = isset($sqlsrv_error['code']) ? $sqlsrv_error['SQLSTATE'] . '/' . $sqlsrv_error['code'] : $sqlsrv_error['SQLSTATE'];
-		} elseif (isset($sqlsrv_error['code'])) {
+		if (isset($sqlsrv_error['SQLSTATE']))
+		{
+			$error['code'] = isset($sqlsrv_error['code']) ? $sqlsrv_error['SQLSTATE'].'/'.$sqlsrv_error['code'] : $sqlsrv_error['SQLSTATE'];
+		}
+		elseif (isset($sqlsrv_error['code']))
+		{
 			$error['code'] = $sqlsrv_error['code'];
 		}
 
-		if (isset($sqlsrv_error['message'])) {
+		if (isset($sqlsrv_error['message']))
+		{
 			$error['message'] = $sqlsrv_error['message'];
 		}
 
@@ -410,7 +423,7 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 */
 	protected function _truncate($table)
 	{
-		return 'TRUNCATE TABLE ' . $table;
+		return 'TRUNCATE TABLE '.$table;
 	}
 
 	// --------------------------------------------------------------------
@@ -425,8 +438,9 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	 */
 	protected function _delete($table)
 	{
-		if ($this->qb_limit) {
-			return 'WITH ci_delete AS (SELECT TOP ' . $this->qb_limit . ' * FROM ' . $table . $this->_compile_wh('qb_where') . ') DELETE FROM ci_delete';
+		if ($this->qb_limit)
+		{
+			return 'WITH ci_delete AS (SELECT TOP '.$this->qb_limit.' * FROM '.$table.$this->_compile_wh('qb_where').') DELETE FROM ci_delete';
 		}
 
 		return parent::_delete($table);
@@ -445,44 +459,50 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	protected function _limit($sql)
 	{
 		// As of SQL Server 2012 (11.0.*) OFFSET is supported
-		if (version_compare($this->version(), '11', '>=')) {
+		if (version_compare($this->version(), '11', '>='))
+		{
 			// SQL Server OFFSET-FETCH can be used only with the ORDER BY clause
 			empty($this->qb_orderby) && $sql .= ' ORDER BY 1';
 
-			return $sql . ' OFFSET ' . (int) $this->qb_offset . ' ROWS FETCH NEXT ' . $this->qb_limit . ' ROWS ONLY';
+			return $sql.' OFFSET '.(int) $this->qb_offset.' ROWS FETCH NEXT '.$this->qb_limit.' ROWS ONLY';
 		}
 
 		$limit = $this->qb_offset + $this->qb_limit;
 
 		// An ORDER BY clause is required for ROW_NUMBER() to work
-		if ($this->qb_offset && !empty($this->qb_orderby)) {
+		if ($this->qb_offset && ! empty($this->qb_orderby))
+		{
 			$orderby = $this->_compile_order_by();
 
 			// We have to strip the ORDER BY clause
 			$sql = trim(substr($sql, 0, strrpos($sql, $orderby)));
 
 			// Get the fields to select from our subquery, so that we can avoid CI_rownum appearing in the actual results
-			if (count($this->qb_select) === 0 or strpos(implode(',', $this->qb_select), '*') !== FALSE) {
+			if (count($this->qb_select) === 0 OR strpos(implode(',', $this->qb_select), '*') !== FALSE)
+			{
 				$select = '*'; // Inevitable
-			} else {
+			}
+			else
+			{
 				// Use only field names and their aliases, everything else is out of our scope.
 				$select = array();
 				$field_regexp = ($this->_quoted_identifier)
 					? '("[^\"]+")' : '(\[[^\]]+\])';
-				for ($i = 0, $c = count($this->qb_select); $i < $c; $i++) {
-					$select[] = preg_match('/(?:\s|\.)' . $field_regexp . '$/i', $this->qb_select[$i], $m)
+				for ($i = 0, $c = count($this->qb_select); $i < $c; $i++)
+				{
+					$select[] = preg_match('/(?:\s|\.)'.$field_regexp.'$/i', $this->qb_select[$i], $m)
 						? $m[1] : $this->qb_select[$i];
 				}
 				$select = implode(', ', $select);
 			}
 
-			return 'SELECT ' . $select . " FROM (\n\n"
-				. preg_replace('/^(SELECT( DISTINCT)?)/i', '\\1 ROW_NUMBER() OVER(' . trim($orderby) . ') AS ' . $this->escape_identifiers('CI_rownum') . ', ', $sql)
-				. "\n\n) " . $this->escape_identifiers('CI_subquery')
-				. "\nWHERE " . $this->escape_identifiers('CI_rownum') . ' BETWEEN ' . ($this->qb_offset + 1) . ' AND ' . $limit;
+			return 'SELECT '.$select." FROM (\n\n"
+				.preg_replace('/^(SELECT( DISTINCT)?)/i', '\\1 ROW_NUMBER() OVER('.trim($orderby).') AS '.$this->escape_identifiers('CI_rownum').', ', $sql)
+				."\n\n) ".$this->escape_identifiers('CI_subquery')
+				."\nWHERE ".$this->escape_identifiers('CI_rownum').' BETWEEN '.($this->qb_offset + 1).' AND '.$limit;
 		}
 
-		return preg_replace('/(^\SELECT (DISTINCT)?)/i', '\\1 TOP ' . $limit . ' ', $sql);
+		return preg_replace('/(^\SELECT (DISTINCT)?)/i','\\1 TOP '.$limit.' ', $sql);
 	}
 
 	// --------------------------------------------------------------------
@@ -500,7 +520,8 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	protected function _insert_batch($table, $keys, $values)
 	{
 		// Multiple-value inserts are only supported as of SQL Server 2008
-		if (version_compare($this->version(), '10', '>=')) {
+		if (version_compare($this->version(), '10', '>='))
+		{
 			return parent::_insert_batch($table, $keys, $values);
 		}
 
@@ -518,4 +539,5 @@ class CI_DB_sqlsrv_driver extends CI_DB
 	{
 		sqlsrv_close($this->conn_id);
 	}
+
 }

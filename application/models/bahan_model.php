@@ -8,14 +8,14 @@ class bahan_model extends CI_model
 	public $harga_satuan;
 	public $labels = [];
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->labels = $this->_atributelabels();
 		$this->load->database();
 	}
 
-	function insert()
+	public function insert()
 	{
 		$data = [
 			'id_bahan_baku' => $this->input->post('id_bahan_baku'),
@@ -26,7 +26,7 @@ class bahan_model extends CI_model
 		return $this->db->insert('bahan_baku', $data);
 	}
 
-	function update()
+	public function update()
 	{
 		$sql = sprintf(
 			"UPDATE bahan_baku SET nama_bahan_baku ='%s',satuan='%s',harga_satuan ='%d' where id_bahan_baku='%s'",
@@ -38,25 +38,25 @@ class bahan_model extends CI_model
 		$this->db->query($sql);
 	}
 
-	function delete()
+	public function delete()
 	{
 		$sql = sprintf("DELETE FROM bahan_baku WHERE id_bahan_baku='%s'", $this->id);
 		$this->db->query($sql);
 	}
-	function read()
+	public function read()
 	{
 		$sql = "SELECT * FROM bahan_baku ORDER BY id_bahan_baku";
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
 
-	function get_last_row()
+	public function get_last_row()
 	{
 		$query = $this->db->query('SELECT * FROM bahan_baku ORDER BY id_bahan_baku DESC LIMIT 1');
 		return $query->result();
 	}
 
-	function _atributelabels()
+	public function _atributelabels()
 	{
 		return [
 			'id_bahan_baku' => 'id bahan baku:',
