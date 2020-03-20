@@ -1,5 +1,5 @@
 <?php
-class bahan extends CI_controller
+class Bahan extends CI_controller
 {
     public $model = null;
     public function __construct()
@@ -14,9 +14,35 @@ class bahan extends CI_controller
 
     public function index()
     {
-        $this->load->view('master/header');
         $this->read();
-        $this->load->view('master/header');
+    }
+
+    public function layout()
+    {
+        // Header
+        $data['title'] = "Kinicheese Tea - Bahan Baku";
+        $data['head'] = $this->load->view('layout/head', $data, TRUE);
+        $data['header'] = $this->load->view('layout/header', NULL, TRUE);
+        $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+        // Footer
+        $data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
+        $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
+        $data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
+
+        return $data;
+    }
+
+    public function read()
+    {
+        $data = $this->layout();
+        $data['rows'] = $this->model->read();
+        $this->load->view('bahan_read_view', $data);
+    }
+
+    public function insert()
+    {
+        $this->load->model('bahan_model');
+        $this->bahan_model->insert();
     }
 
     public function storecreate()
@@ -74,12 +100,6 @@ class bahan extends CI_controller
             $this->insert();
             redirect(site_url('bahan'));
         }
-    }
-
-    public function insert()
-    {
-        $this->load->model('bahan_model');
-        $this->bahan_model->insert();
     }
 
     public function storeupdate()
@@ -173,14 +193,6 @@ class bahan extends CI_controller
             $this->load->view('bahan_create_view', ['model' => $this->model, 'id_string' => $id_string]);
             $this->load->view('master/footer');
         }
-    }
-
-    public function read()
-    {
-        $this->load->view('master/header');
-        $rows = $this->model->read();
-        $this->load->view('bahan_read_view', ['rows' => $rows]);
-        $this->load->view('master/footer');
     }
 
     public function update($id)
