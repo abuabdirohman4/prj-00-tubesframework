@@ -37,9 +37,9 @@
                             <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-image-palette"></i>COA</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="ui-buttons.html">Lihat COA</a>
+                                        <li><a href="<?= base_url() ?>coa">Lihat COA</a>
                                         </li>
-                                        <li><a href="ui-badges.html">Tambah COA</a>
+                                        <li><a href="<?= base_url() ?>coa/create">Tambah COA</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -47,9 +47,9 @@
                             <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Kategori</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="table-basic.html">Lihat Kategori</a>
+                                        <li><a href="<?= base_url() ?>kategori">Lihat Kategori</a>
                                         </li>
-                                        <li><a href="table-data.html">Tambah Kategori</a>
+                                        <li><a href="<?= base_url() ?>kategori/create">Tambah Kategori</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -57,9 +57,9 @@
                             <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-social-pages"></i>Minuman</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="page-login.html">Lihat Minuman</a>
+                                        <li><a href="<?= base_url() ?>minuman">Lihat Minuman</a>
                                         </li>
-                                        <li><a href="page-register.html">Tambah Minuman</a>
+                                        <li><a href="<?= base_url() ?>minuman/create">Tambah Minuman</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -67,9 +67,9 @@
                             <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-insert-comment"></i>Pegawai</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="form-elements.html">Lihat Pegawai</a>
+                                        <li><a href="<?= base_url() ?>pegawai">Lihat Pegawai</a>
                                         </li>
-                                        <li><a href="form-layouts.html">Tambah Pegawai</a>
+                                        <li><a href="<?= base_url() ?>pegawai/create">Tambah Pegawai</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -77,9 +77,9 @@
                             <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Retur</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="charts-chartjs.html">Lihat Retur</a>
+                                        <li><a href="<?= base_url() ?>retur">Lihat Retur</a>
                                         </li>
-                                        <li><a href="charts-chartist.html">Tambah Retur</a>
+                                        <li><a href="<?= base_url() ?>retur/create">Tambah Retur</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -95,9 +95,9 @@
                     <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Pembelian</a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="charts-chartjs.html">Lihat Pembelian</a>
+                                <li><a href="<?= base_url() ?>pembelian">Lihat Pembelian</a>
                                 </li>
-                                <li><a href="charts-chartist.html">Tambah Pembelian</a>
+                                <li><a href="<?= base_url() ?>pembelian/create">Tambah Pembelian</a>
                                 </li>
                             </ul>
                         </div>
@@ -105,9 +105,9 @@
                     <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Penjualan</a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="charts-chartjs.html">Lihat Penjualan</a>
+                                <li><a href="<?= base_url() ?>penjualan">Lihat Penjualan</a>
                                 </li>
-                                <li><a href="charts-chartist.html">Tambah Penjualan</a>
+                                <li><a href="<?= base_url() ?>penjualan/create">Tambah Penjualan</a>
                                 </li>
                             </ul>
                         </div>
@@ -115,9 +115,13 @@
                     <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Laporan</a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="charts-chartjs.html">Lihat Laporan</a>
+                                <li><a href="<?= base_url() ?>lapor">Lapor</a>
                                 </li>
-                                <li><a href="charts-chartist.html">Tambah Laporan</a>
+                                <li><a href="<?= base_url() ?>laporan_pembayaran">Laporan Pembayaran</a>
+                                </li>
+                                <li><a href="<?= base_url() ?>laporan_pembelian">Laporan Pembelian</a>
+                                </li>
+                                <li><a href="<?= base_url() ?>laporan_penjualan">Laporan Penjualan</a>
                                 </li>
                             </ul>
                         </div>
