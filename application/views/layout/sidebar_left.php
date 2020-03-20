@@ -20,16 +20,16 @@
                             </div>
                         </div>
                     </li>
-                    <li class="bold"><a href="index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
+                    <li class="bold"><a href="<?= base_url() ?>dashboard" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i>Dashboard</a>
                     </li>
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
-                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i> Bahan</a>
+                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i>Bahan Baku</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="<?= base_url() ?>bahan">Lihat Bahan</a>
+                                        <li><a href="<?= base_url() ?>bahan">Lihat Bahan Baku</a>
                                         </li>
-                                        <li><a href="<?= base_url() ?>bahan/create">Tambah Bahan</a>
+                                        <li><a href="<?= base_url() ?>bahan/create">Tambah Bahan Baku</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -44,14 +44,22 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="bold"><a href="app-widget.html" class="waves-effect waves-cyan"><i class="mdi-device-now-widgets"></i> Widgets <span class="new badge"></span></a>
-                            </li>
                             <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Kategori</a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li><a href="table-basic.html">Lihat Kategori</a>
                                         </li>
                                         <li><a href="table-data.html">Tambah Kategori</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-social-pages"></i>Minuman</a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li><a href="page-login.html">Lihat Minuman</a>
+                                        </li>
+                                        <li><a href="page-register.html">Tambah Minuman</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -66,40 +74,12 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-social-pages"></i> Pages</a>
+                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Retur</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="page-login.html">Login</a>
+                                        <li><a href="charts-chartjs.html">Lihat Retur</a>
                                         </li>
-                                        <li><a href="page-register.html">Register</a>
-                                        </li>
-                                        <li><a href="page-lock-screen.html">Lock Screen</a>
-                                        </li>
-                                        <li><a href="page-invoice.html">Invoice</a>
-                                        </li>
-                                        <li><a href="page-404.html">404</a>
-                                        </li>
-                                        <li><a href="page-500.html">500</a>
-                                        </li>
-                                        <li><a href="page-blank.html">Blank</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i> Charts</a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li><a href="charts-chartjs.html">Chart JS</a>
-                                        </li>
-                                        <li><a href="charts-chartist.html">Chartist</a>
-                                        </li>
-                                        <li><a href="charts-morris.html">Morris Charts</a>
-                                        </li>
-                                        <li><a href="charts-xcharts.html">xCharts</a>
-                                        </li>
-                                        <li><a href="charts-flotcharts.html">Flot Charts</a>
-                                        </li>
-                                        <li><a href="charts-sparklines.html">Sparkline Charts</a>
+                                        <li><a href="charts-chartist.html">Tambah Retur</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -112,13 +92,35 @@
                     <li class="li-hover">
                         <p class="ultra-small margin more-text">MORE</p>
                     </li>
-                    <li><a href="css-grid.html"><i class="mdi-image-grid-on"></i> Grid</a>
+                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Pembelian</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="charts-chartjs.html">Lihat Pembelian</a>
+                                </li>
+                                <li><a href="charts-chartist.html">Tambah Pembelian</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li><a href="css-color.html"><i class="mdi-editor-format-color-fill"></i> Color</a>
+                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Penjualan</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="charts-chartjs.html">Lihat Penjualan</a>
+                                </li>
+                                <li><a href="charts-chartist.html">Tambah Penjualan</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li><a href="css-helpers.html"><i class="mdi-communication-live-help"></i> Helpers</a>
-                    </li>
-                    <li><a href="changelogs.html"><i class="mdi-action-swap-vert-circle"></i> Changelogs</a>
+                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Laporan</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="charts-chartjs.html">Lihat Laporan</a>
+                                </li>
+                                <li><a href="charts-chartist.html">Tambah Laporan</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="li-hover">
                         <div class="divider"></div>

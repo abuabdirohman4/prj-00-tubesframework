@@ -21,9 +21,12 @@ class Bahan extends CI_controller
     {
         // Header
         $data['title'] = "Kinicheese Tea - Bahan Baku";
+        $data['breadcrumbs_title'] = "Bahan Baku";
         $data['head'] = $this->load->view('layout/head', $data, TRUE);
         $data['header'] = $this->load->view('layout/header', NULL, TRUE);
         $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+        
         // Footer
         $data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
         $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);

@@ -19,23 +19,8 @@
 
 		<!-- START CONTENT -->
 		<section id="content">
-
-			<!--breadcrumbs start-->
-			<div id="breadcrumbs-wrapper" class=" grey lighten-3">
-				<div class="container">
-					<div class="row">
-						<div class="col s12 m12 l12">
-							<h5 class="breadcrumbs-title">Bahan Baku</h5>
-							<ol class="breadcrumb">
-								<li><a href="<?= base_url() ?>dashboard">Dashboard</a></li>
-								<li><a href="#">Bahan</a></li>
-								<li class="active">Lihat Data Bahan</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--breadcrumbs end-->
+			
+			<?= $breadcrumbs ?>
 
 			<!--start container-->
 			<div class="container">
