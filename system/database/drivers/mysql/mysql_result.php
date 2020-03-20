@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * MySQL Result Class
@@ -46,7 +47,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_mysql_result extends CI_DB_result {
+class CI_DB_mysql_result extends CI_DB_result
+{
 
 	/**
 	 * Class constructor
@@ -54,7 +56,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 * @param	object	&$driver_object
 	 * @return	void
 	 */
-	public function __construct(&$driver_object)
+	function __construct(&$driver_object)
 	{
 		parent::__construct($driver_object);
 
@@ -70,7 +72,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * @return	int
 	 */
-	public function num_rows()
+	function num_rows()
 	{
 		return $this->num_rows;
 	}
@@ -82,7 +84,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * @return	int
 	 */
-	public function num_fields()
+	function num_fields()
 	{
 		return mysql_num_fields($this->result_id);
 	}
@@ -96,12 +98,11 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function list_fields()
+	function list_fields()
 	{
 		$field_names = array();
 		mysql_field_seek($this->result_id, 0);
-		while ($field = mysql_fetch_field($this->result_id))
-		{
+		while ($field = mysql_fetch_field($this->result_id)) {
 			$field_names[] = $field->name;
 		}
 
@@ -117,11 +118,10 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function field_data()
+	function field_data()
 	{
 		$retval = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			$retval[$i]			= new stdClass();
 			$retval[$i]->name		= mysql_field_name($this->result_id, $i);
 			$retval[$i]->type		= mysql_field_type($this->result_id, $i);
@@ -139,10 +139,9 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * @return	void
 	 */
-	public function free_result()
+	function free_result()
 	{
-		if (is_resource($this->result_id))
-		{
+		if (is_resource($this->result_id)) {
 			mysql_free_result($this->result_id);
 			$this->result_id = FALSE;
 		}
@@ -160,7 +159,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 * @param	int	$n
 	 * @return	bool
 	 */
-	public function data_seek($n = 0)
+	function data_seek($n = 0)
 	{
 		return $this->num_rows
 			? mysql_data_seek($this->result_id, $n)
@@ -195,5 +194,4 @@ class CI_DB_mysql_result extends CI_DB_result {
 	{
 		return mysql_fetch_object($this->result_id, $class_name);
 	}
-
 }

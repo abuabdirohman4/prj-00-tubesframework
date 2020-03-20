@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 2.1.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * PDO Result Class
@@ -48,29 +49,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_pdo_result extends CI_DB_result {
+class CI_DB_pdo_result extends CI_DB_result
+{
 
 	/**
 	 * Number of rows in the result set
 	 *
 	 * @return	int
 	 */
-	public function num_rows()
+	function num_rows()
 	{
-		if (is_int($this->num_rows))
-		{
+		if (is_int($this->num_rows)) {
 			return $this->num_rows;
-		}
-		elseif (count($this->result_array) > 0)
-		{
+		} elseif (count($this->result_array) > 0) {
 			return $this->num_rows = count($this->result_array);
-		}
-		elseif (count($this->result_object) > 0)
-		{
+		} elseif (count($this->result_object) > 0) {
 			return $this->num_rows = count($this->result_object);
-		}
-		elseif (($num_rows = $this->result_id->rowCount()) > 0)
-		{
+		} elseif (($num_rows = $this->result_id->rowCount()) > 0) {
 			return $this->num_rows = $num_rows;
 		}
 
@@ -84,7 +79,7 @@ class CI_DB_pdo_result extends CI_DB_result {
 	 *
 	 * @return	int
 	 */
-	public function num_fields()
+	function num_fields()
 	{
 		return $this->result_id->columnCount();
 	}
@@ -98,11 +93,10 @@ class CI_DB_pdo_result extends CI_DB_result {
 	 *
 	 * @return	bool
 	 */
-	public function list_fields()
+	function list_fields()
 	{
 		$field_names = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			// Might trigger an E_WARNING due to not all subdrivers
 			// supporting getColumnMeta()
 			$field_names[$i] = @$this->result_id->getColumnMeta($i);
@@ -121,29 +115,24 @@ class CI_DB_pdo_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function field_data()
+	function field_data()
 	{
-		try
-		{
+		try {
 			$retval = array();
 
-			for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-			{
+			for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 				$field = $this->result_id->getColumnMeta($i);
 
 				$retval[$i]			= new stdClass();
 				$retval[$i]->name		= $field['name'];
 				$retval[$i]->type		= isset($field['native_type']) ? $field['native_type'] : null;
 				$retval[$i]->max_length		= ($field['len'] > 0) ? $field['len'] : NULL;
-				$retval[$i]->primary_key	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
+				$retval[$i]->primary_key	= (int) (!empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
 			}
 
 			return $retval;
-		}
-		catch (Exception $e)
-		{
-			if ($this->db->db_debug)
-			{
+		} catch (Exception $e) {
+			if ($this->db->db_debug) {
 				return $this->db->display_error('db_unsupported_feature');
 			}
 
@@ -158,10 +147,9 @@ class CI_DB_pdo_result extends CI_DB_result {
 	 *
 	 * @return	void
 	 */
-	public function free_result()
+	function free_result()
 	{
-		if (is_object($this->result_id))
-		{
+		if (is_object($this->result_id)) {
 			$this->result_id = FALSE;
 		}
 	}
@@ -194,5 +182,4 @@ class CI_DB_pdo_result extends CI_DB_result {
 	{
 		return $this->result_id->fetchObject($class_name);
 	}
-
 }

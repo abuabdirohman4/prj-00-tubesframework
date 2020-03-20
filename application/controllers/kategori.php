@@ -2,7 +2,7 @@
 class Kategori extends CI_controller
 {
     public $model = null;
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
 
@@ -12,19 +12,19 @@ class Kategori extends CI_controller
         $this->load->database();
     }
 
-    public function index()
+    function index()
     {
 
         $this->read();
     }
 
-    public function insert()
+    function insert()
     {
         $this->load->model('kategori_model');
         $this->kategori_model->insert();
     }
 
-    public function create()
+    function create()
     {
         if (isset($_POST['btnsubmit'])) {
 
@@ -39,7 +39,7 @@ class Kategori extends CI_controller
         }
     }
 
-    public function read()
+    function read()
     {
         $this->load->view('master/header');
         $this->load->model('kategori_model');
@@ -49,7 +49,7 @@ class Kategori extends CI_controller
     }
 
 
-    public function update($id)
+    function update($id)
     {
         if (isset($_POST['btnsubmit'])) {
             $this->load->view('master/header');
@@ -75,7 +75,7 @@ class Kategori extends CI_controller
         }
     }
 
-    public function delete($id)
+    function delete($id)
     {
         echo "<script>alert('Anda yakin untuk menghapus data ini?')</script>";
         $this->model->id = $id;
@@ -83,7 +83,7 @@ class Kategori extends CI_controller
         redirect('kategori');
     }
 
-    public function storecreate()
+    function storecreate()
     {
         $rules =
 
@@ -130,7 +130,7 @@ class Kategori extends CI_controller
         }
     }
 
-    public function storeupdate()
+    function storeupdate()
     {
         $rules =
 

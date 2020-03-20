@@ -2,7 +2,7 @@
 class Coa extends CI_controller
 {
 	public $model = null;
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 
@@ -12,14 +12,14 @@ class Coa extends CI_controller
 		$this->load->database();
 	}
 
-	public function index()
+	function index()
 	{
 		$this->load->view('master/header');
 		$this->read();
 		$this->load->view('master/footer');
 	}
 
-	public function create()
+	function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
 
@@ -34,14 +34,14 @@ class Coa extends CI_controller
 		}
 	}
 
-	public function read()
+	function read()
 	{
 		$rows = $this->model->read();
 
 		$this->load->view('coa_read_view', ['rows' => $rows]);
 	}
 
-	public function update($id)
+	function update($id)
 	{
 		if (isset($_POST['btnsubmit'])) {
 			$this->load->view('master/header');
@@ -69,14 +69,14 @@ class Coa extends CI_controller
 		}
 	}
 
-	public function delete($id)
+	function delete($id)
 	{
 		$this->model->id = $id;
 		$this->model->delete();
 		redirect('coa');
 	}
 
-	public function storecreate()
+	function storecreate()
 	{
 		$rules =
 
@@ -130,7 +130,7 @@ class Coa extends CI_controller
 		}
 	}
 
-	public function storeupdate()
+	function storeupdate()
 	{
 		$rules =
 

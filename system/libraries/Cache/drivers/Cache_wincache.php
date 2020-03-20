@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * CodeIgniter Wincache Caching Class
@@ -49,7 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		Mike Murkovic
  * @link
  */
-class CI_Cache_wincache extends CI_Driver {
+class CI_Cache_wincache extends CI_Driver
+{
 
 	/**
 	 * Class constructor
@@ -59,10 +61,9 @@ class CI_Cache_wincache extends CI_Driver {
 	 *
 	 * @return	void
 	 */
-	public function __construct()
+	function __construct()
 	{
-		if ( ! $this->is_supported())
-		{
+		if (!$this->is_supported()) {
 			log_message('error', 'Cache: Failed to initialize Wincache; extension not loaded/enabled?');
 		}
 	}
@@ -78,7 +79,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	string	$id	Cache Ide
 	 * @return	mixed	Value that is stored/FALSE on failure
 	 */
-	public function get($id)
+	function get($id)
 	{
 		$success = FALSE;
 		$data = wincache_ucache_get($id, $success);
@@ -98,7 +99,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	bool	$raw	Whether to store the raw value (unused)
 	 * @return	bool	true on success/false on failure
 	 */
-	public function save($id, $data, $ttl = 60, $raw = FALSE)
+	function save($id, $data, $ttl = 60, $raw = FALSE)
 	{
 		return wincache_ucache_set($id, $data, $ttl);
 	}
@@ -111,7 +112,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	mixed	unique identifier of the item in the cache
 	 * @return	bool	true on success/false on failure
 	 */
-	public function delete($id)
+	function delete($id)
 	{
 		return wincache_ucache_delete($id);
 	}
@@ -125,7 +126,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	int	$offset	Step/value to add
 	 * @return	mixed	New value on success or FALSE on failure
 	 */
-	public function increment($id, $offset = 1)
+	function increment($id, $offset = 1)
 	{
 		$success = FALSE;
 		$value = wincache_ucache_inc($id, $offset, $success);
@@ -142,7 +143,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	int	$offset	Step/value to reduce by
 	 * @return	mixed	New value on success or FALSE on failure
 	 */
-	public function decrement($id, $offset = 1)
+	function decrement($id, $offset = 1)
 	{
 		$success = FALSE;
 		$value = wincache_ucache_dec($id, $offset, $success);
@@ -157,7 +158,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 *
 	 * @return	bool	false on failure/true on success
 	 */
-	public function clean()
+	function clean()
 	{
 		return wincache_ucache_clear();
 	}
@@ -169,10 +170,10 @@ class CI_Cache_wincache extends CI_Driver {
 	 *
 	 * @return	mixed	array on success, false on failure
 	 */
-	 public function cache_info()
-	 {
-		 return wincache_ucache_info(TRUE);
-	 }
+	function cache_info()
+	{
+		return wincache_ucache_info(TRUE);
+	}
 
 	// ------------------------------------------------------------------------
 
@@ -182,10 +183,9 @@ class CI_Cache_wincache extends CI_Driver {
 	 * @param	mixed	key to get cache metadata on
 	 * @return	mixed	array on success/false on failure
 	 */
-	public function get_metadata($id)
+	function get_metadata($id)
 	{
-		if ($stored = wincache_ucache_info(FALSE, $id))
-		{
+		if ($stored = wincache_ucache_info(FALSE, $id)) {
 			$age = $stored['ucache_entries'][1]['age_seconds'];
 			$ttl = $stored['ucache_entries'][1]['ttl_seconds'];
 			$hitcount = $stored['ucache_entries'][1]['hitcount'];
@@ -210,7 +210,7 @@ class CI_Cache_wincache extends CI_Driver {
 	 *
 	 * @return	bool
 	 */
-	public function is_supported()
+	function is_supported()
 	{
 		return (extension_loaded('wincache') && ini_get('wincache.ucenabled'));
 	}

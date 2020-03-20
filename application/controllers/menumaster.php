@@ -4,13 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Menumaster extends CI_Controller
 {
 
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
         //Do your magic here
     }
 
-    public function index()
+    function index()
     {
         $this->load->view('master/header');
         $this->load->view('master/daftarmaster');

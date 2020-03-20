@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 2.1.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * CUBRID Utility Class
@@ -44,17 +45,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		Esen Sagynov
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_cubrid_utility extends CI_DB_utility {
+class CI_DB_cubrid_utility extends CI_DB_utility
+{
 
 	/**
 	 * List databases
 	 *
 	 * @return	array
 	 */
-	public function list_databases()
+	function list_databases()
 	{
-		if (isset($this->db->data_cache['db_names']))
-		{
+		if (isset($this->db->data_cache['db_names'])) {
 			return $this->db->data_cache['db_names'];
 		}
 

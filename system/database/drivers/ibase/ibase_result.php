@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Interbase/Firebird Result Class
@@ -46,14 +47,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_ibase_result extends CI_DB_result {
+class CI_DB_ibase_result extends CI_DB_result
+{
 
 	/**
 	 * Number of fields in the result set
 	 *
 	 * @return	int
 	 */
-	public function num_fields()
+	function num_fields()
 	{
 		return ibase_num_fields($this->result_id);
 	}
@@ -67,11 +69,10 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function list_fields()
+	function list_fields()
 	{
 		$field_names = array();
-		for ($i = 0, $num_fields = $this->num_fields(); $i < $num_fields; $i++)
-		{
+		for ($i = 0, $num_fields = $this->num_fields(); $i < $num_fields; $i++) {
 			$info = ibase_field_info($this->result_id, $i);
 			$field_names[] = $info['name'];
 		}
@@ -88,11 +89,10 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function field_data()
+	function field_data()
 	{
 		$retval = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			$info = ibase_field_info($this->result_id, $i);
 
 			$retval[$i]			= new stdClass();
@@ -111,7 +111,7 @@ class CI_DB_ibase_result extends CI_DB_result {
 	 *
 	 * @return	void
 	 */
-	public function free_result()
+	function free_result()
 	{
 		ibase_free_result($this->result_id);
 	}
@@ -144,18 +144,15 @@ class CI_DB_ibase_result extends CI_DB_result {
 	{
 		$row = ibase_fetch_object($this->result_id, IBASE_FETCH_BLOBS);
 
-		if ($class_name === 'stdClass' OR ! $row)
-		{
+		if ($class_name === 'stdClass' or !$row) {
 			return $row;
 		}
 
 		$class_name = new $class_name();
-		foreach ($row as $key => $value)
-		{
+		foreach ($row as $key => $value) {
 			$class_name->$key = $value;
 		}
 
 		return $class_name;
 	}
-
 }

@@ -9,14 +9,14 @@ class pembelian_model extends CI_model
     public $kd_vendor;
     public $labels = [];
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->labels = $this->_atributelabels();
         $this->load->database();
     }
 
-    function insert()
+    public function insert()
     {
         $data = [
             'id_pembelian' => $this->input->post('id_pembelian'),
@@ -28,12 +28,12 @@ class pembelian_model extends CI_model
         return $this->db->insert('pembelian', $data);
     }
 
-function __construct(){
+public function __construct(){
 parent::__construct();
 $this->labels=$this->_atributelabels();
 $this->load->database();
 }
-function insert(){
+public function insert(){
 $data=[
 'id_pembelian'=>$this->input->post('id_pembelian'),
 'id_pegawai'=>$this->input->post('id_pegawai'),
@@ -56,7 +56,7 @@ $id_pembelian = $this->input->post('id_pembelian');
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 }
-public function update(){
+function update(){
 $id_pembelian=$this->input->post('id_pembelian');
 $id_pegawai=$this->input->post('id_pegawai');
 $kd_vendor=$this->input->post('kd_vendor');
@@ -70,7 +70,7 @@ foreach($_POST['id_bahan_baku'] as $k => $v) {
     $this->db->query("UPDATE detail_pembelian SET id_bahan_baku='$v', jumlah='" . $_POST["jumlah"][$k] . "' WHERE id_pembelian='$id_pembelian' AND id_bahan_baku='" . $_POST["bahan_baku_src"][$k] . "'");
 }
 }
-public function delete(){
+function delete(){
 $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 $sql=sprintf("DELETE FROM pembelian WHERE id_pembelian='%s'",$this->id);
 $this->db->query($sql);
@@ -78,7 +78,7 @@ $sql=sprintf("DELETE FROM detail_pembelian WHERE id_pembelian='%s'",$this->id);
 $this->db->query($sql);
 $this->db->query('SET FOREIGN_KEY_CHECKS=1');
 
-    function delete()
+    public function delete()
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
         $sql = sprintf("DELETE FROM pembelian WHERE id_pembelian='%s'", $this->id);
@@ -86,7 +86,7 @@ $this->db->query('SET FOREIGN_KEY_CHECKS=1');
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
-function _atributelabels(){
+public function _atributelabels(){
 return[
 'id_pembelian'=>'ID Pembelian:',
 'id_bahan_baku'=>'ID Bahan Baku:',
@@ -95,13 +95,13 @@ return[
 'kd_vendor'=>'KD Vendor'
 ];
 }
-function increase($id_bahan_baku, $jumlah) {
+public function increase($id_bahan_baku, $jumlah) {
 
     $query = $this->db->query("UPDATE bahan_baku SET jumlah_stok=jumlah_stok+$jumlah WHERE id_bahan_baku='$id_bahan_baku'");
     return $query;
 }
 
-    function decrease($id_bahan_baku, $jumlah)
+    public function decrease($id_bahan_baku, $jumlah)
     {
         $query = $this->db->query("UPDATE bahan_baku SET jumlah=jumlah+$jumlah WHERE id_bahan_baku=$id_bahan_baku");
         return $query;

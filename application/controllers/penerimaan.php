@@ -1,13 +1,13 @@
 <?php
 class Penerimaan extends CI_Controller
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('model');
 	}
 
-	public function index()
+	function index()
 	{
 		$data = [
 			// 'id_pembelian'=> $this->model->get_id_bahan_baku(),
@@ -18,7 +18,7 @@ class Penerimaan extends CI_Controller
 		$this->load->view('tabel', $data);
 	}
 
-	public function add_data()
+	function add_data()
 	{
 		$this->model->penerimaan();
 
@@ -26,7 +26,7 @@ class Penerimaan extends CI_Controller
 		redirect('penerimaan');
 	}
 
-	public function lihat_laporan()
+	function lihat_laporan()
 	{
 		redirect('lapor');
 	}

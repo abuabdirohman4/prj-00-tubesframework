@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,7 +36,7 @@
  * @since	Version 1.3.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * SQLite Result Class
@@ -46,14 +47,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_sqlite_result extends CI_DB_result {
+class CI_DB_sqlite_result extends CI_DB_result
+{
 
 	/**
 	 * Number of rows in the result set
 	 *
 	 * @return	int
 	 */
-	public function num_rows()
+	function num_rows()
 	{
 		return is_int($this->num_rows)
 			? $this->num_rows
@@ -67,7 +69,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	 *
 	 * @return	int
 	 */
-	public function num_fields()
+	function num_fields()
 	{
 		return @sqlite_num_fields($this->result_id);
 	}
@@ -81,11 +83,10 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function list_fields()
+	function list_fields()
 	{
 		$field_names = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			$field_names[$i] = sqlite_field_name($this->result_id, $i);
 		}
 
@@ -101,11 +102,10 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	 *
 	 * @return	array
 	 */
-	public function field_data()
+	function field_data()
 	{
 		$retval = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			$retval[$i]			= new stdClass();
 			$retval[$i]->name		= sqlite_field_name($this->result_id, $i);
 			$retval[$i]->type		= NULL;
@@ -127,7 +127,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	 * @param	int	$n
 	 * @return	bool
 	 */
-	public function data_seek($n = 0)
+	function data_seek($n = 0)
 	{
 		return sqlite_seek($this->result_id, $n);
 	}
@@ -160,5 +160,4 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return sqlite_fetch_object($this->result_id, $class_name);
 	}
-
 }

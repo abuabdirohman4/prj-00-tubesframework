@@ -4,7 +4,7 @@ class Pegawai extends CI_controller
 {
 	public $model = null;
 
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 
@@ -14,14 +14,14 @@ class Pegawai extends CI_controller
 		$this->load->database();
 	}
 
-	public function index()
+	function index()
 	{
 		$this->load->view('master/header');
 		$this->read();
 		$this->load->view('master/footer');
 	}
 
-	public function create()
+	function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
 
@@ -48,14 +48,14 @@ class Pegawai extends CI_controller
 		}
 	}
 
-	public function read()
+	function read()
 	{
 		$rows = $this->model->read();
 
 		$this->load->view('pegawai_read_view', ['rows' => $rows]);
 	}
 
-	public function update($id)
+	function update($id)
 	{
 		if (isset($_POST['btnsubmit'])) {
 			$this->load->view('master/header');
@@ -85,7 +85,7 @@ class Pegawai extends CI_controller
 		}
 	}
 
-	public function delete($id)
+	function delete($id)
 	{
 		$this->model->db->query('SET FOREIGN_KEY_CHECKS=0');
 		$this->model->id_pegawai = $id;
@@ -94,7 +94,7 @@ class Pegawai extends CI_controller
 		redirect('pegawai');
 	}
 
-	public function storecreate()
+	function storecreate()
 	{
 		$rules =
 
@@ -159,7 +159,7 @@ class Pegawai extends CI_controller
 		}
 	}
 
-	public function storeupdate()
+	function storeupdate()
 	{
 		$rules =
 
