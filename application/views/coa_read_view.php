@@ -25,45 +25,55 @@
 			<!--start container-->
 			<div class="container">
 
-				<Button>
-					<p><a href="coa/create">TAMBAH</a></p>
-				</button>
+				<br>
+				<div class="divider"></div>
 
-				<table class="table">
-					<thead class="thead-dark">
-						<tr>
-							<th width="80">No Akun</th>
-							<th width="120">Nama Akun</th>
-							<th width="80">Header </th>
-							<th width="80"> </th>
-							<th width="80"> </th>
-						</tr>
+				<a href="<?= base_url() ?>coa/create">
+					<button style="width: 100%; height:3rem;">TAMBAH</button>
+				</a>
 
-					</thead>
-					<tbody>
-						<?php
-						foreach ($rows as $row) {
-						?>
-							<tr>
-								<td><?php echo $row->no_akun; ?></td>
-								<td><?php echo $row->nama_akun; ?></td>
-								<td><?php echo $row->header_akun; ?></td>
+				<div class="divider"></div>
 
-								<td align="center">
-									<a href="coa/update/<?php echo $row->no_akun;  ?>">Ubah</a>
-								</td>
-								<td align="center">
-									<a href="coa/delete/<?php echo $row->no_akun; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
-								</td>
+				<!--DataTables-->
+				<div id="table-datatables">
+					<div class="row">
+						<div class="col s4 m8 l12">
 
-							</tr>
+							<table id="data-table-simple" class="responsive-table display" cellspacing="0" style="text-align: center">
+								<thead>
+									<tr>
+										<th width="10%">No Akun</th>
+										<th width="60%">Nama Akun</th>
+										<th width="10%">Header </th>
+										<th width="10%">Ubah</th>
+										<th width="10%">Hapus</th>
+									</tr>
+								</thead>
 
-						<?php
-						}
-						?>
-
-					</tbody>
-				</table>
+								<tbody>
+									<?php
+									foreach ($rows as $row) {
+									?>
+										<tr>
+											<td><?php echo $row->no_akun; ?></td>
+											<td style="text-align: left!important; padding-left:5%"><?php echo $row->nama_akun; ?></td>
+											<td><?php echo $row->header_akun; ?></td>
+											<td>
+												<a href=" coa/update/<?php echo $row->no_akun;  ?>">Ubah </a>
+											</td>
+											<td>
+												<a href="coa/delete/<?php echo $row->no_akun; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
+											</td>
+										</tr>
+									<?php
+									}
+									?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- End DataTables -->
 
 			</div>
 			<!--end container-->

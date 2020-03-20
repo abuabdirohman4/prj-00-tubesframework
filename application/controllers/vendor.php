@@ -20,6 +20,24 @@ class Vendor extends CI_Controller
         $this->read();
     }
 
+    public function layout()
+    {
+        // Header
+        $data['title'] = "Kinicheese Tea - Vendor";
+        $data['breadcrumbs_title'] = "Vendor";
+        $data['head'] = $this->load->view('layout/head', $data, TRUE);
+        $data['header'] = $this->load->view('layout/header', NULL, TRUE);
+        $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
+        // Footer
+        $data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
+        $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
+        $data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
+
+        return $data;
+    }
+
     public function create()
     {
         //belum implementasi
@@ -53,10 +71,9 @@ class Vendor extends CI_Controller
 
     public function read()
     {
-        $this->load->view('master/header');
-        $rows = $this->model->read();
-        $this->load->view('vendor_read_view', ['rows' => $rows]);
-        $this->load->view('master/footer');
+        $data = $this->layout();
+        $data['rows'] = $this->model->read();
+        $this->load->view('vendor_read_view', $data);
     }
 
     public function insert()

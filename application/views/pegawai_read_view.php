@@ -25,44 +25,57 @@
 			<!--start container-->
 			<div class="container">
 
-				<Button>
-					<p><a href="pegawai/create">TAMBAH</a></p>
-				</button>
+				<br>
+				<div class="divider"></div>
 
-				<table class="table">
-					<thead class="thead-dark">
-						<tr>
-							<th width="80">Id Pegawai</th>
-							<th width="120">Nama Pegawai</th>
-							<th width="80">Alamat</th>
-							<th width="80">Nomor</th>
-							<th width="80"> </th>
-							<th width="80"> </th>
-						</tr>
+				<a href="<?= base_url() ?>pegawai/create">
+					<button style="width: 100%; height:3rem;">TAMBAH</button>
+				</a>
 
-					</thead>
-					<tbody>
-						<?php
-						foreach ($rows as $row) {
-						?>
-							<tr>
-								<td><?php echo $row->id_pegawai; ?></td>
-								<td><?php echo $row->nama_pegawai; ?></td>
-								<td><?php echo $row->alamat; ?></td>
-								<td><?php echo $row->no_telp; ?></td>
+				<div class="divider"></div>
 
-								<td align="center">
-									<a href="pegawai/update/<?php echo $row->id_pegawai;  ?>">Ubah</a>
-								</td>
-								<td align="center">
-									<a href="pegawai/delete/<?php echo $row->id_pegawai; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
-								</td>
+				<!--DataTables-->
+				<div id="table-datatables">
+					<div class="row">
+						<div class="col s4 m8 l12">
 
-							</tr>
-						<?php
-						}
-						?>
-				</table>
+							<table id="data-table-simple" class="responsive-table display" cellspacing="0" style="text-align: center">
+								<thead>
+									<tr>
+										<th width="10%">Id Pegawai</th>
+										<th width="">Nama Pegawai</th>
+										<th width="30%">Alamat</th>
+										<th width="10%">Nomor</th>
+										<th width="10%">Ubah</th>
+										<th width="10%">Hapus</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<?php
+									foreach ($rows as $row) {
+									?>
+										<tr>
+											<td><?php echo $row->id_pegawai; ?></td>
+											<td style="text-align: left!important; padding-left:5%"><?php echo $row->nama_pegawai; ?></td>
+											<td><?php echo $row->alamat; ?></td>
+											<td><?php echo $row->no_telp; ?></td>
+											<td>
+												<a href="pegawai/update/<?php echo $row->id_pegawai;  ?>">Ubah</a>
+											</td>
+											<td>
+												<a href="pegawai/delete/<?php echo $row->id_pegawai; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
+											</td>
+										</tr>
+									<?php
+									}
+									?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- End DataTables -->
 
 			</div>
 			<!--end container-->

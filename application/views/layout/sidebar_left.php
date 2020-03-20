@@ -21,7 +21,7 @@
                         </div>
                     </li>
                     <li class="bold"><a href="<?= base_url() ?>dashboard" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i>Dashboard</a>
-                    </li> 
+                    </li>
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i>Bahan Baku</a>
@@ -84,7 +84,16 @@
                                     </ul>
                                 </div>
                             </li>
-                        </ul>
+                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-swap-vert-circle"></i>Vendor</a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li><a href="<?= base_url() ?>index.php/vendor">Lihat Vendor</a>
+                                        </li>
+                                        <li><a href="<?= base_url() ?>index.php/vendor/create">Tambah Vendor</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                     </li>
                     <li class="li-hover">
                         <div class="divider"></div>
@@ -92,7 +101,7 @@
                     <li class="li-hover">
                         <p class="ultra-small margin more-text">MORE</p>
                     </li>
-                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Pembelian</a>
+                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-format-color-fill"></i>Pembelian</a>
                         <div class="collapsible-body">
                             <ul>
                                 <li><a href="<?= base_url() ?>pembelian">Lihat Pembelian</a>
@@ -102,7 +111,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Penjualan</a>
+                    <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-image-grid-on"></i>Penjualan</a>
                         <div class="collapsible-body">
                             <ul>
                                 <li><a href="<?= base_url() ?>penjualan">Lihat Penjualan</a>
@@ -126,9 +135,10 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="li-hover">
-                        <div class="divider"></div>
-                    </li>
+                </ul>
+                <li class="li-hover">
+                    <div class="divider"></div>
+                </li>
                 </ul>
                 <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu"></i></a>
             </aside>

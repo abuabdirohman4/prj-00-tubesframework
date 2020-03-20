@@ -19,7 +19,7 @@
 
 		<!-- START CONTENT -->
 		<section id="content">
-			
+
 			<?= $breadcrumbs ?>
 
 			<!--start container-->
@@ -42,12 +42,12 @@
 							<table id="data-table-simple" class="responsive-table display" cellspacing="0" style="text-align: center">
 								<thead>
 									<tr>
-										<th width="">ID Bahan Baku</th>
-										<th width="">Nama Bahan Baku</th>
-										<th width="">Satuan</th>
-										<th width="">Harga Satuan</th>
-										<th width="">Ubah</th>
-										<th width="">Hapus</th>
+										<th width="10%">ID Bahan Baku</th>
+										<th width="50%">Nama Bahan Baku</th>
+										<th width="10%">Satuan</th>
+										<th width="10%">Harga Satuan</th>
+										<th width="10%">Ubah</th>
+										<th width="10%">Hapus</th>
 									</tr>
 								</thead>
 
@@ -57,7 +57,7 @@
 									?>
 										<tr>
 											<td><?php echo $row->id_bahan_baku; ?></td>
-											<td><?php echo $row->nama_bahan_baku; ?></td>
+											<td style="text-align: left!important; padding-left:5%"><?php echo $row->nama_bahan_baku; ?></td>
 											<td><?php echo $row->satuan; ?></td>
 											<td><?php echo $row->harga_satuan; ?></td>
 											<td>
@@ -75,7 +75,7 @@
 						</div>
 					</div>
 				</div>
-				<br />
+				<!-- End DataTables -->
 
 			</div>
 			<!--end container-->
