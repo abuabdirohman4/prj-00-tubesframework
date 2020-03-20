@@ -18,6 +18,24 @@ class Kategori extends CI_controller
         $this->read();
     }
 
+    public function layout()
+    {
+        // Header
+        $data['title'] = "Kinicheese Tea - Kategori";
+        $data['breadcrumbs_title'] = "Kategori";
+        $data['head'] = $this->load->view('layout/head', $data, TRUE);
+        $data['header'] = $this->load->view('layout/header', NULL, TRUE);
+        $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
+        // Footer
+        $data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
+        $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
+        $data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
+
+        return $data;
+    }
+
     public function insert()
     {
         $this->load->model('kategori_model');
@@ -41,11 +59,10 @@ class Kategori extends CI_controller
 
     public function read()
     {
-        $this->load->view('master/header');
+        $data = $this->layout();
         $this->load->model('kategori_model');
-        $rows = $this->kategori_model->read();
-        $this->load->view('kategori_read_view', ['rows' => $rows]);
-        $this->load->view('master/footer');
+        $data['rows'] = $this->kategori_model->read();
+        $this->load->view('kategori_read_view', $data);
     }
 
 

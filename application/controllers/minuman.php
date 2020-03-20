@@ -21,6 +21,24 @@ class Minuman extends CI_controller
 		$this->read();
 	}
 
+	public function layout()
+	{
+		// Header
+		$data['title'] = "Kinicheese Tea - Minuman";
+		$data['breadcrumbs_title'] = "Minuman";
+		$data['head'] = $this->load->view('layout/head', $data, TRUE);
+		$data['header'] = $this->load->view('layout/header', NULL, TRUE);
+		$data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
+		// Footer
+		$data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
+		$data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
+		$data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
+
+		return $data;
+	}
+
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
@@ -53,10 +71,9 @@ class Minuman extends CI_controller
 
 	public function read()
 	{
-		$this->load->view('master/header');
-		$rows = $this->model->read();
-		$this->load->view('minuman_read_view', ['rows' => $rows]);
-		$this->load->view('master/footer');
+		$data = $this->layout();
+		$data['rows'] = $this->model->read();
+		$this->load->view('minuman_read_view', $data);
 	}
 
 	public function update($id)

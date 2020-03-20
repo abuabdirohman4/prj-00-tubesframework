@@ -1,12 +1,22 @@
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+  position: relative;
+  padding-bottom: 50px;;
+}
+
 /*=================================================================================
     Footer
 ====================================================================================*/
-
 footer.page-footer {
   padding-top: 0px;
-  position: relative!important;
+  position: absolute!important;
   bottom: 0;
   width: 100%;
+}
 /*----------------------------------------
     footer charts
 ------------------------------------------*/

@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller
         $data['head'] = $this->load->view('layout/head', $data, TRUE);
         $data['header'] = $this->load->view('layout/header', NULL, TRUE);
         $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
         // Content
         $data['chart_dashboard'] = $this->load->view('layout/chart_dashboard', NULL, TRUE);
@@ -24,7 +25,7 @@ class Dashboard extends CI_Controller
         $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
         $data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
 
-        $this->load->view('layout/template', $data);
+        $this->load->view('layout/dashboard', $data);
     }
 }
 

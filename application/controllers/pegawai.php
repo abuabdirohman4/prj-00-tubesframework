@@ -16,9 +16,25 @@ class Pegawai extends CI_controller
 
 	public function index()
 	{
-		$this->load->view('master/header');
 		$this->read();
-		$this->load->view('master/footer');
+	}
+
+	public function layout()
+	{
+		// Header
+		$data['title'] = "Kinicheese Tea - Pegawai";
+		$data['breadcrumbs_title'] = "Pegawai";
+		$data['head'] = $this->load->view('layout/head', $data, TRUE);
+		$data['header'] = $this->load->view('layout/header', NULL, TRUE);
+		$data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
+		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
+		// Footer
+		$data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
+		$data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
+		$data['scripts'] = $this->load->view('layout/scripts', NULL, TRUE);
+
+		return $data;
 	}
 
 	public function create()
@@ -50,9 +66,9 @@ class Pegawai extends CI_controller
 
 	public function read()
 	{
-		$rows = $this->model->read();
-
-		$this->load->view('pegawai_read_view', ['rows' => $rows]);
+		$data = $this->layout();
+		$data['rows'] = $this->model->read();
+		$this->load->view('pegawai_read_view', $data);
 	}
 
 	public function update($id)

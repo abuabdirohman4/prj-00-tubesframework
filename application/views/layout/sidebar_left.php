@@ -21,7 +21,7 @@
                         </div>
                     </li>
                     <li class="bold"><a href="<?= base_url() ?>dashboard" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i>Dashboard</a>
-                    </li>
+                    </li> 
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i>Bahan Baku</a>
