@@ -12,11 +12,6 @@
                                     </li>
                                     <li><a href="#"><i class="mdi-action-settings"></i> Settings</a>
                                     </li>
-                                    <li><a href="#"><i class="mdi-communication-live-help"></i> Help</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="#"><i class="mdi-action-lock-outline"></i> Lock</a>
-                                    </li>
                                     <li><a href="#"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
                                     </li>
                                 </ul>
@@ -27,76 +22,46 @@
                     </li>
                     <li class="bold"><a href="index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
                     </li>
-                    <li class="bold"><a href="app-email.html" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Bahan </a>
-                    </li>
-                    <li class="bold"><a href="app-calendar.html" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Calender</a>
-                    </li>
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
-                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i> CSS</a>
+                            <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i> Bahan</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="css-typography.html">Typography</a>
+                                        <li><a href="<?= base_url() ?>bahan">Lihat Bahan</a>
                                         </li>
-                                        <li><a href="css-icons.html">Icons</a>
-                                        </li>
-                                        <li><a href="css-shadow.html">Shadow</a>
-                                        </li>
-                                        <li><a href="css-media.html">Media</a>
-                                        </li>
-                                        <li><a href="css-sass.html">Sass</a>
+                                        <li><a href="<?= base_url() ?>bahan/create">Tambah Bahan</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-image-palette"></i> UI Elements</a>
+                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-image-palette"></i>COA</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="ui-buttons.html">Buttons</a>
+                                        <li><a href="ui-buttons.html">Lihat COA</a>
                                         </li>
-                                        <li><a href="ui-badges.html">Badges</a>
-                                        </li>
-                                        <li><a href="ui-cards.html">Cards</a>
-                                        </li>
-                                        <li><a href="ui-collections.html">Collections</a>
-                                        </li>
-                                        <li><a href="ui-accordions.html">Accordian</a>
-                                        </li>
-                                        <li><a href="ui-navbar.html">Navbar</a>
-                                        </li>
-                                        <li><a href="ui-pagination.html">Pagination</a>
-                                        </li>
-                                        <li><a href="ui-preloader.html">Preloader</a>
-                                        </li>
-                                        <li><a href="ui-modals.html">Modals</a>
-                                        </li>
-                                        <li><a href="ui-media.html">Media</a>
-                                        </li>
-                                        <li><a href="ui-toasts.html">Toasts</a>
-                                        </li>
-                                        <li><a href="ui-tooltip.html">Tooltip</a>
+                                        <li><a href="ui-badges.html">Tambah COA</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="bold"><a href="app-widget.html" class="waves-effect waves-cyan"><i class="mdi-device-now-widgets"></i> Widgets <span class="new badge"></span></a>
                             </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Tables</a>
+                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-border-all"></i> Kategori</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="table-basic.html">Basic Tables</a>
+                                        <li><a href="table-basic.html">Lihat Kategori</a>
                                         </li>
-                                        <li><a href="table-data.html">Data Tables</a>
+                                        <li><a href="table-data.html">Tambah Kategori</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-insert-comment"></i> Forms</a>
+                            <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-editor-insert-comment"></i>Pegawai</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li><a href="form-elements.html">Form Elements</a>
+                                        <li><a href="form-elements.html">Lihat Pegawai</a>
                                         </li>
-                                        <li><a href="form-layouts.html">Form Layouts</a>
+                                        <li><a href="form-layouts.html">Tambah Pegawai</a>
                                         </li>
                                     </ul>
                                 </div>
