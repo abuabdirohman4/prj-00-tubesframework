@@ -43,13 +43,12 @@ class Pembelian extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
-			$this->load->view('master/header');
-
 			$this->model->insert();
-			$this->load->view('master/footer');
 			redirect('pembelian');
 		} else {
-			$this->load->view('master/header');
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah Pegawai";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
 			$last_id = $this->model->db->query("SELECT * FROM pembelian ORDER BY id_pembelian DESC LIMIT 1")->result()[0]->id_pembelian;
 			$id_number = (int) substr($last_id, 1, 3);
@@ -62,12 +61,13 @@ class Pembelian extends CI_controller
 			else
 				$id_string = 'X' .  $id_number;
 
-			$bahan_baku = $this->bahan_model->read();
-			$vendor = $this->vendor_model->read();
-			$pegawai = $this->pegawai_model->read();
+			$data['bahan_baku'] = $this->bahan_model->read();
+			$data['vendor'] = $this->vendor_model->read();
+			$data['pegawai'] = $this->pegawai_model->read();
+			$data['model'] = $this->model;
+			$data['id_string'] = $id_string;
 
-			$this->load->view('pembelian_create_view', ['model' => $this->model, 'vendor' => $vendor, 'pegawai' => $pegawai, 'bahan_baku' => $bahan_baku, 'id_string' => $id_string]);
-			$this->load->view('master/footer');
+			$this->load->view('pembelian_create_view', $data);
 		}
 	}
 
