@@ -37,11 +37,11 @@
     <script type='text/javascript'>
         $(document).ready(() => {
 
-            $bahan_baku_html = $('#bahan_baku').html()
+            $bahan_baku_html = $('#tambah_field').html()
 
             $('#tambah').click((e) => {
                 e.preventDefault()
-                $('#bahan_baku').append($bahan_baku_html);
+                $('#tambah_field').append($bahan_baku_html);
             })
 
         })

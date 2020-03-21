@@ -43,14 +43,12 @@ class Penjualan extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
-
-			$this->load->view('master/header');
-
 			$this->model->insert();
-			$this->load->view('master/footer');
 			redirect('penjualan');
 		} else {
-			$this->load->view('master/header');
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah Penjualan";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
 			$last_id = $this->model->db->query("SELECT * FROM penjualan ORDER BY id_jual DESC LIMIT 1");
 			if ($last_id->num_rows() == 0)
@@ -67,17 +65,18 @@ class Penjualan extends CI_controller
 			else
 				$id_string = 'PX' .  $id_number;
 
-			$pegawai = $this->pegawai_model->read();
-			$minuman = $this->minuman_model->read();
+			$data['pegawai'] = $this->pegawai_model->read();
+			$data['minuman'] = $this->minuman_model->read();
+			$data['model'] = $this->model;
+			$data['id_string'] = $id_string;
 
-			$this->load->view('penjualan_create_view', ['model' => $this->model, 'minuman' => $minuman, 'pegawai' => $pegawai, 'id_string' => $id_string]);
-			$this->load->view('master/footer');
+			$this->load->view('penjualan_create_view', $data);
 		}
 	}
 	public function read()
 	{
 		$data = $this->layout();
-		$data['sub_breadcrumbs_title'] = "Lihat Pegawai";
+		$data['sub_breadcrumbs_title'] = "Lihat Penjualan";
 		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
 		$data['rows'] = $this->model->read();
