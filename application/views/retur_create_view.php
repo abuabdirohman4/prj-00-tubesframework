@@ -1,69 +1,107 @@
-<html><center>
-<head><title>Kinicheesetea</title></head>
-<body>
-<h1>Kinicheesetea</h1>
-<p><strong>Tambah Data</strong></p>
+<?= $head ?>
+
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+
+<?= $header ?>
 
 <!-- START MAIN -->
 <div id="main">
     <!-- START WRAPPER -->
     <div class="wrapper">
-    <div class="container-md-4">
 
-<div class="row">
-                    <div class="col-xl-12">
-                         <form action="storecreate" method="POST">
-                             <div class="form-group">
-                                 <label>id retur</label>
-                                 <input type="text" value='<?php echo $id_string ?>' name="id_retur" class="form-control"><span class="text-danger"><?=form_error('id_retur')?></span>
-                             </div>
-                            <div class="form-group">
-                                <label>ID Pembelian </label>
-                                <select style="display:block" class='form-control' id='id_pembelian' name='id_pembelian'>
-                                    <?php
-                                        foreach($pembelian as $k => $v) {
+        <?= $sidebar_left ?>
 
-                                            echo "<option value='$v->id_pembelian'>$v->id_pembelian</option>";
-                                        }
-                                    ?>
-                                </select>
-                            </div> 
-                             <div class="form-group">
-                                 <label>bahan baku </label>
-                                 <select style="display:block" class='form-control' name='id_bahan_baku'>
-                                    <?php
-                                        foreach($bahan_baku as $k => $v) {
-                                            
-                                            echo "<option value='$v->id_bahan_baku'>$v->id_bahan_baku</option>";
-                                        }
-                                        ?>
-                                 </select>
-                             </div> 
-                            <div class="form-group">
-                                <label>jumlah </label>
-                                <input type="text" name="jumlah_retur" class="form-control"><span class="text-danger"><?=form_error('harga')?></span>
-                            </div> 
-                            <div class="form-group">
-                                <label>Tanggal </label>
-                                <input type="date" name="tgl_retur" class="form-control"><span class="text-danger"><?=form_error('harga')?></span>
-                            </div> 
-                             
+        <!-- START CONTENT -->
+        <section id="content">
 
-                             <div class="form-group ">
-                                 <button type="submit" name="btnsubmit" class="btn btn-success">simpan</button>
-                                 <input type ="button" value="Batal" onclick="javascript:history.go(-1);"/>
-                             </div>
-                         </form>
+            <?= $breadcrumbs ?>
+
+            <!--Basic Form-->
+            <div id="basic-form" class="section">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <div class="row">
+                                <form action="storecreate" method="POST" class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>id retur</label>
+                                            <input type="text" value='<?php echo $id_string ?>' name="id_retur" class="form-control"><span class="text-danger"><?= form_error('id_retur') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+
+                                            <select id='id_pembelian' name='id_pembelian'>
+                                                <?php
+                                                foreach ($pembelian as $k => $v) {
+
+                                                    echo "<option value='$v->id_pembelian'>$v->id_pembelian</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                            <label>ID Pembelian </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <select id="id_bahan_baku" name='id_bahan_baku'>
+                                                <?php
+                                                foreach ($bahan_baku as $k => $v) {
+
+                                                    echo "<option value='$v->id_bahan_baku'>$v->id_bahan_baku</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                            <label>Bahan Baku </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Jumlah </label>
+                                            <input type="text" name="jumlah_retur" class="form-control"><span class="text-danger"><?= form_error('harga') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label> </label>
+                                            <input type="date" name="tgl_retur" class="datepicker"><span class="text-danger"><?= form_error('harga') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <button type="submit" name="btnsubmit" class="cyan waves-effect waves-light btn">Simpan<i class="mdi-content-send right"></i></button>
+                                            </button>
+                                            <a href="<?= base_url() ?>retur" class="btn waves-effect waves-light red"><i class=" mdi-content-clear"></i></a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
-                    </div>
+                </div>
+            </div>
 
+            <!--start container-->
+            <div class="container">
 
-</center>
-<script type='text/javascript'>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
 
-setTimeout(() => {
-            $(".select-dropdown").remove()
-        }, 200)    
-</script>
-</body>
-</html>
+        <?= $sidebar_right ?>
+
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+
+<?= $footer ?>
+<?= $scripts ?>

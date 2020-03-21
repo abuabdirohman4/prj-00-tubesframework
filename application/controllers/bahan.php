@@ -97,8 +97,10 @@ class Bahan extends CI_controller
 
         $this->form_validation->set_rules($rules);
         if ($this->form_validation->run() == FALSE) {
-            $data = [];
             $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Bahan Baku";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
             $last_id = $this->model->get_last_row()[0]->id_bahan_baku;
             $id_number = (int) substr($last_id, 1, 3);
             $id_number++;
@@ -168,9 +170,10 @@ class Bahan extends CI_controller
         $this->form_validation->set_rules($rules);
 
         if ($this->form_validation->run() == FALSE) {
-
-            $data = [];
             $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Ubah Bahan Baku";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
             $this->load->view('bahan_create_view', $data);
         } else {
 

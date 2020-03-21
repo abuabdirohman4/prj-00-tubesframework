@@ -85,10 +85,7 @@ class Penjualan extends CI_controller
 	}
 	public function update($id)
 	{
-		$data = [];
-
 		if (isset($_POST['btnsubmit'])) {
-			$this->load->view('master/header');
 			$this->model->id_jual = $_POST['id_jual'];
 			$this->model->id_minum = $_POST['id_minum'];
 			$this->model->jumlah = $_POST['jumlah'];
@@ -96,9 +93,8 @@ class Penjualan extends CI_controller
 
 			$this->model->update();
 			redirect('penjualan');
-			$this->load->view('master/footer');
 		} else {
-			$this->load->view('master/header');
+
 			$no_nota = $this->model->db->query("SELECT * FROM nota_penjualan WHERE id_jual='$id'")->result()[0]->no_nota;
 			$query = $this->db->query("SELECT * FROM penjualan where id_jual='$id'");
 			$detail_jual = $this->db->get_where('detail_jual', ['no_nota' => $no_nota])->result();
@@ -117,7 +113,6 @@ class Penjualan extends CI_controller
 				echo "<script>alert('TIDAK KETEMU')</script>";
 				$this->load->view('penjualan_update_view', ['model' => $this->model]);
 			}
-			$this->load->view('master/footer');
 		}
 	}
 	public function delete($id)

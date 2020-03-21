@@ -44,14 +44,12 @@ class Retur extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
-
-			$this->load->view('master/header');
-
 			$this->model->insert();
-			$this->load->view('master/footer');
 			redirect('retur');
 		} else {
-			$this->load->view('master/header');
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah Retur";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
 			$last_id = $this->model->db->query("SELECT * FROM retur_pembelian ORDER BY id_retur DESC LIMIT 1");
 			if ($last_id->num_rows() == 0)
@@ -68,11 +66,11 @@ class Retur extends CI_controller
 			else
 				$id_string = 'R' .  $id_number;
 
-			$pembelian = $this->pembelian_model->read();
-			$bahan_baku = $this->bahan_model->read();
+			$data['id_string'] = $id_string;
+			$data['pembelian'] = $this->pembelian_model->read();
+			$data['bahan_baku'] = $this->bahan_model->read();
 
-			$this->load->view('retur_create_view', ['model' => $this->model, 'pembelian' => $pembelian, 'bahan_baku' => $bahan_baku, 'id_string' => $id_string]);
-			$this->load->view('master/footer');
+			$this->load->view('retur_create_view', $data);
 		}
 	}
 
@@ -87,10 +85,7 @@ class Retur extends CI_controller
 	}
 	public function update($id)
 	{
-		$data = [];
-
 		if (isset($_POST['btnsubmit'])) {
-			$this->load->view('master/header');
 			$this->model->id_retur = $_POST['id_retur'];
 			$this->model->id_pembelian = $_POST['id_pembelian'];
 			$this->model->jumlah = $_POST['jumlah_retur'];
@@ -99,23 +94,23 @@ class Retur extends CI_controller
 
 			$this->model->update();
 			redirect('retur');
-			$this->load->view('master/footer');
 		} else {
-			$this->load->view('master/header');
 			$query = $this->db->query("SELECT * FROM retur_pembelian where id_retur='$id'");
 			if ($query->num_rows() > 0) {
-				$row = $query->row();
+				$row = $this->layout();
+				$row['sub_breadcrumbs_title'] = "Ubah Retur";
+				$row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
 
-				$id_bahan_baku = $this->bahan_model->read();
-				$id_pembelian = $this->pembelian_model->read();
+				$row['row'] = $query->row();
 
-				$this->load->view('retur_update_view', ['row' => $row, 'bahan_baku' => $id_bahan_baku, 'pembelian' => $id_pembelian]);
-				$this->load->view('master/footer');
+				$row['bahan_baku'] = $this->bahan_model->read();
+				$row['pembelian'] = $this->pembelian_model->read();
+
+				$this->load->view('retur_update_view', $row);
 			} else {
 				echo "<script>alert('TIDAK KETEMU')</script>";
 				$this->load->view('retur_update_view', ['model' => $this->model]);
 			}
-			$this->load->view('master/footer');
 		}
 	}
 	public function delete($id)
@@ -258,13 +253,8 @@ class Retur extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
-
-			$data = [];
-			$this->load->view('master/header', $data);
-			$this->load->view('retur_update_view', $data);
-			$this->load->view('master/footer', $data);
+			redirect('retur/create');
 		} else {
-
 			$this->model->update();
 			redirect('retur');
 		}

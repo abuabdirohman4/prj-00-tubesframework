@@ -26,3 +26,26 @@ footer.page-footer {
   bottom: 0;
   width: 100%;
 }
+/*=================================================================================
+    Datepicker
+====================================================================================*/
+.picker__date-display {
+  background-color: #00bcd4 !important;
+}
+.picker__weekday-display {
+  background-color: #00acc1 !important;
+}
+.picker__close {
+  color: #ff4081 !important;
+}
+.picker__today {
+  color: #00bcd4 !important;
+}
+.picker__day.picker__day--today {
+  color: #00bcd4 !important;
+}
+.picker__day--selected,
+.picker__day--selected:hover,
+.picker--focused .picker__day--selected {
+  background-color: #fff !important;
+}

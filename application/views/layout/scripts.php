@@ -33,6 +33,13 @@
     <!--plugins.js - Some Specific JS codes for Plugin Settings-->
     <script type="text/javascript" src="<?= base_url() ?>assets/js/plugins.js"></script>
 
+    <!-- Script for Retur Page -->
+    <!-- <script type='text/javascript'>
+        setTimeout(() => {
+            $(".select-dropdown").remove()
+        }, 200)
+    </script> -->
+
     </body>
 
     </html>

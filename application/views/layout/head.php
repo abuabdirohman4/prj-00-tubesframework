@@ -26,13 +26,12 @@
     <meta name="msapplication-TileImage" content="<?= base_url() ?>assets/images/favicon/mstile-144x144.png">
     <!-- For Windows Phone -->
 
+    <!-- ADDON CSS-->
+    <link href="<?= base_url() ?>assets/css/addon.css" type="text/css" rel="stylesheet" media="screen,projection">
 
     <!-- CORE CSS-->
     <link href="<?= base_url() ?>assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="<?= base_url() ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
-
-    <!-- ADDON CSS-->
-    <link href="<?= base_url() ?>assets/css/addon.css" type="text/css" rel="stylesheet" media="screen,projection">
 
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link href="<?= base_url() ?>assets/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">

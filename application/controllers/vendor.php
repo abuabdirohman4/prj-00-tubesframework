@@ -42,16 +42,13 @@ class Vendor extends CI_Controller
     {
         //belum implementasi
         if (isset($_POST['btnSubmit'])) {
-            $this->load->view('master/header');
             $this->model->kd_vendor = $_POST['kd_vendor'];
             $this->model->nama_vendor = $_POST['nama_vendor'];
             $this->model->alamat = $_POST['alamat'];
             $this->load->model('vendor_model');
             $this->model->insert();
-            $this->load->view('master/footer');
             redirect('vendor');
         } else {
-
             $last_id = $this->model->db->query("SELECT * FROM vendor ORDER BY kd_vendor DESC LIMIT 1")->result()[0]->kd_vendor;
             $id_number = (int) substr($last_id, 1, 3);
             $id_number++;
@@ -63,9 +60,14 @@ class Vendor extends CI_Controller
             else
                 $id_string = 'P' .  $id_number;
 
-            $this->load->view('master/header');
-            $this->load->view('vendor_create_view', ['model' => $this->model, 'id_string' => $id_string]);
-            $this->load->view('master/footer');
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Vendor";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
+            $data['id_string'] = $id_string;
+            $data['model'] = $this->model;
+
+            $this->load->view('vendor_create_view', $data);
         }
     }
 
@@ -90,29 +92,26 @@ class Vendor extends CI_Controller
 
         //belum implementasi
         if (isset($_POST['btnsubmit'])) {
-            $this->load->view('master/header');
-
             $this->model->kd_vendor = $_POST['kd_vendor'];
             $this->model->nama_vendor = $_POST['nama_vendor'];
             $this->model->alamat = $_POST['alamat'];
             $this->load->model('vendor_model');
             $this->model->update();
-            $this->load->view('master/footer');
             redirect('vendor');
         } else {
-            $this->load->view('master/header');
             $query = $this->db->query("SELECT * FROM vendor where kd_vendor='$id'");
             if ($query->num_rows() > 0) {
-                $row = $query->row();
-                $this->model->kd_vendor = $row->kd_vendor;
-                $this->model->nama_vendor = $row->nama_vendor;
-                $this->model->alamat = $row->alamat;
+                $row = $this->layout();
+                $row['sub_breadcrumbs_title'] = "Ubah Vendor";
+                $row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
+
+                $row['row'] = $query->row();
+
                 $this->load->view('vendor_update_view', $row);
             } else {
                 echo "<script>alert('TIDAK KETEMU')</script>";
                 $this->load->view('vendor_update_view', ['model' => $this->model]);
             }
-            $this->load->view('master/footer');
         }
     }
 
@@ -166,14 +165,12 @@ class Vendor extends CI_Controller
         $this->form_validation->set_rules($rules);
 
         if ($this->form_validation->run() == False) {
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Vendor";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-            $data = [];
-
-            $this->load->view('master/header', $data);
             $this->load->view('vendor_create_view', $data);
-            $this->load->view('master/footer', $data);
         } else {
-
             $this->insert();
             redirect(site_url('vendor'));
         }
@@ -222,15 +219,12 @@ class Vendor extends CI_Controller
         $this->form_validation->set_rules($rules);
 
         if ($this->form_validation->run() == False) {
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Ubah Vendor";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-            $data = [];
-
-            $this->load->view('master/header', $data);
             $this->load->view('vendor_update_view', $data);
-            $this->load->view('master/footer', $data);
         } else {
-
-
             $this->load->model('vendor_model');
             $this->vendor_model->update();
             redirect('vendor');

@@ -62,10 +62,10 @@
 											<td style="text-align: left!important; padding-left:5%"><?php echo $row->nama_vendor; ?></td>
 											<td><?php echo $row->alamat; ?></td>
 											<td>
-												<a href="vendor/update/<?php echo $row->kd_vendor; ?>">Ubah</a>
+												<a href="update/<?php echo $row->kd_vendor; ?>">Ubah</a>
 											</td>
 											<td>
-												<a href="vendor/delete/<?php echo $row->kd_vendor; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
+												<a href="delete/<?php echo $row->kd_vendor; ?>" onclick="return confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS DATA INI?');">Hapus</a>
 											</td>
 										</tr>
 									<?php
