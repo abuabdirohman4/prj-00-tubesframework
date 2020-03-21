@@ -72,6 +72,9 @@ class Vendor extends CI_Controller
     public function read()
     {
         $data = $this->layout();
+        $data['sub_breadcrumbs_title'] = "Lihat Pegawai";
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
         $data['rows'] = $this->model->read();
         $this->load->view('vendor_read_view', $data);
     }

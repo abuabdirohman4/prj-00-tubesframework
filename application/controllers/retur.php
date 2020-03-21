@@ -79,6 +79,9 @@ class Retur extends CI_controller
 	public function read()
 	{
 		$data = $this->layout();
+		$data['sub_breadcrumbs_title'] = "Lihat Pegawai";
+		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
 		$data['rows'] = $this->model->read();
 		$this->load->view('retur_read_view', $data);
 	}

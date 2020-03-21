@@ -40,12 +40,12 @@ class Pegawai extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
-
-			$this->load->view('master/header');
 			$this->model->insert();
 			redirect('pegawai');
-			$this->load->view('master/footer');
 		} else {
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah Pegawai";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
 			$last_id = $this->model->db->query("SELECT * FROM pegawai ORDER BY id_pegawai DESC LIMIT 1")->result()[0]->id_pegawai;
 			$id_number = (int) substr($last_id, 1, 3);
@@ -58,15 +58,19 @@ class Pegawai extends CI_controller
 			else
 				$id_string = 'P' .  $id_number;
 
-			$this->load->view('master/header');
-			$this->load->view('pegawai_create_view', ['model' => $this->model, 'id_string' => $id_string]);
-			$this->load->view('master/footer');
+			$data['model'] = $this->model;
+			$data['id_string'] = $id_string;
+
+			$this->load->view('pegawai_create_view', $data);
 		}
 	}
 
 	public function read()
 	{
 		$data = $this->layout();
+		$data['sub_breadcrumbs_title'] = "Lihat Pegawai";
+		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
 		$data['rows'] = $this->model->read();
 		$this->load->view('pegawai_read_view', $data);
 	}
@@ -74,7 +78,6 @@ class Pegawai extends CI_controller
 	public function update($id)
 	{
 		if (isset($_POST['btnsubmit'])) {
-			$this->load->view('master/header');
 			$this->model->id_pegawai = $_POST['id_pegawai'];
 			$this->model->nama_pegawai = $_POST['nama_pegawai'];
 			$this->model->alamat = $_POST['alamat'];
@@ -82,22 +85,20 @@ class Pegawai extends CI_controller
 
 			$this->model->update();
 			redirect('pegawai');
-			$this->load->view('master/footer');
 		} else {
-			$this->load->view('master/header');
 			$query = $this->db->query("SELECT * FROM pegawai where id_pegawai='$id'");
 			if ($query->num_rows() > 0) {
-				$row = $query->row();
-				$this->model->id_pegawai = $row->id_pegawai;
-				$this->model->nama_pegawai = $row->nama_pegawai;
-				$this->model->alamat = $row->alamat;
-				$this->model->no_telp = $row->no_telp;
+				$row = $this->layout();
+				$row['sub_breadcrumbs_title'] = "Ubah Pegawai";
+				$row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
+
+				$row['row'] = $query->row();
+
 				$this->load->view('pegawai_update_view', $row);
 			} else {
 				echo "<script>alert('TIDAK KETEMU')</script>";
 				$this->load->view('pegawai_update_view', ['model' => $this->model]);
 			}
-			$this->load->view('master/footer');
 		}
 	}
 
@@ -161,12 +162,11 @@ class Pegawai extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah Pegawai";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$data = [];
-
-			$this->load->view('master/header', $data);
 			$this->load->view('pegawai_create_view', $data);
-			$this->load->view('master/footer', $data);
 		} else {
 
 			$this->load->model('pegawai_model');
@@ -225,15 +225,12 @@ class Pegawai extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Ubah Pegawai";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$data = [];
-
-			$this->load->view('master/header', $data);
 			$this->load->view('pegawai_update_view', $data);
-			$this->load->view('master/footer', $data);
 		} else {
-
-
 			$this->load->model('pegawai_model');
 			$this->pegawai_model->update();
 			redirect('pegawai');

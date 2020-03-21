@@ -77,6 +77,9 @@ class Penjualan extends CI_controller
 	public function read()
 	{
 		$data = $this->layout();
+		$data['sub_breadcrumbs_title'] = "Lihat Pegawai";
+		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
 		$data['rows'] = $this->model->read();
 		$this->load->view('penjualan_read_view', $data);
 	}
