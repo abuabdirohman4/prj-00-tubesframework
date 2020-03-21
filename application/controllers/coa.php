@@ -85,7 +85,6 @@ class Coa extends CI_controller
 				echo "<script>alert('TIDAK KETEMU')</script>";
 				$this->load->view('coa_update_view', ['model' => $this->model]);
 			}
-			$this->load->view('master/footer');
 		}
 	}
 

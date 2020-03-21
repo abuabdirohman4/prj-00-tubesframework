@@ -32,7 +32,7 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <label>No Akun</label>
-                                            <input type="text" name="no_akun" readonly value='<?php echo $row->no_akun ?>' lass="form-control"><span class="text-danger"><?= form_error('id_bahan_baku') ?></span>
+                                            <input type="text" name="no_akun" readonly value='<?php echo $row->no_akun ?>' class="form-control"><span class="text-danger"><?= form_error('id_bahan_baku') ?></span>
                                         </div>
                                     </div>
                                     <div class="row">

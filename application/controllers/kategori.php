@@ -45,21 +45,24 @@ class Kategori extends CI_controller
     public function create()
     {
         if (isset($_POST['btnsubmit'])) {
-
-            $this->load->view('master/header');
             $this->model->insert();
             redirect('kategori');
-            $this->load->view('master/footer');
         } else {
-            $this->load->view('master/header');
-            $this->load->view('kategori_create_view', ['model' => $this->model]);
-            $this->load->view('master/footer');
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Kategori";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+            $data['model'] = $this->model;
+
+            $this->load->view('kategori_create_view', $data);
         }
     }
 
     public function read()
     {
         $data = $this->layout();
+        $data['sub_breadcrumbs_title'] = "Tambah Kategori";
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
         $this->load->model('kategori_model');
         $data['rows'] = $this->kategori_model->read();
         $this->load->view('kategori_read_view', $data);
@@ -69,26 +72,25 @@ class Kategori extends CI_controller
     public function update($id)
     {
         if (isset($_POST['btnsubmit'])) {
-            $this->load->view('master/header');
             $this->model->id = $_POST['id_kategori'];
             $this->model->nama = $_POST['nama_kategori'];
 
             $this->model->update();
             redirect('kategori');
-            $this->load->view('master/footer');
         } else {
-            $this->load->view('master/header');
             $query = $this->db->query("SELECT * FROM kategori where id_kategori='$id'");
             if ($query->num_rows() > 0) {
-                $row = $query->row();
-                $this->model->id = $row->id_kategori;
-                $this->model->nama = $row->nama_kategori;
+                $row = $this->layout();
+                $row['row'] = $query->row();
+
+                $row['sub_breadcrumbs_title'] = "Ubah Kategori";
+                $row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
+
                 $this->load->view('kategori_update_view', $row);
             } else {
                 echo "<script>alert('TIDAK KETEMU')</script>";
                 $this->load->view('kategori_update_view', ['model' => $this->model]);
             }
-            $this->load->view('master/footer');
         }
     }
 
@@ -134,12 +136,11 @@ class Kategori extends CI_controller
         $this->form_validation->set_rules($rules);
 
         if ($this->form_validation->run() == False) {
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Kategori";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-            $data = [];
-
-            $this->load->view('master/header', $data);
             $this->load->view('kategori_create_view', $data);
-            $this->load->view('master/footer', $data);
         } else {
 
             $this->insert();
@@ -181,12 +182,11 @@ class Kategori extends CI_controller
         $this->form_validation->set_rules($rules);
 
         if ($this->form_validation->run() == False) {
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Kategori";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-            $data = [];
-
-            $this->load->view('master/header', $data);
             $this->load->view('kategori_update_view', $data);
-            $this->load->view('master/footer', $data);
         } else {
 
 
