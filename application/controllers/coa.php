@@ -14,9 +14,7 @@ class Coa extends CI_controller
 
 	public function index()
 	{
-		// $this->load->view('master/header');
 		$this->read();
-		// $this->load->view('master/footer');
 	}
 
 	public function layout()
@@ -40,6 +38,8 @@ class Coa extends CI_controller
 	public function read()
 	{
 		$data = $this->layout();
+		$data['sub_breadcrumbs_title'] = "Lihat COA";
+		$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 		$data['rows'] = $this->model->read();
 		$this->load->view('coa_read_view', $data);
 	}
@@ -48,37 +48,38 @@ class Coa extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
-
-			$this->load->view('master/header');
 			$this->model->insert();
 			redirect('coa');
-			$this->load->view('master/footer');
 		} else {
-			$this->load->view('master/header');
-			$this->load->view('coa_create_view', ['model' => $this->model]);
-			$this->load->view('master/footer');
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah COA";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
+
+			$data['model'] = $this->model;
+			$this->load->view('coa_create_view', $data);
 		}
 	}
 
 	public function update($id)
 	{
 		if (isset($_POST['btnsubmit'])) {
-			$this->load->view('master/header');
 			$this->model->id = $_POST['no_akun'];
 			$this->model->nama = $_POST['nama_akun'];
 			$this->model->header = $_POST['header_akun'];
 
 			$this->model->update();
 			redirect('coa');
-			$this->load->view('master/footer');
 		} else {
-			$this->load->view('master/header');
 			$query = $this->db->query("SELECT * FROM coa where no_akun='$id'");
 			if ($query->num_rows() > 0) {
-				$row = $query->row();
-				$this->model->id = $row->no_akun;
-				$this->model->nama = $row->nama_akun;
-				$this->model->header = $row->header_akun;
+
+				$row = $this->layout();
+
+				$row['row'] = $query->row();
+
+				$row['sub_breadcrumbs_title'] = "Ubah COA";
+				$row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
+
 				$this->load->view('coa_update_view', $row);
 			} else {
 				echo "<script>alert('TIDAK KETEMU')</script>";
@@ -135,14 +136,12 @@ class Coa extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah COA";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$data = [];
-
-			$this->load->view('master/header', $data);
 			$this->load->view('coa_create_view', $data);
-			$this->load->view('master/footer', $data);
 		} else {
-
 			$this->load->model('coa_model');
 			$this->coa_model->insert();
 			redirect('coa');
@@ -163,8 +162,6 @@ class Coa extends CI_controller
 						'numeric' => "%s hanya berisi angka spasi"
 					],
 				],
-
-
 				[
 					'field' => 'nama_akun',
 					'label' => 'Nama Akun',
@@ -184,24 +181,17 @@ class Coa extends CI_controller
 						'numeric' => "%s hanya berisi angka"
 					],
 				],
-
-
 			];
-
-
 
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Ubah COA";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$data = [];
-
-			$this->load->view('master/header', $data);
 			$this->load->view('coa_update_view', $data);
-			$this->load->view('master/footer', $data);
 		} else {
-
-
 			$this->load->model('coa_model');
 			$this->coa_model->update();
 			redirect('coa');

@@ -22,7 +22,6 @@ class Bahan extends CI_controller
         // Header
         $data['title'] = "Kinicheese Tea - Bahan Baku";
         $data['breadcrumbs_title'] = "Bahan Baku";
-
         $data['head'] = $this->load->view('layout/head', $data, TRUE);
         $data['header'] = $this->load->view('layout/header', NULL, TRUE);
         $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
@@ -218,8 +217,6 @@ class Bahan extends CI_controller
     {
         //belum implementasi
         if (isset($_POST['btnsubmit'])) {
-            $data = $this->layout();
-
             $this->model->id_bahan_baku = $_POST['id_bahan_baku'];
             $this->model->nama_bahan_baku = $_POST['nama_bahan_baku'];
             $this->model->satuan = $_POST['satuan'];
@@ -240,8 +237,7 @@ class Bahan extends CI_controller
                 $this->load->view('bahan_update_view', $row);
             } else {
                 echo "<script>alert('TIDAK KETEMU')</script>";
-                $data['model'] = $this->model;
-                $this->load->view('bahan_update_view', $data);
+                $this->load->view('bahan_update_view', ['model' => $this->model]);
             }
         }
     }
