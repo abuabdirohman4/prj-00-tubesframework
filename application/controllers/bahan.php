@@ -22,11 +22,12 @@ class Bahan extends CI_controller
         // Header
         $data['title'] = "Kinicheese Tea - Bahan Baku";
         $data['breadcrumbs_title'] = "Bahan Baku";
+
         $data['head'] = $this->load->view('layout/head', $data, TRUE);
         $data['header'] = $this->load->view('layout/header', NULL, TRUE);
         $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
-        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
-        
+
+
         // Footer
         $data['sidebar_right'] = $this->load->view('layout/sidebar_right', NULL, TRUE);
         $data['footer'] = $this->load->view('layout/footer', NULL, TRUE);
@@ -38,6 +39,8 @@ class Bahan extends CI_controller
     public function read()
     {
         $data = $this->layout();
+        $data['sub_breadcrumbs_title'] = "Lihat Bahan Baku";
+        $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
         $data['rows'] = $this->model->read();
         $this->load->view('bahan_read_view', $data);
     }
@@ -96,9 +99,21 @@ class Bahan extends CI_controller
         $this->form_validation->set_rules($rules);
         if ($this->form_validation->run() == FALSE) {
             $data = [];
-            $this->load->view('master/header', $data);
+            $data = $this->layout();
+            $last_id = $this->model->get_last_row()[0]->id_bahan_baku;
+            $id_number = (int) substr($last_id, 1, 3);
+            $id_number++;
+            $id_number = (string) $id_number;
+            if (strlen($id_number) == 1)
+                $id_string = 'B00' . $id_number;
+            else if (strlen($id_number) == 2)
+                $id_string = 'B0' . $id_number;
+            else
+                $id_string = 'B' .  $id_number;
+
+            $data['model'] = $this->model;
+            $data['id_string'] = $id_string;
             $this->load->view('bahan_create_view', $data);
-            $this->load->view('master/footer', $data);
         } else {
             $this->insert();
             redirect(site_url('bahan'));
@@ -153,12 +168,11 @@ class Bahan extends CI_controller
             ];
         $this->form_validation->set_rules($rules);
 
-        if ($this->form_validation->run() == False) {
+        if ($this->form_validation->run() == FALSE) {
 
             $data = [];
-            $this->load->view('master/header', $data);
+            $data = $this->layout();
             $this->load->view('bahan_create_view', $data);
-            $this->load->view('master/footer', $data);
         } else {
 
             $this->load->model('bahan_model');
@@ -170,31 +184,33 @@ class Bahan extends CI_controller
     public function create()
     {
         //belum implementasi
-        if (isset($_POST['btnSubmit'])) {
-            $this->load->view('master/header');
+        if (isset($_POST['btnsubmit'])) {
             $this->model->id_bahan_baku = $_POST['id_bahan_baku'];
             $this->model->nama_bahan_baku = $_POST['nama_bahan_baku'];
             $this->model->satuan = $_POST['satuan'];
             $this->model->harga_satuan = $_POST['harga_satuan'];
             $this->model->insert();
-            $this->load->view('master/footer');
+
             redirect('bahan');
         } else {
-            $this->load->view('master/header');
+            $data = $this->layout();
+            $data['sub_breadcrumbs_title'] = "Tambah Bahan Baku";
+            $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
             $last_id = $this->model->get_last_row()[0]->id_bahan_baku;
             $id_number = (int) substr($last_id, 1, 3);
             $id_number++;
             $id_number = (string) $id_number;
             if (strlen($id_number) == 1)
-                $id_string = 'M00' . $id_number;
+                $id_string = 'B00' . $id_number;
             else if (strlen($id_number) == 2)
-                $id_string = 'M0' . $id_number;
+                $id_string = 'B0' . $id_number;
             else
-                $id_string = 'M' .  $id_number;
+                $id_string = 'B' .  $id_number;
 
-            $this->load->view('bahan_create_view', ['model' => $this->model, 'id_string' => $id_string]);
-            $this->load->view('master/footer');
+            $data['model'] = $this->model;
+            $data['id_string'] = $id_string;
+            $this->load->view('bahan_create_view', $data);
         }
     }
 
@@ -202,7 +218,8 @@ class Bahan extends CI_controller
     {
         //belum implementasi
         if (isset($_POST['btnsubmit'])) {
-            $this->load->view('master/header');
+            $data = $this->layout();
+
             $this->model->id_bahan_baku = $_POST['id_bahan_baku'];
             $this->model->nama_bahan_baku = $_POST['nama_bahan_baku'];
             $this->model->satuan = $_POST['satuan'];
@@ -210,24 +227,22 @@ class Bahan extends CI_controller
 
             $this->model->update();
             redirect('bahan');
-            $this->load->view('master/footer');
         } else {
-            $this->load->view('master/header');
             $query = $this->db->query("SELECT * FROM bahan_baku WHERE id_bahan_baku='$id'");
             if ($query->num_rows() > 0) {
-                $row = $query->row();
-                $this->model->id_bahan_baku = $row->id_bahan_baku;
-                $this->model->nama_bahan_baku = $row->nama_bahan_baku;
-                $this->model->satuan = $row->satuan;
-                $this->model->harga_satuan = $row->harga_satuan;
 
+                $row = $this->layout();
+
+                $row['row'] = $query->row();
+
+                $row['sub_breadcrumbs_title'] = "Ubah Bahan Baku";
+                $row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
                 $this->load->view('bahan_update_view', $row);
-                $this->load->view('master/footer');
             } else {
                 echo "<script>alert('TIDAK KETEMU')</script>";
-                $this->load->view('bahan_update_view', ['model' => $this->model]);
+                $data['model'] = $this->model;
+                $this->load->view('bahan_update_view', $data);
             }
-            $this->load->view('master/footer');
         }
     }
 

@@ -25,14 +25,17 @@
 			<!--start container-->
 			<div class="container">
 
-				<br>
+				<!--Tambah Button-->
 				<div class="divider"></div>
 
 				<a href="<?= base_url() ?>bahan/create">
-					<button style="width: 100%; height:3rem;">TAMBAH</button>
+					<button class="cyan waves-effect waves-light btn left" style="width: 100%; height:3rem; margin: 1rem auto">
+						<i class="mdi-content-add left"></i>TAMBAH
+					</button>
 				</a>
 
 				<div class="divider"></div>
+				<!--End Tambah Button-->
 
 				<!--DataTables-->
 				<div id="table-datatables">

@@ -1,26 +1,28 @@
 /*=================================================================================
     DataTables
 ====================================================================================*/
-td, th, table {
-  text-align: center!important;
+td,
+th,
+table {
+  text-align: center !important;
 }
 
 /*=================================================================================
     Footer
 ====================================================================================*/
-html{
+html {
   height: 100%;
 }
 
-body{
+body {
   height: 100%;
   position: relative;
-  padding-bottom: 50px;;
+  padding-bottom: 50px;
 }
 
 footer.page-footer {
   padding-top: 0px;
-  position: absolute!important;
+  position: absolute !important;
   bottom: 0;
   width: 100%;
 }

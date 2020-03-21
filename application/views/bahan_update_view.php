@@ -1,46 +1,86 @@
-<html>
+<?= $head ?>
 
-<head>
-    <title>Bahan Baku</title>
-</head>
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
 
-<body>
-    <center>
+<?= $header ?>
 
-        <h2>Data Bahan Baku</h2>
-        <p><strong>Update Data</strong></p>
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
 
-        <div class="row">
+        <?= $sidebar_left ?>
 
-            <div class="col-xl-12">
-                <form action="storeupdate" method="POST">
-                    <div class="form-group">
+        <!-- START CONTENT -->
+        <section id="content">
 
-                        <label>Id Bahan Baku</label>
-                        <input type="text" name="id_bahan_baku" class="form-control" value="<?php echo $id_bahan_baku ?>"><span class="text-danger"><?= form_error('id_bahan_baku') ?></span>
+            <?= $breadcrumbs ?>
+
+            <!--Basic Form-->
+            <div id="basic-form" class="section">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <div class="row">
+                                <form action="storeupdate" method="POST" class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Id Bahan Baku</label>
+                                            <input type="text" name="id_bahan_baku" readonly value='<?php echo $row->id_bahan_baku ?>' lass="form-control"><span class="text-danger"><?= form_error('id_bahan_baku') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Nama Bahan Baku</label>
+                                            <input type="text" name="nama_bahan_baku" value='<?php echo $row->nama_bahan_baku ?>' class="form-control"><span class="text-danger"><?= form_error('nama_bahan_baku') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Satuan</label>
+                                            <input type="text" name="satuan" value='<?php echo $row->satuan ?>' class="form-control"><span class="text-danger"><?= form_error('satuan') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Harga Satuan</label>
+                                            <input type="text" name="harga_satuan" value='<?php echo $row->harga_satuan ?>' class="form-control"><span class="text-danger"><?= form_error('harga_satuan') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <button type="submit" name="btnsubmit" class="cyan waves-effect waves-light btn">Simpan<i class="mdi-content-send right"></i></button>
+                                            </button>
+                                            <a href="<?= base_url() ?>bahan" class="btn waves-effect waves-light red"><i class=" mdi-content-clear"></i></a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label>Nama Bahan Baku </label>
-                        <input type="text" name="nama_bahan_baku" class="form-control" value="<?php echo $nama_bahan_baku ?>"><span class="text-danger"><?= form_error('nama_bahan_baku') ?></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Satuan </label>
-                        <input type="text" name="satuan" class="form-control" value="<?php echo $satuan ?>"><span class="text-danger"><?= form_error('satuan') ?></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Harga Satuan </label>
-                        <input type="text" name="harga_satuan" class="form-control" value="<?php echo $harga_satuan ?>"><span class="text-danger"><?= form_error('harga_satuan') ?></span>
-                    </div>
-
-
-                    <div class="form-group ">
-                        <button type="submit" name="btnsubmit" class="btn btn-success">simpan</button>
-                        <input type="button" value="Batal" onclick="javascript:history.go(-1);" />
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-</body>
-</center>
 
-</html>
+            <!--start container-->
+            <div class="container">
+
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+
+        <?= $sidebar_right ?>
+
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+
+<?= $footer ?>
+<?= $scripts ?>

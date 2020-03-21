@@ -26,8 +26,8 @@
                 <!-- CONTENT -->
                 <?= $chart_dashboard ?>
                 <?= $card_stats ?>
-                <?= $card_widgets ?>
-                <?= $work_collection ?>
+                <!-- <?= $card_widgets ?>
+                <?= $work_collection ?> -->
 
             </div>
             <!--end container-->
