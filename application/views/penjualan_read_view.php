@@ -47,7 +47,7 @@
                                     <tr>
                                         <th width="">ID Penjualan</th>
                                         <th width="">ID Pegawai</th>
-                                        <th width="">status</th>
+                                        <th width="">Status</th>
                                         <th width="10%">Ubah</th>
                                         <th width="10%">Hapus</th>
                                     </tr>

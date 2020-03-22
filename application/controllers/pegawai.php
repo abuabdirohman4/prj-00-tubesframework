@@ -40,6 +40,11 @@ class Pegawai extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
+			$this->model->id_pegawai = $_POST['id_pegawai'];
+			$this->model->nama_pegawai = $_POST['nama_pegawai'];
+			$this->model->alamat = $_POST['alamat'];
+			$this->model->no_telp = $_POST['no_telp'];
+
 			$this->model->insert();
 			redirect('pegawai');
 		} else {

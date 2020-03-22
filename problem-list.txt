@@ -1,0 +1,17 @@
+- View untuk penjualan
+- tamabah pada penjualan dan pembelian masih error
+- storecreate untuk pegawai
+
+
+
+Page
+1. Bahan (DONE)
+2. COA (DONE)
+3. Kategori (DONE)
+4. Minuman (DONE)
+5. Pegawai
+6. Retur (Not Tested)
+7. Vendor (Not Tested)
+8. Pembelian
+9. Penjualan
+10. Laporan

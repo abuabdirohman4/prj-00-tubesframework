@@ -82,6 +82,7 @@ class Penjualan extends CI_controller
 		$data['rows'] = $this->model->read();
 		$this->load->view('penjualan_read_view', $data);
 	}
+
 	public function update($id)
 	{
 		if (isset($_POST['btnsubmit'])) {
@@ -93,21 +94,28 @@ class Penjualan extends CI_controller
 			$this->model->update();
 			redirect('penjualan');
 		} else {
-
 			$no_nota = $this->model->db->query("SELECT * FROM nota_penjualan WHERE id_jual='$id'")->result()[0]->no_nota;
 			$query = $this->db->query("SELECT * FROM penjualan where id_jual='$id'");
 			$detail_jual = $this->db->get_where('detail_jual', ['no_nota' => $no_nota])->result();
 			if ($query->num_rows() > 0) {
-				$row = $query->row();
+				$row = $this->layout();
+				$row['sub_breadcrumbs_title'] = "Ubah Penjualan";
+				$row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
+
+				$row['row'] = $query->row();
 
 				$this->model->id_jual = $row->id_jual;
 				$this->model->id_pegawai = $row->id_pegawai;
 
-				$minuman = $this->minuman_model->read();
-				$pegawai = $this->pegawai_model->read();
+				$row['pegawai'] = $this->pegawai_model->read();
+				$row['minuman'] = $this->minuman_model->read();
+				$row['detail_jual'] = $detail_jual;
 
-				$this->load->view('penjualan_update_view', ['model' => $row, 'minuman' => $minuman, 'detail_jual' => $detail_jual, 'pegawai' => $pegawai]);
-				$this->load->view('master/footer');
+
+				// $minuman = $this->minuman_model->read();
+				// $pegawai = $this->pegawai_model->read();
+
+				$this->load->view('penjualan_update_view', $row);
 			} else {
 				echo "<script>alert('TIDAK KETEMU')</script>";
 				$this->load->view('penjualan_update_view', ['model' => $this->model]);

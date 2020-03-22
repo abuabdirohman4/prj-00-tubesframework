@@ -110,7 +110,6 @@ class Minuman extends CI_controller
 
 				$row['id_string'] = $id_string;
 				$row['kategori'] = $this->kategori_model->read();
-				// var_dump($row);
 				$this->load->view('minuman_update_view', $row);
 			} else {
 				echo "<script>alert('TIDAK KETEMU')</script>";
@@ -134,6 +133,7 @@ class Minuman extends CI_controller
 
 	public function storecreate()
 	{
+		$data = [];
 		$rules =
 			[
 				[
@@ -182,16 +182,30 @@ class Minuman extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Tambah Minuman";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$data = [];
+			$last_id = $this->model->get_last_row()[0]->id_minum;
+			$id_number = (int) substr($last_id, 1, 3);
+			$id_number++;
+			$id_number = (string) $id_number;
+			if (strlen($id_number) == 1)
+				$id_string = 'M00' . $id_number;
+			else if (strlen($id_number) == 2)
+				$id_string = 'M0' . $id_number;
+			else
+				$id_string = 'M' .  $id_number;
 
-			$this->load->view('master/header', $data);
+			$data['id_string'] = $id_string;
+			$data['model'] = $this->model;
+			$data['kategori'] = $this->kategori_model->read();
+
 			$this->load->view('minuman_create_view', $data);
-			$this->load->view('master/footer', $data);
 		} else {
 
 			$this->insert();
-			$this->index();
+			redirect(site_url('minuman'));
 		}
 	}
 
@@ -244,11 +258,14 @@ class Minuman extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
+			
+			$data = $this->layout();
+			$data['sub_breadcrumbs_title'] = "Ubah Minuman";
+			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$data = [];
-			$this->load->view('master/header', $data);
+			
+
 			$this->load->view('minuman_create_view', $data);
-			$this->load->view('master/footer', $data);
 		} else {
 
 			$this->load->model('minuman_model');

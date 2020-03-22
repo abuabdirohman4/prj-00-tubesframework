@@ -49,8 +49,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <label>ID Kategori </label>
-                                            <select style="display:block" class='form-control' name='id_kategori'>
+
+                                            <select name='id_kategori'>
                                                 <option></option>
                                                 <?php
                                                 foreach ($kategori as $k => $v) {
@@ -59,6 +59,7 @@
                                                 }
                                                 ?>
                                             </select>
+                                            <label>ID Kategori </label>
                                         </div>
                                     </div>
                                     <div class="row">

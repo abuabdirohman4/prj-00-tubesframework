@@ -43,6 +43,13 @@ class Pembelian extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
+			$this->model->id_pembelian = $_POST['id_pembelian'];
+			$this->model->id_bahan_baku = $_POST['id_bahan_baku'];
+			$this->model->jumlah = $_POST['jumlah'];
+			$this->model->id_pegawai = $_POST['id_pegawai'];
+			$this->model->kd_vendor = $_POST['kd_vendor'];
+			$this->model->insert();
+
 			$this->model->insert();
 			redirect('pembelian');
 		} else {
@@ -83,10 +90,7 @@ class Pembelian extends CI_controller
 
 	public function update($id)
 	{
-		$data = [];
-
 		if (isset($_POST['btnsubmit'])) {
-			$this->load->view('master/header');
 			$this->model->id_pembelian = $_POST['id_pembelian'];
 			$this->model->id_bahan_baku = $_POST['id_bahan_baku'];
 			$this->model->jumlah = $_POST['jumlah'];
@@ -95,31 +99,30 @@ class Pembelian extends CI_controller
 
 			$this->model->update();
 			redirect('pembelian');
-			$this->load->view('master/footer');
 		} else {
-			$this->load->view('master/header');
 			$query = $this->db->query("SELECT * FROM pembelian where id_pembelian='$id'");
 			$detail_pembelian = $this->db->get_where('detail_pembelian', ['id_pembelian' => $id])->result();
 			if ($query->num_rows() > 0) {
-				$row = $query->row();
+				$row = $this->layout();
+				$row['sub_breadcrumbs_title'] = "Ubah Pegawai";
+				$row['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $row, TRUE);
 
+				$row['row'] = $query->row();
 
-				$this->model->id_pembelian = $row->id_pembelian;
-				$this->model->id_pegawai = $row->id_pegawai;
-				$this->model->kd_vendor = $row->kd_vendor;
+				// $this->model->id_pembelian = $row->id_pembelian;
+				// $this->model->id_pegawai = $row->id_pegawai;
+				// $this->model->kd_vendor = $row->kd_vendor;
 
-				$bahan_baku = $this->bahan_model->read();
-				$vendor = $this->vendor_model->read();
-				$pegawai = $this->pegawai_model->read();
+				$row['bahan_baku'] = $this->bahan_model->read();
+				$row['vendor'] = $this->vendor_model->read();
+				$row['pegawai'] = $this->pegawai_model->read();
+				$row['detail_pembelian'] = $detail_pembelian;
 
-				$this->load->view('pembelian_update_view', ['model' => $row, 'bahan_baku' => $bahan_baku, 'detail_pembelian' => $detail_pembelian, 'pegawai' => $pegawai, 'vendor' => $vendor]);
-				$this->load->view('master/footer');
+				$this->load->view('pembelian_update_view', $row);
 			} else {
 				echo "<script>alert('TIDAK KETEMU')</script>";
 				$this->load->view('pembelian_update_view', ['model' => $this->model]);
 			}
-
-			$this->load->view('master/footer');
 		}
 	}
 
