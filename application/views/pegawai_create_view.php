@@ -28,7 +28,7 @@
                     <div class="col s12 m12 l12">
                         <div class="card-panel">
                             <div class="row">
-                                <form action="create" method="POST" class="col s12">
+                                <form action="storecreate" method="POST" class="col s12">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <label>Id Pegawai</label>

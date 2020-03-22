@@ -9,9 +9,9 @@ Page
 2. COA (DONE)
 3. Kategori (DONE)
 4. Minuman (DONE)
-5. Pegawai
-6. Retur (Not Tested)
-7. Vendor (Not Tested)
-8. Pembelian
+5. Pegawai (DONE)
+6. Retur (DONE)
+7. Vendor (DONE)
+8. Pembelian 
 9. Penjualan
 10. Laporan

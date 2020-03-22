@@ -169,6 +169,20 @@ class Vendor extends CI_Controller
             $data['sub_breadcrumbs_title'] = "Tambah Vendor";
             $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
+            $last_id = $this->model->db->query("SELECT * FROM vendor ORDER BY kd_vendor DESC LIMIT 1")->result()[0]->kd_vendor;
+            $id_number = (int) substr($last_id, 1, 3);
+            $id_number++;
+            $id_number = (string) $id_number;
+            if (strlen($id_number) == 1)
+                $id_string = 'P00' . $id_number;
+            else if (strlen($id_number) == 2)
+                $id_string = 'P0' . $id_number;
+            else
+                $id_string = 'P' .  $id_number;
+
+            $data['id_string'] = $id_string;
+            $data['model'] = $this->model;
+
             $this->load->view('vendor_create_view', $data);
         } else {
             $this->insert();
