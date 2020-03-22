@@ -1,6 +1,6 @@
 <?php
 
-class pembelian_model extends CI_model
+class penjualan_model extends CI_model
 {
 public $id_pembelian;
 public $id_bahan_baku;
@@ -18,7 +18,7 @@ $this->load->database();
 }
 public function insert(){
 $data=[
-'id_jual'=>$this->input->post('id_jual'),
+'id_jual'=>$this->input->post('id_penjualan'),
 'id_pegawai'=>$this->input->post('id_pegawai'),
 'status'=>'1',
 ];
@@ -26,8 +26,8 @@ $this->db->insert('penjualan',$data);
 $id_penjualan = $this->input->post('id_penjualan');
 $last_id = $this->model->db->query("SELECT * FROM nota_penjualan ORDER BY no_nota DESC LIMIT 1")->result()[0]->no_nota;
 $id_number = (int) substr($last_id, 1,3);
-	$id_number++;
-	$id_number = (string) $id_number;
+$id_number++;
+$id_number = (string) $id_number;
 	if(strlen($id_number) == 1)
 		$id_string = 'N00' . $id_number;
 	else if(strlen($id_number) == 2)
@@ -35,46 +35,64 @@ $id_number = (int) substr($last_id, 1,3);
 	else
 		$id_string = 'N' .  $id_number;
 // nota
-$id_nota= $this->db->insert('nota_penjualan', [])
-    foreach($this->input->post('id_minuman') as $k=>$v) {
-        $harga = $this->db->get('bahan_baku')->result()[0]->harga_satuan;
+$total = 0;
+$jumlah = 0;
+    foreach($this->input->post('id_minum') as $k=>$v) {
+        $harga = $this->db->get('minuman')->result()[0]->harga;
 
-        $data_detail=[
-            'id_bahan_baku'=>$v,
-            'id_pembelian'=>$id_pembelian,
-            'total_jumlah'=>$harga*$this->input->post('jumlah')[$k],
+        $detail_jual=[
+            'id_minum'=>$v,
+            'no_nota'=>$id_string,
+            'subtotal'=>$harga*$this->input->post('jumlah')[$k],
             'jumlah' => $this->input->post('jumlah')[$k]
         ];
+        $total += $harga*$this->input->post('jumlah')[$k];
+        $jumlah += $this->input->post('jumlah')[$k];
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
-        $this->db->insert('detail_pembelian', $data_detail);
+        $this->db->insert('detail_jual', $detail_jual);
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
+    $nota = [
+        'no_nota' => $id_string, 
+        'id_jual' => $id_penjualan,
+        'total' => $total,
+        'jumlah' => $jumlah,
+        'id_pegawai' => $id_pegawai
+    ];
+    $no_nota = $this->db->insert('nota_penjualan', $nota);
 }
 public function update(){
-$id_pembelian=$this->input->post('id_pembelian');
+$id_jual=$this->input->post('id_jual');
 $id_pegawai=$this->input->post('id_pegawai');
-$kd_vendor=$this->input->post('kd_vendor');
-$sql=sprintf("UPDATE pembelian SET id_pegawai='%s', kd_vendor='%s' where id_pembelian='%s'",
+$sql=sprintf("UPDATE penjualan SET id_pegawai='%s', status='1' where id_jual='%s'",
 $id_pegawai,
-$kd_vendor,
-$id_pembelian,
+$id_jual
 );
 $this->db->query($sql);
-foreach($_POST['id_bahan_baku'] as $k => $v) {
-    $this->db->query("UPDATE detail_pembelian SET id_bahan_baku='$v', jumlah='" . $_POST["jumlah"][$k] . "' WHERE id_pembelian='$id_pembelian' AND id_bahan_baku='" . $_POST["bahan_baku_src"][$k] . "'");
+$no_nota = $this->model->db->query("SELECT * FROM nota_penjualan WHERE id_jual='$id_jual'")->result()[0]->no_nota;
+$total = 0;
+$jumlah = 0;
+foreach($_POST['id_minum'] as $k => $v) {
+    $harga = $this->db->get('minuman')->result()[0]->harga;
+    $this->db->query("UPDATE detail_jual SET id_minum='$v', jumlah='" . $_POST["jumlah"][$k] . "' WHERE id_minum='$v' AND no_nota='$no_nota'");
+    $total += $harga*$this->input->post('jumlah')[$k];
+    $jumlah += $this->input->post('jumlah')[$k];
 }
+$this->db->query("UPDATE nota_penjualan SET jumlah='$jumlah', total='$total' WHERE no_nota='$no_nota'");
 }
 public function delete(){
 $this->db->query('SET FOREIGN_KEY_CHECKS=0');
-$sql=sprintf("DELETE FROM pembelian WHERE id_pembelian='%s'",$this->id);
+$sql=sprintf("DELETE FROM penjualan WHERE id_jual='%s'",$this->id);
 $this->db->query($sql);
-$sql=sprintf("DELETE FROM detail_pembelian WHERE id_pembelian='%s'",$this->id);
+$sql=sprintf("DELETE FROM detail_jual WHERE id_jual='%s'",$this->id);
+$this->db->query($sql);
+$sql=sprintf("DELETE FROM no_nota WHERE id_jual='%s'",$this->id);
 $this->db->query($sql);
 $this->db->query('SET FOREIGN_KEY_CHECKS=1');
 
 }
 public function read(){
-$sql="SELECT * FROM pembelian ORDER BY id_pembelian";
+$sql="SELECT * FROM penjualan ORDER BY id_jual";
 $query=$this->db->query($sql);
 return $query->result();
 }

@@ -31,8 +31,12 @@ redirect('penjualan');
 }else{
 	$this->load->view('master/header');
 
-	$last_id = $this->model->db->query("SELECT * FROM penjualan ORDER BY id_penjualan DESC LIMIT 1")->result()[0]->id_penjualan;
-	$id_number = (int) substr($last_id, 1,3);
+	$last_id = $this->model->db->query("SELECT * FROM penjualan ORDER BY id_jual DESC LIMIT 1");
+	if($last_id->num_rows() == 0)
+		$last_id = 'PX001';
+	else
+		$last_id = $last_id->result()[0]->id_jual;
+	$id_number = (int) substr($last_id, 2,4);
 	$id_number++;
 	$id_number = (string) $id_number;
 	if(strlen($id_number) == 1)
@@ -45,14 +49,14 @@ redirect('penjualan');
         $pegawai = $this->pegawai_model->read();
         $minuman = $this->minuman_model->read();
 
-	$this->load->view('penjualan_create_view',['model'=>$this->model, 'minuman' =>$minuman, 'pegawai' =>$pegawai, 'bahan_baku' =>$bahan_baku, 'id_string' => $id_string]);
+	$this->load->view('penjualan_create_view',['model'=>$this->model, 'minuman' =>$minuman, 'pegawai' =>$pegawai, 'id_string' => $id_string]);
 $this->load->view('master/footer');
 }
 }
 public function read(){
     $this->load->view('master/header');
 $rows=$this->model->read();
-$this->load->view('pembelian_read_view',['rows'=>$rows]);
+$this->load->view('penjualan_read_view',['rows'=>$rows]);
 $this->load->view('master/footer');
 }
 public function update($id){
@@ -60,36 +64,34 @@ public function update($id){
     
 if(isset($_POST['btnsubmit'])){
 $this->load->view('master/header');
-$this->model->id_pembelian=$_POST['id_pembelian'];
-$this->model->id_bahan_baku=$_POST['id_bahan_baku'];
+$this->model->id_jual=$_POST['id_jual'];
+$this->model->id_minum=$_POST['id_minum'];
 $this->model->jumlah=$_POST['jumlah'];
 $this->model->id_pegawai=$_POST['id_pegawai'];
-$this->model->kd_vendor=$_POST['kd_vendor'];
 
 $this->model->update();
-redirect('pembelian');
+redirect('penjualan');
 $this->load->view('master/footer');
 }else{
-    $this->load->view('master/header');
-$query=$this->db->query("SELECT * FROM pembelian where id_pembelian='$id'");
-$detail_pembelian = $this->db->get_where('detail_pembelian', ['id_pembelian' => $id])->result();
+	$this->load->view('master/header');
+	$no_nota = $this->model->db->query("SELECT * FROM nota_penjualan WHERE id_jual='$id'")->result()[0]->no_nota;
+	$query=$this->db->query("SELECT * FROM penjualan where id_jual='$id'");
+$detail_jual = $this->db->get_where('detail_jual', ['no_nota' => $no_nota])->result();
 if($query->num_rows()> 0) {
 	$row=$query->row();
 
-$this->model->id_pembelian=$row->id_pembelian;
+$this->model->id_jual=$row->id_jual;
 $this->model->id_pegawai=$row->id_pegawai;
-$this->model->kd_vendor=$row->kd_vendor;
 
-$bahan_baku = $this->bahan_model->read();
-	$vendor = $this->vendor_model->read();
+$minuman = $this->bahan_model->read();
 	$pegawai = $this->pegawai_model->read();
 
-$this->load->view('pembelian_update_view',['model'=>$row, 'bahan_baku'=> $bahan_baku,'detail_pembelian' => $detail_pembelian, 'pegawai' => $pegawai, 'vendor' => $vendor]);
+$this->load->view('penjualan_update_view',['model'=>$row, 'minuman'=> $minuman,'detail_jual' => $detail_jual, 'pegawai' => $pegawai]);
 $this->load->view('master/footer');
 }
 	else {
 		echo "<script>alert('TIDAK KETEMU')</script>";
-            $this->load->view('pembelian_update_view',['model'=>$this->model]);
+            $this->load->view('penjualan_update_view',['model'=>$this->model]);
 	}$this->load->view('master/footer'); 
 }
 
@@ -97,7 +99,7 @@ $this->load->view('master/footer');
 public function delete($id){
 $this->model->id = $id;
 $this->model->delete();
-redirect('pembelian');
+redirect('penjualan');
 }
 	public function insert(){
 		$this->model->insert();
@@ -107,8 +109,8 @@ redirect('pembelian');
 	$rules=
 	[	
 			[
-				'field'=>'id_pembelian',
-				'label'=>'id_pembelian',
+				'field'=>'id_penjualan',
+				'label'=>'id_penjualan',
 				'rules'=>'required|alpha_numeric',
 				'errors'=>[
                 'required'=>"%s harus diisi",
@@ -118,8 +120,8 @@ redirect('pembelian');
 
 			
 			[
-				'field'=>'id_bahan_baku[]',
-				'label'=>'id_bahan_baku',
+				'field'=>'id_minuman[]',
+				'label'=>'id_minuman',
 				'rules'=>'required|alpha_numeric',
 				'errors'=>[
                 'required'=>"%s harus diisi",
@@ -146,16 +148,6 @@ redirect('pembelian');
             
                 ]
 			],
-			[
-				'field'=>'kd_vendor',
-				'label'=>'kd_vendor',
-				'rules'=>'required|alpha_numeric',
-				'errors'=>[
-                'required'=>"%s harus diisi",
-                'Alpha_numeric'=>"%s Hanya boleh berisikan huruf & angka (tidak boleh spasi)",
-            
-                ]
-			]
 
 
 ];
@@ -164,7 +156,7 @@ $this->form_validation->set_rules($rules);
 
 if($this->form_validation->run() == False){
 	
-	redirect('pembelian/create');
+	redirect('penjualan/create');
 
 	
 	}
@@ -172,12 +164,13 @@ if($this->form_validation->run() == False){
 else{
     
 			$this->insert();
-			foreach($_POST['id_bahan_baku'] as $k => $v) {
+			foreach($_POST['id_minuman'] as $k => $v) {
 				if($v=="")
 					break;
-				$this->model->increase($v, $_POST['jumlah'][$k]);
+				$id_bahan_baku = $this->model->db->query("SELECT * FROM minuman WHERE id_minum='$v'")->result()[0]->id_bahan_baku;
+				$this->model->db->query("UPDATE bahan_baku SET jumlah_stok=jumlah_stok-" . $_POST["jumlah"][$k] . " WHERE id_bahan_baku='$id_bahan_baku'");
 			}
-       	 redirect('pembelian');
+       	 redirect('penjualan');
 
 
 }}
@@ -186,8 +179,8 @@ public function storeupdate(){
 	$rules=
 	[	
 		[
-			'field'=>'id_pembelian',
-			'label'=>'id_pembelian',
+			'field'=>'id_penjualan',
+			'label'=>'id_penjualan',
 			'rules'=>'required|alpha_numeric',
 			'errors'=>[
 			'required'=>"%s harus diisi",
@@ -197,8 +190,8 @@ public function storeupdate(){
 
 		
 		[
-			'field'=>'id_bahan_baku',
-			'label'=>'id_bahan_baku',
+			'field'=>'id_minuman[]',
+			'label'=>'id_minuman',
 			'rules'=>'required|alpha_numeric',
 			'errors'=>[
 			'required'=>"%s harus diisi",
@@ -208,7 +201,7 @@ public function storeupdate(){
 
 
 		[
-			'field'=>'jumlah',
+			'field'=>'jumlah[]',
 			'label'=>'jumlah',
 			'rules'=>'required',
 			'errors'=>[
@@ -225,16 +218,6 @@ public function storeupdate(){
 		
 			]
 		],
-		[
-			'field'=>'kd_vendor',
-			'label'=>'kd_vendor',
-			'rules'=>'required|alpha_numeric',
-			'errors'=>[
-			'required'=>"%s harus diisi",
-			'Alpha_numeric'=>"%s Hanya boleh berisikan huruf & angka (tidak boleh spasi)",
-		
-			]
-		]
 
 
 ];
@@ -244,16 +227,16 @@ if($this->form_validation->run() == False){
 	
 $data=[];
 	$this->load->view('master/header',$data);
-	$this->load->view('pembelian_create_view',$data);
+	$this->load->view('penjualan_create_view',$data);
 	$this->load->view('master/footer',$data);
 	
 	}
 
 else{
     
-       	 $this->load->model('pembelian_model');
-            $this->pembelian_model->update();
-			redirect('pembelian');}
+       	 $this->load->model('penjualan_model');
+            $this->model->update();
+			redirect('penjualan');}
 
 }
 

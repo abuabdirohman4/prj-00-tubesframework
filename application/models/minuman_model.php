@@ -29,7 +29,7 @@ $sql=sprintf("UPDATE minuman SET nama_minum ='%s',harga='%s', id_kategori='%s' w
 $this->nama,
 $this->harga,
 $this->id_kategori,
-$this->id,
+$this->id
 );
 $this->db->query($sql);
 }
