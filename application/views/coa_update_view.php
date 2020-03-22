@@ -1,34 +1,80 @@
-<html><center>
-<head><title>Kinicheesetea</title></head>
-<body>
-<h1>Kinicheesetea</h1>
-<p>===============================</p>
+<?= $head ?>
 
-<h2>
-<p><strong>Update Data</strong></p></h2>
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
 
-<div class="row">
-                    <div class="col-xl-12">
-                         <form action="storeupdate" method="POST">
-                             <div class="form-group">
-                                 <label>No Akun</label>
-                                 <input type="text" name="no_akun" class="form-control" readonly value="<?php echo $no_akun ?>"><span class="text-danger"><?=form_error('no_akun')?></span>
-                             </div>
-                             <div class="form-group">
-                                 <label>Nama Akun</label>
-                                 <input type="text" name="nama_akun" class="form-control" value="<?php echo $nama_akun ?>"> <span class="text-danger"><?=form_error('nama_akun')?></span>
-							 </div>
-							 
-							 <div class="form-group">
-                                 <label>Header Akun</label>
-                                 <input type="text" name="header_akun" class="form-control" value="<?php echo $header_akun ?>"> <span class="text-danger"><?=form_error('header_akun')?></span>
-                             </div>
-                             
+<?= $header ?>
 
-                             <div class="form-group ">
-                                 <button type="submit" name="btnsubmit" class="btn btn-success">simpan</button>
-                                 <input type ="button" value="Batal" onclick="javascript:history.go(-1);"/>
-                             </div>
-                         </form>
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+
+        <?= $sidebar_left ?>
+
+        <!-- START CONTENT -->
+        <section id="content">
+
+            <?= $breadcrumbs ?>
+
+            <!--Basic Form-->
+            <div id="basic-form" class="section">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <div class="row">
+                                <form action="storeupdate" method="POST" class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>No Akun</label>
+                                            <input type="text" name="no_akun" readonly value='<?php echo $row->no_akun ?>' class="form-control"><span class="text-danger"><?= form_error('id_bahan_baku') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Nama Akun</label>
+                                            <input type="text" name="nama_akun" value='<?php echo $row->nama_akun ?>' class="form-control"><span class="text-danger"><?= form_error('nama_bahan_baku') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <label>Header Akun</label>
+                                            <input type="text" name="header_akun" value='<?php echo $row->header_akun ?>' class="form-control"><span class="text-danger"><?= form_error('satuan') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <button type="submit" name="btnsubmit" class="cyan waves-effect waves-light btn">Simpan<i class="mdi-content-send right"></i></button>
+                                            </button>
+                                            <a href="<?= base_url() ?>coa" class="btn waves-effect waves-light red"><i class=" mdi-content-clear"></i></a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
-                    </div>
+                </div>
+            </div>
+
+            <!--start container-->
+            <div class="container">
+
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+
+        <?= $sidebar_right ?>
+
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+
+<?= $footer ?>
+<?= $scripts ?>

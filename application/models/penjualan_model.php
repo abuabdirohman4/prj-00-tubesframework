@@ -57,7 +57,7 @@ $jumlah = 0;
         'id_jual' => $id_penjualan,
         'total' => $total,
         'jumlah' => $jumlah,
-        'id_pegawai' => $id_pegawai
+        'id_pegawai' => $this->input->post('id_pegawai'),
     ];
     $no_nota = $this->db->insert('nota_penjualan', $nota);
 }
@@ -82,11 +82,11 @@ $this->db->query("UPDATE nota_penjualan SET jumlah='$jumlah', total='$total' WHE
 }
 public function delete(){
 $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+$no_nota = $this->db->query("SELECT * FROM nota_penjualan WHERE id_jual='$this->id'")->result()[0]->id_jual;
+$this->db->query("DELETE FROM detail_jual WHERE no_nota = '$no_nota'");
 $sql=sprintf("DELETE FROM penjualan WHERE id_jual='%s'",$this->id);
 $this->db->query($sql);
-$sql=sprintf("DELETE FROM detail_jual WHERE id_jual='%s'",$this->id);
-$this->db->query($sql);
-$sql=sprintf("DELETE FROM no_nota WHERE id_jual='%s'",$this->id);
+$sql=sprintf("DELETE FROM nota_penjualan WHERE id_jual='%s'",$this->id);
 $this->db->query($sql);
 $this->db->query('SET FOREIGN_KEY_CHECKS=1');
 
