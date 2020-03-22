@@ -65,13 +65,13 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <label>Jumlah </label>
-                                            <input type="text" name="jumlah_retur" class="form-control"><span class="text-danger"><?= form_error('harga') ?></span>
+                                            <input type="text" name="jumlah_retur" class="form-control"><span class="text-danger"><?= form_error('jumlah_retur') ?></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <label> </label>
-                                            <input type="date" name="tgl_retur" class="datepicker"><span class="text-danger"><?= form_error('harga') ?></span>
+                                            <label>Tanggal pengembalian</label>
+                                            <input type="date" id='tgl_retur' name="tgl_retur" class="datepicker"><span class="text-danger"><?= form_error('tgl_retur') ?></span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -105,3 +105,17 @@
 
 <?= $footer ?>
 <?= $scripts ?>
+
+<script>
+    $(document).ready(() => {
+
+        $("#tgl_retur").change(() => {
+            
+            var date = new Date($("#tgl_retur").val())
+            date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+            $("#tgl_retur").val(date)
+
+            console.log($("#tgl_retur").val())
+        })
+    })
+</script>
