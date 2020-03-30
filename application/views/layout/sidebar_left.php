@@ -124,13 +124,11 @@
                     <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i>Laporan</a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="<?= base_url() ?>lapor">Lapor</a>
+                                <li><a href="<?= base_url() ?>laporan/jurnal_umum">Jurnal Umum</a>
                                 </li>
-                                <li><a href="<?= base_url() ?>laporan_pembayaran">Laporan Pembayaran</a>
+                                <li><a href="<?= base_url() ?>laporan/buku_besar">Buku Besar</a>
                                 </li>
-                                <li><a href="<?= base_url() ?>laporan_pembelian">Laporan Pembelian</a>
-                                </li>
-                                <li><a href="<?= base_url() ?>laporan_penjualan">Laporan Penjualan</a>
+                                <li><a href="<?= base_url() ?>laba_rugi">Laba Rugi</a>
                                 </li>
                             </ul>
                         </div>
