@@ -18,14 +18,41 @@ class pembelian_model extends CI_model
 
     function insert()
     {
+        // get last transaction id
+        $last_jurnal_id = $this->db->get('jurnal_umum')->result()[0]->id_transaksi;
+        $jurnal_id = $last_jurnal_id + 1;
+
         $data = [
             'id_pembelian' => $this->input->post('id_pembelian'),
             'id_bahan_baku' => $this->input->post('id_bahan_baku'),
             'jumlah' => $this->input->post('jumlah'),
             'id_pegawai' => $this->input->post('id_pegawai'),
             'kd_vendor  ' => $this->input->post('kd_vendor'),
+            'id_jurnal' => $jurnal_id
         ];
-        return $this->db->insert('pembelian', $data);
+
+        $this->db->insert('pembelian', $data);
+
+        // jurnal umum
+        $jurnal_umum_c = [
+            'id_transaksi' => $jurnal_id,
+            'kode_akun' => 111,
+            'posisi_d_c' => 'c',
+            'nominal' => $this->input->post('jumlah'),
+            'transaksi' => 'pembelian'
+        ];
+
+        $this->db->insert('jurnal_umum', $jurnal_umum_c);
+
+        $jurnal_umum_d = [
+            'id_transaksi' => $jurnal_id,
+            'kode_akun' => 113,
+            'posisi_d_c' => 'd',
+            'nominal' => $this->input->post('jumlah'),
+            'transaksi' => 'pembelian'
+        ];
+
+        $this->db->insert('jurnal_umum', $jurnal_umum_d);
     }
 
     // function __construct(){
@@ -83,8 +110,18 @@ class pembelian_model extends CI_model
     function delete()
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+
+        // get id jurnal
+        $pembelian = $this->db->query("SELECT * FROM pembelian WHERE id_pembelian='$this->id'")->result()[0];
+        $id_jurnal = $pembelian->id_jurnal;
+
+        // delete pembelian
         $sql = sprintf("DELETE FROM pembelian WHERE id_pembelian='%s'", $this->id);
         $this->db->query($sql);
+
+        // delete jurnal
+        $delete_jurnal = $this->db->query("DELETE FROM jurnal_umum WHERE id_transaksi = '$id_jurnal'");
+
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 

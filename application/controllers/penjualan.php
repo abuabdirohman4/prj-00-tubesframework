@@ -12,6 +12,7 @@ class Penjualan extends CI_controller
 		$this->load->model('bahan_model');
 		$this->load->model('vendor_model');
 		$this->load->model('pegawai_model');
+		$this->load->model('jurnal_umum_model');
 		$this->model = $this->penjualan_model;
 
 		$this->load->database();
@@ -43,9 +44,13 @@ class Penjualan extends CI_controller
 	public function create()
 	{
 		if (isset($_POST['btnsubmit'])) {
+
 			$this->model->insert();
+			
 			redirect('penjualan');
+			
 		} else {
+
 			$data = $this->layout();
 			$data['sub_breadcrumbs_title'] = "Tambah Penjualan";
 			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);

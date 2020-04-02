@@ -7,4 +7,9 @@
             </div>
         </div>
     </footer>
+    <style>
+        body {
+            padding-bottom: 200px;
+        }
+    </style>
     <!-- END FOOTER -->

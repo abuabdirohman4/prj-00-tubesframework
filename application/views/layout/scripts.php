@@ -44,6 +44,8 @@
                 $('#tambah_field').append($bahan_baku_html);
             })
 
+            $("html, body").height($("#main").height());
+
         })
     </script>
 
