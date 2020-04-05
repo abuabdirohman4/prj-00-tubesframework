@@ -42,7 +42,7 @@
 					<div class="row">
 						<div class="col s4 m8 l12">
 
-							<table id="data-table-simple" class="responsive-table display" cellspacing="0" style="text-align: center">
+							<table id="data-table-simple" class="responsive-table display excel-table" cellspacing="0" style="text-align: center">
 								<thead>
 									<tr>
 										<th width="">ID Retur</th>

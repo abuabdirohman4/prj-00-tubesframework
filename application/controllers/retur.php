@@ -56,6 +56,7 @@ class Retur extends CI_controller
 				$last_id = 'R001';
 			else
 				$last_id = $last_id->result()[0]->id_retur;
+
 			$id_number = (int) substr($last_id, 1, 3);
 			$id_number++;
 			$id_number = (string) $id_number;

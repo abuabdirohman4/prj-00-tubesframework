@@ -57,10 +57,17 @@ class Pembelian extends CI_controller
 			$data['sub_breadcrumbs_title'] = "Tambah Pegawai";
 			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$last_id = $this->model->db->query("SELECT * FROM pembelian ORDER BY id_pembelian DESC LIMIT 1")->result()[0]->id_pembelian;
+			$last_id = $this->model->db->query("SELECT * FROM pembelian ORDER BY id_pembelian DESC LIMIT 1");
+
+			if ($last_id->num_rows() == 0)
+				$last_id = 'X001';
+			else
+				$last_id = $last_id->result()[0]->id_pembelian;
+
 			$id_number = (int) substr($last_id, 1, 3);
 			$id_number++;
 			$id_number = (string) $id_number;
+
 			if (strlen($id_number) == 1)
 				$id_string = 'X00' . $id_number;
 			else if (strlen($id_number) == 2)

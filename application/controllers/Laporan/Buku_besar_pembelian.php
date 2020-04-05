@@ -42,6 +42,11 @@ class Buku_besar_pembelian extends CI_Controller
     }
     public function read()
     {
+        if (isset($_POST['keterangan'], $_POST['id_transaksi'])) {
+
+            $this->buku_besar_model->update_keterangan($_POST['id_transaksi'], $_POST['keterangan']);
+        }
+
         $data = $this->layout();
 
         $data['pembelian'] = [];

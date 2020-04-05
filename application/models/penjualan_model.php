@@ -21,7 +21,12 @@ class penjualan_model extends CI_model
     {
 
         // get last transaction id
-        $last_jurnal_id = $this->db->get('jurnal_umum')->result()[0]->id_transaksi;
+        $last_jurnal_id = $this->db->query("SELECT * FROM jurnal_umum ORDER BY id_transaksi DESC LIMIT 1");
+        if ($last_jurnal_id->num_rows() > 0)
+            $last_jurnal_id = $last_jurnal_id->result()[0]->id_transaksi;
+        else
+            $last_jurnal_id = 0;
+
         $jurnal_id = $last_jurnal_id + 1;
 
         $data = [
@@ -34,10 +39,16 @@ class penjualan_model extends CI_model
         $this->db->insert('penjualan', $data);
 
         $id_penjualan = $this->input->post('id_penjualan');
-        $last_id = $this->model->db->query("SELECT * FROM nota_penjualan ORDER BY no_nota DESC LIMIT 1")->result()[0]->no_nota;
-        $id_number = (int) substr($last_id, 1, 3);
+        $last_id = $this->model->db->query("SELECT * FROM nota_penjualan ORDER BY no_nota DESC LIMIT 1");
+        if ($last_id->num_rows() > 0) {
+            $last_id = $last_id->result()[0]->no_nota;
+            $id_number = (int) substr($last_id, 1, 3);
+        } else
+            $id_number = 0;
+
         $id_number++;
         $id_number = (string) $id_number;
+
         if (strlen($id_number) == 1)
             $id_string = 'N00' . $id_number;
         else if (strlen($id_number) == 2)
@@ -48,7 +59,7 @@ class penjualan_model extends CI_model
         // nota
         $total = 0;
         $jumlah = 0;
-        foreach ($this->input->post('id_minum') as $k => $v) {
+        foreach ($this->input->post('id_minuman') as $k => $v) {
             $harga = $this->db->get('minuman')->result()[0]->harga;
 
             $detail_jual = [
@@ -78,7 +89,7 @@ class penjualan_model extends CI_model
             'id_transaksi' => $jurnal_id,
             'kode_akun' => 111,
             'posisi_d_c' => 'd',
-            'nominal' => $this->input->post('jumlah'),
+            'nominal' => $total,
             'transaksi' => 'penjualan'
         ];
 
@@ -88,7 +99,7 @@ class penjualan_model extends CI_model
             'id_transaksi' => $jurnal_id,
             'kode_akun' => 411,
             'posisi_d_c' => 'c',
-            'nominal' => $this->input->post('jumlah'),
+            'nominal' => $total,
             'transaksi' => 'penjualan'
         ];
 

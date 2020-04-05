@@ -23,7 +23,7 @@ class Buku_besar_retur extends CI_Controller
     {
         // Header
         $data['title'] = "Kinicheese Tea - Buku Besar";
-        $data['breadcrumbs_title'] = "Buku Besar Penjualan  ";
+        $data['breadcrumbs_title'] = "Buku Besar Penjualan";
         $data['head'] = $this->load->view('layout/head', $data, TRUE);
         $data['header'] = $this->load->view('layout/header', NULL, TRUE);
         $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
@@ -42,6 +42,11 @@ class Buku_besar_retur extends CI_Controller
     }
     public function read()
     {
+        if (isset($_POST['keterangan'], $_POST['id_transaksi'])) {
+
+            $this->buku_besar_model->update_keterangan($_POST['id_transaksi'], $_POST['keterangan']);
+        }
+
         $data = $this->layout();
 
         $data['retur'] = [];

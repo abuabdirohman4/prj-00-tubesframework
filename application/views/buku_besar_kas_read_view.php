@@ -28,7 +28,7 @@
                 <!--Tambah Button-->
                 <div class="divider"></div>
 
-                <h4 style="text-align: center"><?php echo isset($_GET['bulan']) ? 'Bulan ke-' . $_GET['bulan'] . ' Tahun ' . $_GET['tahun'] : "Jurnal Umum" ?></h4>
+                <h4 style="text-align: center"><?php echo isset($_GET['bulan']) ? 'Bulan ke-' . $_GET['bulan'] . ' Tahun ' . $_GET['tahun'] : "Buku Besar Kas" ?></h4>
 
                 <div class="divider"></div>
                 <!--End Tambah Button-->
@@ -74,52 +74,67 @@
                                         <th colspan=6>Kini Cheese Tea</th>
                                     </tr>
                                     <tr>
-                                        <th colspan=6>Jurnal Umum</th>
+                                        <th colspan=6>Buku Besar Kas</th>
                                     </tr>
                                     <tr>
                                         <?php
-                                        
                                         if (isset($_GET['tahun'])) {
                                             $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
-                                            $last_date = $date->format('t-m-Y')
+                                            $last_date = $date->format('t-m-Y');
                                         }
                                         ?>
                                         <th colspan=6>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></th>
                                     </tr>
                                     <tr>
-                                        <th width="10%">ID Transaksi</th>
+                                        <th width="10%">ID</th>
                                         <th width="">Tanggal</th>
-                                        <th width="">Keterangan</th>
-                                        <th width="">Ref</th>
                                         <th width="">Debit</th>
                                         <th width="">Kredit</th>
+                                        <th width="">Saldo Debit</th>
+                                        <th width="">Saldo Kredit</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <?php
-                                    foreach ($data as $k => $v) {
+
+                                    $saldo_debit = 0;
+                                    $saldo_credit = 0;
+
+                                    foreach ($kas as $k => $v) {
 
                                         $debit = '';
                                         $credit = '';
 
-                                        if ($v->posisi_d_c == 'd')
+                                        if ($v->posisi_d_c == 'd') {
                                             $debit = $v->nominal;
-                                        else
+                                            $saldo_debit += $v->nominal;
+                                        } else {
                                             $credit = $v->nominal;
+                                            $saldo_credit += $v->nominal;
+                                        }
                                     ?>
                                         <tr>
                                             <td><?php echo $v->id_transaksi; ?></td>
                                             <td><?php echo $v->tgl_jurnal; ?></td>
-                                            <td style="text-align:left!important;">
-                                                <?php
-                                                echo $v->posisi_d_c == "c" ? "&nbsp&nbsp&nbsp&nbsp&nbsp" : "";
-                                                echo $v->nama_akun;
-                                                ?>
-                                            </td>
-                                            <td><?php echo $v->kode_akun; ?></td>
                                             <td><?php echo $debit; ?></td>
                                             <td><?php echo $credit; ?></td>
+                                            <td><?php echo $saldo_debit; ?></td>
+                                            <td><?php echo $saldo_credit; ?></td>
+                                            <td class="keterangan">
+                                                <div class="keterangan-value" style="display:none"><?php echo $v->keterangan; ?></div>
+                                                <form method='POST' class="form-keterangan">
+                                                    <div class="row">
+                                                        <div class="col s8">
+                                                            <input type="hidden" name="id_transaksi" value="<?php echo $v->id_transaksi ?>">
+                                                            <input type="text" name="keterangan" value="<?php echo $v->keterangan; ?>">
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <input class="btn cyan" type="submit" value="Simpan">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
                                         </tr>
 
                                     <?php
@@ -134,10 +149,10 @@
                 </div>
                 <!-- End DataTables -->
 
-                <!-- Table for PDF -->
+                <!-- pdf table -->
                 <div id="table-pdf" style="display:none">
                     <center>Kini Cheese Tea</center>
-                    <center>Jurnal Umum</center>
+                    <center>Buku Besar Kas</center>
                     <?php
                     if (isset($_GET['tahun'])) {
                         $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
@@ -145,51 +160,71 @@
                     }
                     ?>
                     <center>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></center>
-                    <table id="data-table-simple" class="responsive-table display excel-table" cellspacing="0" style="text-align: center;">
-                        <thead>
-                            <tr>
-                                <th width="10%">ID Transaksi</th>
-                                <th width="">Tanggal</th>
-                                <th width="">Keterangan</th>
-                                <th width="">Ref</th>
-                                <th width="">Debit</th>
-                                <th width="">Kredit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <?php
-                            foreach ($data as $k => $v) {
-
-                                $debit = '';
-                                $credit = '';
-
-                                if ($v->posisi_d_c == 'd')
-                                    $debit = $v->nominal;
-                                else
-                                    $credit = $v->nominal;
-                            ?>
+                    <center>
+                        <table id="data-table-simple" class="responsive-table display excel-table" cellspacing="0" style="text-align: center">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $v->id_transaksi; ?></td>
-                                    <td><?php echo $v->tgl_jurnal; ?></td>
-                                    <td style="text-align:left!important;">
-                                        <?php
-                                        echo $v->posisi_d_c == "c" ? "&nbsp&nbsp&nbsp&nbsp&nbsp" : "";
-                                        echo $v->nama_akun;
-                                        ?>
-                                    </td>
-                                    <td><?php echo $v->kode_akun; ?></td>
-                                    <td><?php echo $debit; ?></td>
-                                    <td><?php echo $credit; ?></td>
+                                    <th colspan=6>Kini Cheese Tea</th>
                                 </tr>
+                                <tr>
+                                    <th colspan=6>Jurnal Umum</th>
+                                </tr>
+                                <tr>
+                                    <?php
+                                    if (isset($_GET['tahun'])) {
+                                        $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
+                                        $last_date = $date->format('t-m-Y');
+                                    }
+                                    ?>
+                                    <th colspan=6>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></th>
+                                </tr>
+                                <tr>
+                                    <th width="10%">ID</th>
+                                    <th width="">Tanggal</th>
+                                    <th width="">Debit</th>
+                                    <th width="">Kredit</th>
+                                    <th width="">Saldo Debit</th>
+                                    <th width="">Saldo Kredit</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
 
-                            <?php
+                                $saldo_debit = 0;
+                                $saldo_credit = 0;
 
-                            }
+                                foreach ($kas as $k => $v) {
 
-                            ?>
-                        </tbody>
-                    </table>
+                                    $debit = '';
+                                    $credit = '';
+
+                                    if ($v->posisi_d_c == 'd') {
+                                        $debit = $v->nominal;
+                                        $saldo_debit += $v->nominal;
+                                    } else {
+                                        $credit = $v->nominal;
+                                        $saldo_credit += $v->nominal;
+                                    }
+                                ?>
+                                    <tr>
+                                        <td><?php echo $v->id_transaksi; ?></td>
+                                        <td><?php echo $v->tgl_jurnal; ?></td>
+                                        <td><?php echo $debit; ?></td>
+                                        <td><?php echo $credit; ?></td>
+                                        <td><?php echo $saldo_debit; ?></td>
+                                        <td><?php echo $saldo_credit; ?></td>
+                                        <td><?php echo $v->keterangan; ?></td>
+                                    </tr>
+
+                                <?php
+
+                                }
+
+                                ?>
+                            </tbody>
+                        </table>
+                    </center>
                 </div>
 
                 <!-- Downloads -->
@@ -206,7 +241,8 @@
                     </div>
                 </div>
 
-                <!--end container-->
+            </div>
+            <!--end container-->
         </section>
         <!-- END CONTENT -->
 

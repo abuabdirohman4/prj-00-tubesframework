@@ -42,26 +42,26 @@
                     <div class="row">
                         <div class="col s4 m8 l12">
 
-                            <table id="data-table-simple" class="responsive-table display" cellspacing="0" style="text-align: center">
+                            <table id="data-table-simple" class="responsive-table display excel-table" cellspacing="0" style="text-align: center">
                                 <thead>
                                     <tr>
-										<th width="">ID Penjualan</th>
-										<th width="">ID Pegawai</th>
-										<th width="">Status</th>
-										<th width="10%">Ubah</th>
-										<th width="10%">Hapus</th>
+                                        <th width="">ID Penjualan</th>
+                                        <th width="">ID Pegawai</th>
+                                        <th width="">Status</th>
+                                        <th width="10%">Ubah</th>
+                                        <th width="10%">Hapus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($rows as $row) { ?>
-									<tr>
-										<td><?php echo $row->id_jual;?></td>
-										<td><?php echo $row->id_pegawai;?></td>
-										<td><?php echo $row->status;?></td>
-										<td> <a href="penjualan/update/<?php echo $row->id_jual;  ?>">Ubah</a> </td>
-										<td> <a href="penjualan/delete/<?php echo $row->id_jual; ?>" onclick="return confirm('anda yakin mau hapus?');">Hapus</a> </td>
-									</tr>
-									<?php } ?>
+                                        <tr>
+                                            <td><?php echo $row->id_jual; ?></td>
+                                            <td><?php echo $row->id_pegawai; ?></td>
+                                            <td><?php echo $row->status; ?></td>
+                                            <td> <a href="penjualan/update/<?php echo $row->id_jual;  ?>">Ubah</a> </td>
+                                            <td> <a href="penjualan/delete/<?php echo $row->id_jual; ?>" onclick="return confirm('anda yakin mau hapus?');">Hapus</a> </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

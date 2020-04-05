@@ -49,7 +49,13 @@ class Minuman extends CI_controller
 			$data['sub_breadcrumbs_title'] = "Tambah Bahan Baku";
 			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			$last_id = $this->model->get_last_row()[0]->id_minum;
+			$last_id = $this->model->get_last_row();
+
+			if ($last_id->num_rows() == 0)
+				$last_id = 'B001';
+			else
+				$last_id = $last_id->result()[0]->id_minum;
+
 			$id_number = (int) substr($last_id, 1, 3);
 			$id_number++;
 			$id_number = (string) $id_number;
@@ -258,12 +264,12 @@ class Minuman extends CI_controller
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == False) {
-			
+
 			$data = $this->layout();
 			$data['sub_breadcrumbs_title'] = "Ubah Minuman";
 			$data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-			
+
 
 			$this->load->view('minuman_create_view', $data);
 		} else {

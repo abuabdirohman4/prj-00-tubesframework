@@ -20,7 +20,13 @@ class retur_model extends CI_model
     public function insert()
     {
         // get last transaction id
-        $last_jurnal_id = $this->db->get('jurnal_umum')->result()[0]->id_transaksi;
+        $last_jurnal_id = $this->db->query("SELECT * FROM jurnal_umum ORDER BY id_transaksi DESC LIMIT 1");
+
+        if ($last_jurnal_id->num_rows() > 0)
+            $last_jurnal_id = $last_jurnal_id->result()[0]->id_transaksi;
+        else
+            $last_jurnal_id = 0;
+
         $jurnal_id = $last_jurnal_id + 1;
 
         $data = [

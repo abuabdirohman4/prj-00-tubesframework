@@ -132,6 +132,8 @@
                                 </li>
                                 <li><a href="<?= base_url() ?>laporan/buku_besar_retur">Buku Besar Retur</a>
                                 </li>
+                                <li><a href="<?= base_url() ?>laporan/buku_besar_kas">Buku Besar Kas</a>
+                                </li>
                                 <li><a href="<?= base_url() ?>laporan/laba_rugi">Laba Rugi</a>
                                 </li>
                             </ul>

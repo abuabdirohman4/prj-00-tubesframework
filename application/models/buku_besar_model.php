@@ -14,8 +14,9 @@ class buku_besar_model extends CI_model
 		$this->load->database();
 	}
 
-	public function update()
+	public function update_keterangan($id_transaksi, $keterangan)
 	{
+		$this->db->query("UPDATE jurnal_umum SET keterangan='$keterangan' WHERE id_transaksi='$id_transaksi'");
 	}
 
 	public function delete()
@@ -38,10 +39,16 @@ class buku_besar_model extends CI_model
 		return $query->result();
 	}
 
-
 	public function read_retur()
 	{
 		$sql = "SELECT jurnal_umum.*, coa.nama_akun FROM jurnal_umum JOIN coa ON jurnal_umum.kode_akun = coa.kode_akun WHERE MONTH(tgl_jurnal) = $_GET[bulan] AND jurnal_umum.kode_akun = 512 ORDER BY id_transaksi";
+		$query = $this->db->query($sql);
+		return $query->result();
+	}
+
+	public function read_kas()
+	{
+		$sql = "SELECT jurnal_umum.*, coa.nama_akun FROM jurnal_umum JOIN coa ON jurnal_umum.kode_akun = coa.kode_akun WHERE MONTH(tgl_jurnal) = $_GET[bulan] AND jurnal_umum.kode_akun = 111 ORDER BY id_transaksi";
 		$query = $this->db->query($sql);
 		return $query->result();
 	}

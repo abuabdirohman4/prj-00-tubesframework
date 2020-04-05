@@ -46,9 +46,8 @@ class Penjualan extends CI_controller
 		if (isset($_POST['btnsubmit'])) {
 
 			$this->model->insert();
-			
+
 			redirect('penjualan');
-			
 		} else {
 
 			$data = $this->layout();
@@ -60,6 +59,7 @@ class Penjualan extends CI_controller
 				$last_id = 'PX001';
 			else
 				$last_id = $last_id->result()[0]->id_jual;
+
 			$id_number = (int) substr($last_id, 2, 4);
 			$id_number++;
 			$id_number = (string) $id_number;
@@ -100,7 +100,7 @@ class Penjualan extends CI_controller
 			redirect('penjualan');
 		} else {
 			$no_nota = $this->model->db->query("SELECT * FROM nota_penjualan WHERE id_jual='$id'")->result()[0]->no_nota;
-			$query = $this->db->query("SELECT * FROM penjualan where id_jual='$id'"); 
+			$query = $this->db->query("SELECT * FROM penjualan where id_jual='$id'");
 			$detail_jual = $this->db->get_where('detail_jual', ['no_nota' => $no_nota])->result();
 			if ($query->num_rows() > 0) {
 				$row = $this->layout();
@@ -153,7 +153,7 @@ class Penjualan extends CI_controller
 
 
 				[
-					'field' => 'id_minum[]',
+					'field' => 'id_minuman[]',
 					'label' => 'id_minuman',
 					'rules' => 'required|alpha_numeric',
 					'errors' => [

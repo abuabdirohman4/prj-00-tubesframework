@@ -49,7 +49,13 @@ class Vendor extends CI_Controller
             $this->model->insert();
             redirect('vendor');
         } else {
-            $last_id = $this->model->db->query("SELECT * FROM vendor ORDER BY kd_vendor DESC LIMIT 1")->result()[0]->kd_vendor;
+            $last_id = $this->model->db->query("SELECT * FROM vendor ORDER BY kd_vendor DESC LIMIT 1");
+
+            if ($last_id->num_rows() == 0)
+                $last_id = 'P001';
+            else
+                $last_id = $last_id->result()[0]->kd_vendor;
+
             $id_number = (int) substr($last_id, 1, 3);
             $id_number++;
             $id_number = (string) $id_number;

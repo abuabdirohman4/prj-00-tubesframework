@@ -19,26 +19,44 @@ class pembelian_model extends CI_model
     function insert()
     {
         // get last transaction id
-        $last_jurnal_id = $this->db->get('jurnal_umum')->result()[0]->id_transaksi;
+        $last_jurnal_id = $this->db->query("SELECT * FROM jurnal_umum ORDER BY id_transaksi DESC LIMIT 1");
+
+        if ($last_jurnal_id->num_rows() > 0)
+            $last_jurnal_id = $last_jurnal_id->result()[0]->id_transaksi;
+        else
+            $last_jurnal_id = 0;
+
         $jurnal_id = $last_jurnal_id + 1;
 
         $data = [
             'id_pembelian' => $this->input->post('id_pembelian'),
-            'id_bahan_baku' => $this->input->post('id_bahan_baku'),
-            'jumlah' => $this->input->post('jumlah'),
             'id_pegawai' => $this->input->post('id_pegawai'),
             'kd_vendor  ' => $this->input->post('kd_vendor'),
             'id_jurnal' => $jurnal_id
         ];
-
         $this->db->insert('pembelian', $data);
+        $id_pembelian = $this->input->post('id_pembelian');
+
+        foreach ($this->input->post('id_bahan_baku') as $k => $v) {
+            $harga = $this->db->get('bahan_baku')->result()[0]->harga_satuan;
+            $jumlah += $harga * $this->input->post('jumlah')[$k];
+            $data_detail = [
+                'id_bahan_baku' => $v,
+                'id_pembelian' => $id_pembelian,
+                'total_jumlah' => $harga * $this->input->post('jumlah')[$k],
+                'jumlah' => $this->input->post('jumlah')[$k]
+            ];
+            $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+            $this->db->insert('detail_pembelian', $data_detail);
+            $this->db->query('SET FOREIGN_KEY_CHECKS=1');
+        }
 
         // jurnal umum
         $jurnal_umum_c = [
             'id_transaksi' => $jurnal_id,
             'kode_akun' => 111,
             'posisi_d_c' => 'c',
-            'nominal' => $this->input->post('jumlah'),
+            'nominal' => $jumlah,
             'transaksi' => 'pembelian'
         ];
 
@@ -48,41 +66,13 @@ class pembelian_model extends CI_model
             'id_transaksi' => $jurnal_id,
             'kode_akun' => 113,
             'posisi_d_c' => 'd',
-            'nominal' => $this->input->post('jumlah'),
+            'nominal' => $jumlah,
             'transaksi' => 'pembelian'
         ];
 
         $this->db->insert('jurnal_umum', $jurnal_umum_d);
     }
 
-    // function __construct(){
-    // parent::__construct();
-    // $this->labels=$this->_atributelabels();
-    // $this->load->database();
-    // }
-    // function insert(){
-    // $data=[
-    // 'id_pembelian'=>$this->input->post('id_pembelian'),
-    // 'id_pegawai'=>$this->input->post('id_pegawai'),
-    // 'kd_vendor  '=>$this->input->post('kd_vendor'),
-    // ];
-    // $this->db->insert('pembelian',$data);
-    // $id_pembelian = $this->input->post('id_pembelian');
-
-    //     foreach($this->input->post('id_bahan_baku') as $k=>$v) {
-    //         $harga = $this->db->get('bahan_baku')->result()[0]->harga_satuan;
-
-    //         $data_detail=[
-    //             'id_bahan_baku'=>$v,
-    //             'id_pembelian'=>$id_pembelian,
-    //             'total_jumlah'=>$harga*$this->input->post('jumlah')[$k],
-    //             'jumlah' => $this->input->post('jumlah')[$k]
-    //         ];
-    //         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
-    //         $this->db->insert('detail_pembelian', $data_detail);
-    //         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
-    //     }
-    // }
     public function update()
     {
         $id_pembelian = $this->input->post('id_pembelian');

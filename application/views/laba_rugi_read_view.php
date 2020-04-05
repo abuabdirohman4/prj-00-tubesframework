@@ -64,11 +64,159 @@
                 </form>
 
                 <!--DataTables-->
-                <div>
-                    <div class="row">
-                        <div class="col s4 m8 l12">
+                <?php
+                if (isset($_GET['tahun'])) {
+                ?>
+                    <div>
+                        <div class="row">
+                            <div class="col s4 m8 l12">
 
-                            <table>
+                                <table class="excel-table laba-rugi-table" style="text-align:left!important">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center!important" colspan=4>Kini Cheese Tea</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align:center!important" colspan=4>Laporan Laba Rugi</th>
+                                        </tr>
+                                        <tr>
+                                            <?php
+                                            if (isset($_GET['tahun'])) {
+                                                $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
+                                                $last_date = $date->format('t-m-Y');
+                                            }
+                                            ?>
+                                            <th style="text-align:center!important" colspan=4>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></th>
+                                        </tr>
+                                        <tr>
+                                            <th width="20%" style="text-align:left"></th>
+                                            <th width=""></th>
+                                            <th width=""></th>
+                                            <th width=""></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="text-align:left!important">
+                                            <td style="text-align:left">Pendapatan</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Penjualan</td>
+                                            <td>Rp. <?php echo isset($data['pendapatan']) ? $data['pendapatan'] : '' ?></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Pendapatan bunga</td>
+                                            <td><u>Rp. 0</u></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Jumlah pendapatan</td>
+                                            <td></td>
+                                            <td>Rp. <?php echo isset($data['pendapatan']) ? $data['pendapatan'] : '' ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left">Harga pokok penjualan</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Persediaan awal</td>
+                                            <td>Rp. <?php echo isset($data['persediaan_awal']) ? $data['persediaan_awal'] : '' ?></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Pembelian</td>
+                                            <td><u>Rp. <?php echo isset($data['pembelian_bulan_ini']) ? $data['pembelian_bulan_ini'] : '' ?> (+)</u></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Persediaan akhir</td>
+                                            <td><u>Rp. <?php echo isset($data['persediaan_akhir']) ? $data['persediaan_akhir'] : '' ?> (-)</u></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>HPP</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><u>Rp. <?php
+                                                        if (isset($data['persediaan_awal'])) {
+                                                            $hpp = $data['persediaan_awal'] + $data['pembelian_bulan_ini'] + $data['persediaan_akhir'];
+                                                            echo $hpp;
+                                                        }
+                                                        ?> (-)</u></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laba kotor</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><b>Rp. <?php echo isset($hpp) ? $data['pendapatan'] - $hpp : '' ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Beban usaha:</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Beban operasional:</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Gaji karyawan</td>
+                                            <td>Rp. 3000000</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Biaya angkut</td>
+                                            <td><u>Rp. 150000</u></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total beban</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><u><b>Rp. 4500000</b></u></td>
+                                        </tr>
+                                        <tr>
+                                            <td><?php echo ($data['pendapatan'] - $hpp) > 4500000 ? 'Laba' : 'Rugi' ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><u><b>Rp. <?php echo 4500000 + $hpp + $data['pendapatan'] ?></b></u></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End DataTables -->
+
+                    <!-- pdf table -->
+                    <div id="table-pdf" style="display:none;text-align:left!important">
+                        <center><b>Kini Cheese Tea</b></center>
+                        <center><b><?php echo $breadcrumbs_title ?></b></center>
+                        <?php
+                        if (isset($_GET['tahun'])) {
+                            $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
+                            $last_date = $date->format('t-m-Y');
+                        }
+                        ?>
+                        <center><b>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></b></center>
+                        <center>
+                            <table style="text-align:left!important">
                                 <thead>
                                     <tr>
                                         <th width="20%" style="text-align:left"></th>
@@ -158,36 +306,51 @@
                                     <tr>
                                         <td></td>
                                         <td>Gaji karyawan</td>
-                                        <td>3000000</td>
+                                        <td>Rp. 3000000</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>Biaya angkut</td>
-                                        <td>150000</td>
+                                        <td>Rp. 150000</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>Total beban</td>
                                         <td></td>
                                         <td></td>
-                                        <td>4500000</td>
+                                        <td>Rp. 4500000</td>
                                     </tr>
                                     <tr>
-                                        <td>Lab/rugi</td>
+                                        <td><?php echo ($data['pendapatan'] - $hpp) > 4500000 ? 'Laba' : 'Rugi' ?></td>
                                         <td></td>
                                         <td></td>
-                                        <td><?php echo 4500000 + $hpp + $data['pendapatan'] ?></td>
+                                        <td>Rp. <?php echo 4500000 + $hpp + $data['pendapatan'] ?></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </center>
                     </div>
-                </div>
-                <!-- End DataTables -->
-
             </div>
-            <!--end container-->
+
+            <!-- Downloads -->
+            <div class="row">
+                <div class="col s6">
+                    <button id="download-excel" class="green waves-effect waves-light btn left" style="width: 100%; height:3rem; margin: 1rem auto">
+                        <i class="mdi-content-add left"></i>DOWNLOAD EXCEL
+                    </button>
+                </div>
+                <div class="col s6">
+                    <button id="download-pdf" class="red waves-effect waves-light btn left" style="width: 100%; height:3rem; margin: 1rem auto">
+                        <i class="mdi-content-add left"></i>DOWNLOAD PDF
+                    </button>
+                </div>
+            </div>
+
+        <?php } ?>
+
+        <!--end container-->
+
         </section>
         <!-- END CONTENT -->
 
@@ -200,3 +363,11 @@
 
 <?= $footer ?>
 <?= $scripts ?>
+
+<style>
+    .laba-rugi-table td,
+    .laba-rugi-table th,
+    .laba-rugi-table td {
+        text-align: left !important
+    }
+</style>

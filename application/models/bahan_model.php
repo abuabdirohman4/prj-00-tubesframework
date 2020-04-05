@@ -53,7 +53,7 @@ class bahan_model extends CI_model
 	public function get_last_row()
 	{
 		$query = $this->db->query('SELECT * FROM bahan_baku ORDER BY id_bahan_baku DESC LIMIT 1');
-		return $query->result();
+		return $query;
 	}
 
 	public function _atributelabels()

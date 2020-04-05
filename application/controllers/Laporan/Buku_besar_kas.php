@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Buku_besar_penjualan extends CI_Controller
+class Buku_besar_kas extends CI_Controller
 {
 
     public $model = null;
@@ -23,7 +23,7 @@ class Buku_besar_penjualan extends CI_Controller
     {
         // Header
         $data['title'] = "Kinicheese Tea - Buku Besar";
-        $data['breadcrumbs_title'] = "Buku Besar Penjualan  ";
+        $data['breadcrumbs_title'] = "Buku Besar Kas";
         $data['head'] = $this->load->view('layout/head', $data, TRUE);
         $data['header'] = $this->load->view('layout/header', NULL, TRUE);
         $data['sidebar_left'] = $this->load->view('layout/sidebar_left', NULL, TRUE);
@@ -49,17 +49,17 @@ class Buku_besar_penjualan extends CI_Controller
 
         $data = $this->layout();
 
-        $data['penjualan'] = [];
+        $data['kas'] = [];
 
         // Data
         if (isset($_GET['bulan']))
-            $data['penjualan'] = $this->buku_besar_model->read_penjualan();
+            $data['kas'] = $this->buku_besar_model->read_kas();
 
         $data['sub_breadcrumbs_title'] = "Buku Besar";
         $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
         // $data['rows'] = $this->model->read();
-        $this->load->view('buku_besar_penjualan_read_view', $data);
+        $this->load->view('buku_besar_kas_read_view', $data);
     }
 
     public function update($id)

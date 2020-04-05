@@ -199,7 +199,13 @@ class Bahan extends CI_controller
             $data['sub_breadcrumbs_title'] = "Tambah Bahan Baku";
             $data['breadcrumbs'] = $this->load->view('layout/breadcrumbs', $data, TRUE);
 
-            $last_id = $this->model->get_last_row()[0]->id_bahan_baku;
+            $last_id = $this->model->get_last_row();
+
+            if ($last_id->num_rows() == 0)
+                $last_id = 'B001';
+            else
+                $last_id = $last_id->result()[0]->id_bahan_baku;
+
             $id_number = (int) substr($last_id, 1, 3);
             $id_number++;
             $id_number = (string) $id_number;

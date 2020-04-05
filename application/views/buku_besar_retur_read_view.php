@@ -68,8 +68,23 @@
                     <div class="row">
                         <div class="col s4 m8 l12">
 
-                            <table id="data-table-simple" class="responsive-table display" cellspacing="0" style="text-align: center">
+                            <table id="data-table-simple" class="responsive-table display excel-table" cellspacing="0" style="text-align: center">
                                 <thead>
+                                    <tr>
+                                        <th colspan=7>Kini Cheese Tea</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan=7>Buku Besar Kas</th>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        if (isset($_GET['tahun'])) {
+                                            $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
+                                            $last_date = $date->format('t-m-Y');
+                                        }
+                                        ?>
+                                        <th colspan=7>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></th>
+                                    </tr>
                                     <tr>
                                         <th width="10%">ID</th>
                                         <th width="">Tanggal</th>
@@ -77,6 +92,7 @@
                                         <th width="">Kredit</th>
                                         <th width="">Saldo Debit</th>
                                         <th width="">Saldo Kredit</th>
+                                        <th width="">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,6 +121,20 @@
                                             <td><?php echo $credit; ?></td>
                                             <td><?php echo $saldo_debit; ?></td>
                                             <td><?php echo $saldo_credit; ?></td>
+                                            <td class="keterangan">
+                                                <div class="keterangan-value" style="display:none"><?php echo $v->keterangan; ?></div>
+                                                <form method='POST' class="form-keterangan">
+                                                    <div class="row">
+                                                        <div class="col s8">
+                                                            <input type="hidden" name="id_transaksi" value="<?php echo $v->id_transaksi ?>">
+                                                            <input type="text" name="keterangan" value="<?php echo $v->keterangan; ?>">
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <input class="btn cyan" type="submit" value="Simpan">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
                                         </tr>
 
                                     <?php
@@ -118,6 +148,83 @@
                     </div>
                 </div>
                 <!-- End DataTables -->
+
+                <!-- pdf table -->
+                <div id="table-pdf" style="display:none">
+                    <center>Kini Cheese Tea</center>
+                    <center><?php echo $breadcrumbs_title ?></center>
+                    <?php
+                    if (isset($_GET['tahun'])) {
+                        $date = new DateTime($_GET['tahun'] . '-' . $_GET['bulan'] . '-01');
+                        $last_date = $date->format('t-m-Y');
+                    }
+                    ?>
+                    <center>Per <?php if (isset($_GET['tahun'])) echo $last_date ?></center>
+                    <center>
+                        <table id="data-table-simple" class="responsive-table display excel-table" cellspacing="0" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th width="10%">ID</th>
+                                    <th width="">Tanggal</th>
+                                    <th width="">Debit</th>
+                                    <th width="">Kredit</th>
+                                    <th width="">Saldo Debit</th>
+                                    <th width="">Saldo Kredit</th>
+                                    <th width="">Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+
+                                $saldo_debit = 0;
+                                $saldo_credit = 0;
+
+                                foreach ($retur as $k => $v) {
+
+                                    $debit = '';
+                                    $credit = '';
+
+                                    if ($v->posisi_d_c == 'd') {
+                                        $debit = $v->nominal;
+                                        $saldo_debit += $v->nominal;
+                                    } else {
+                                        $credit = $v->nominal;
+                                        $saldo_credit += $v->nominal;
+                                    }
+                                ?>
+                                    <tr>
+                                        <td><?php echo $v->id_transaksi; ?></td>
+                                        <td><?php echo $v->tgl_jurnal; ?></td>
+                                        <td><?php echo $debit; ?></td>
+                                        <td><?php echo $credit; ?></td>
+                                        <td><?php echo $saldo_debit; ?></td>
+                                        <td><?php echo $saldo_credit; ?></td>
+                                        <td><?php echo $v->keterangan; ?></td>
+                                    </tr>
+
+                                <?php
+
+                                }
+
+                                ?>
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+
+                <!-- Downloads -->
+                <div class="row">
+                    <div class="col s6">
+                        <button id="download-excel" class="green waves-effect waves-light btn left" style="width: 100%; height:3rem; margin: 1rem auto">
+                            <i class="mdi-content-add left"></i>DOWNLOAD EXCEL
+                        </button>
+                    </div>
+                    <div class="col s6">
+                        <button id="download-pdf" class="red waves-effect waves-light btn left" style="width: 100%; height:3rem; margin: 1rem auto">
+                            <i class="mdi-content-add left"></i>DOWNLOAD PDF
+                        </button>
+                    </div>
+                </div>
 
             </div>
             <!--end container-->
